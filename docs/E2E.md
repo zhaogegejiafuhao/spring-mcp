@@ -1,4 +1,4 @@
-> 本文是过程记录。结论汇总与四层证据见 [`VALIDATION.md`](VALIDATION.md)。
+> 本文是过程记录。结论汇总与四层证据见 [`VALIDATION.md`](../VALIDATION.md)。
 
 # 冷启动实测：三个「没见过这个仓库」的 AI，只用这套工具体检
 

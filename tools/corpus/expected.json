@@ -1,0 +1,90 @@
+{
+  "AutohomeCorp/frostmourne": {
+    "endpoints": 116,
+    "controllers": 15,
+    "mappers": 24,
+    "feignClients": 0,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  },
+  "agelenler/food-ordering-system": {
+    "endpoints": 3,
+    "controllers": 2,
+    "mappers": 12,
+    "feignClients": 0,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  },
+  "cjbi/admin3": {
+    "endpoints": 38,
+    "controllers": 8,
+    "mappers": 9,
+    "feignClients": 0,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  },
+  "hawtio/hawtio": {
+    "endpoints": 8,
+    "controllers": 8,
+    "mappers": 0,
+    "feignClients": 0,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  },
+  "in28minutes/master-spring-and-spring-boot": {
+    "endpoints": 92,
+    "controllers": 28,
+    "mappers": 5,
+    "feignClients": 0,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  },
+  "liusCoding/springcloud-2020": {
+    "endpoints": 47,
+    "controllers": 26,
+    "mappers": 4,
+    "feignClients": 5,
+    "gatewayRoutes": 2,
+    "status": "OK"
+  },
+  "mybatis/mybatis-3": {
+    "endpoints": 0,
+    "controllers": 0,
+    "mappers": 0,
+    "feignClients": 0,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  },
+  "opensolon/solon": {
+    "endpoints": 0,
+    "controllers": 67,
+    "mappers": 0,
+    "feignClients": 0,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  },
+  "pig-mesh/pig": {
+    "endpoints": 298,
+    "controllers": 36,
+    "mappers": 38,
+    "feignClients": 10,
+    "gatewayRoutes": 6,
+    "status": "OK"
+  },
+  "vaadin/hilla": {
+    "endpoints": 2,
+    "controllers": 1,
+    "mappers": 9,
+    "feignClients": 0,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  },
+  "youlaitech/youlai-mall": {
+    "endpoints": 130,
+    "controllers": 25,
+    "mappers": 44,
+    "feignClients": 4,
+    "gatewayRoutes": 0,
+    "status": "OK"
+  }
+}

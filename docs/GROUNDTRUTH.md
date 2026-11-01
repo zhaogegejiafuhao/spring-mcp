@@ -1,4 +1,4 @@
-> 本文是过程记录。结论汇总与四层证据见 [`VALIDATION.md`](VALIDATION.md)。
+> 本文是过程记录。结论汇总与四层证据见 [`VALIDATION.md`](../VALIDATION.md)。
 
 # 用「项目自己写下的契约」验收（2026-10-31）
 

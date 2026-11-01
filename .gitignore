@@ -44,3 +44,6 @@ replay_pid*.log
 # 不排除的话，clone 下来这个 fixture 就空了，测试照样绿但不再验证任何东西。
 !fixtures/empty/target/
 !fixtures/empty/target/**
+
+# 语料检查用的 checkout（tools/corpus/repos.tsv 可重建）
+.corpus/

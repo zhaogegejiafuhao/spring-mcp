@@ -245,4 +245,65 @@ class ControllerCoverageTest {
         assertThat(report.warnings()).anyMatch(w -> w.contains("没有任何 HTTP 映射"));
         assertThat(report.warnings()).noneMatch(w -> w.contains("别的 Web 框架"));
     }
+
+    @Test
+    @DisplayName("a literal path prefix is named, not merely suspected")
+    void literalPrefixIsReported(@TempDir Path root) throws Exception {
+        // addPathPrefix("/admin-api", predicate) spells the prefix out. Reporting "there may be a
+        // prefix" while the string sits on line 12 is the sort of vagueness that makes a reader stop
+        // trusting the rest of the report.
+        write(root, "src/main/java/p/WebConfig.java", """
+                package p;
+
+                import org.springframework.context.annotation.Configuration;
+                import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+                import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+                @Configuration
+                public class WebConfig implements WebMvcConfigurer {
+
+                    @Override
+                    public void configurePathMatch(PathMatchConfigurer configurer) {
+                        configurer.addPathPrefix("/admin-api", c -> true);
+                    }
+                }
+                """);
+
+        Controllers.Report report = new IndexRegistry(IndexRegistry.Revalidation.NEVER, 60_000)
+            .open(root, IndexOptions.defaults())
+            .controllers(new Controllers.Query(false, null, null));
+
+        assertThat(report.warnings()).anyMatch(w -> w.contains("读到前缀 /admin-api"));
+        assertThat(report.warnings()).anyMatch(w -> w.contains("WebConfig"));
+    }
+
+    @Test
+    @DisplayName("a prefix read from a property stays a warning, not a guess")
+    void propertyPrefixStaysAWarning(@TempDir Path root) throws Exception {
+        write(root, "src/main/java/p/WebConfig.java", """
+                package p;
+
+                import org.springframework.context.annotation.Configuration;
+                import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+                import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+                @Configuration
+                public class WebConfig implements WebMvcConfigurer {
+
+                    private String prefix;
+
+                    @Override
+                    public void configurePathMatch(PathMatchConfigurer configurer) {
+                        configurer.addPathPrefix(prefix, c -> true);
+                    }
+                }
+                """);
+
+        Controllers.Report report = new IndexRegistry(IndexRegistry.Revalidation.NEVER, 60_000)
+            .open(root, IndexOptions.defaults())
+            .controllers(new Controllers.Query(false, null, null));
+
+        assertThat(report.warnings()).anyMatch(w -> w.contains("全局路径前缀"));
+        assertThat(report.warnings()).noneMatch(w -> w.contains("读到前缀"));
+    }
 }

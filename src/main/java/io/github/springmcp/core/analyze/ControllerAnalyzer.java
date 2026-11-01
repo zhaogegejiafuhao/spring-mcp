@@ -1,5 +1,6 @@
 package io.github.springmcp.core.analyze;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.function.Function;
 
@@ -21,6 +23,7 @@ import io.github.springmcp.core.index.CuSummary;
 import io.github.springmcp.core.index.MethodSummary;
 import io.github.springmcp.core.index.ParameterSummary;
 import io.github.springmcp.core.index.TypeSummary;
+import io.github.springmcp.core.parse.SourceText;
 import io.github.springmcp.core.resolve.ConstantResolver;
 import io.github.springmcp.core.resolve.SuperTypeGraph;
 import io.github.springmcp.core.resolve.TypeNameResolver;
@@ -196,7 +199,7 @@ public final class ControllerAnalyzer {
             .thenComparingInt(Controllers.Endpoint::line)
             .thenComparing(Controllers.Endpoint::path));
 
-        List<String> prefixConfigurers = pathPrefixConfigurers(types);
+        List<PrefixConfig> prefixConfigurers = pathPrefixConfigurers(types);
         List<String> conditionNames = endpoints.stream()
             .flatMap(e -> e.conditions().stream())
             .distinct()
@@ -236,10 +239,26 @@ public final class ControllerAnalyzer {
                     + sample(inferredControllers.stream().distinct().sorted().toList()));
         }
         if (!prefixConfigurers.isEmpty()) {
-            warnings.add("发现 " + prefixConfigurers.size()
-                    + " 处可能改写全局路径前缀的配置（WebMvcRegistrations / configurePathMatch）："
-                    + "这里给的是注解里的路径，外部实际 URL 可能还带一层前缀，网关与前端看到的是后者: "
-                    + sample(prefixConfigurers.stream().distinct().sorted().toList()));
+            List<String> candidates = prefixConfigurers.stream()
+                .flatMap(config -> config.candidates().stream())
+                .distinct()
+                .sorted()
+                .toList();
+            String where = sample(prefixConfigurers.stream().map(PrefixConfig::fqn).distinct().sorted().toList());
+            if (candidates.isEmpty()) {
+                warnings.add("发现 " + prefixConfigurers.size()
+                        + " 处可能改写全局路径前缀的配置（WebMvcRegistrations / configurePathMatch）："
+                        + "这里给的是注解里的路径，外部实际 URL 可能还带一层前缀，网关与前端看到的是后者: "
+                        + where);
+            }
+            else {
+                // The literal is right there in the source. Saying "there may be a prefix" when the
+                // prefix is spelled out in an addPathPrefix call is the kind of vague that makes a
+                // reader distrust every other number in the report.
+                warnings.add("发现 " + prefixConfigurers.size() + " 处给路径加全局前缀的配置，读到前缀 "
+                        + String.join("、", candidates)
+                        + "（如果它对全部 controller 生效，外部 URL 前面要加这一层；注解里没有）: " + where);
+            }
         }
 
         return new Controllers.Report(endpoints, controllerCount, methodCount, warnings);
@@ -258,8 +277,71 @@ public final class ControllerAnalyzer {
      * @param types every type in the index
      * @return declarations that may be adding a prefix, in index order
      */
-    private static List<String> pathPrefixConfigurers(List<TypeSummary> types) {
+
+    /**
+     * A configuration class that may prefix every path, and the literal prefixes it names.
+     *
+     * @param fqn configuration class
+     * @param candidates literal prefixes found in its source, may be empty
+     */
+    private record PrefixConfig(String fqn, List<String> candidates) {
+    }
+
+    /** {@code addPathPrefix("/admin-api", ...)} — the prefix is spelled out, so it can be read. */
+    private static final Pattern ADD_PATH_PREFIX =
+            Pattern.compile("addPathPrefix\\s*\\(\\s*\"([^\"]*)\"");
+
+    /** {@code setPathPrefixes(Map.of("/admin-api", ...))} — same idea, one level of nesting deeper. */
+    private static final Pattern SET_PATH_PREFIXES =
+            Pattern.compile("setPathPrefixes\\s*\\((?:[^;]{0,400}?)\"(/[^\"]*)\"");
+
+    /**
+     * Reads the prefixes a configuration class names literally.
+     *
+     * <p>
+     * The value can only come from configuration in the general case, which is why this used to be a
+     * bare warning. But {@code addPathPrefix("/admin-api", predicate)} and the map form of
+     * {@code setPathPrefixes} put the string right there in the source; reporting "there may be a
+     * prefix" while the prefix is on line 40 teaches the reader to distrust the rest of the output.
+     * </p>
+     *
+     * <p>
+     * Still a candidate, not a fact: both calls take a predicate, so they may cover only the
+     * controllers that match it. The warning says so instead of silently rewriting every path.
+     * </p>
+     *
+     * @param file configuration source, may be {@code null}
+     * @return literal prefixes in source order, empty when the file cannot be read
+     */
+    private static List<String> prefixLiterals(Path file) {
+        if (file == null) {
+            return List.of();
+        }
+        String text;
+        try {
+            text = SourceText.read(file).text();
+        }
+        catch (IOException e) {
+            return List.of();
+        }
         List<String> found = new ArrayList<>();
+        collect(ADD_PATH_PREFIX, text, found);
+        collect(SET_PATH_PREFIXES, text, found);
+        return found;
+    }
+
+    private static void collect(Pattern pattern, String text, List<String> into) {
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            String value = matcher.group(1).trim();
+            if (!value.isEmpty() && value.startsWith("/") && !into.contains(value)) {
+                into.add(value);
+            }
+        }
+    }
+
+    private static List<PrefixConfig> pathPrefixConfigurers(List<TypeSummary> types) {
+        List<PrefixConfig> found = new ArrayList<>();
         for (TypeSummary type : types) {
             boolean configurer = false;
             for (String raw : type.rawSuperTypes()) {
@@ -273,7 +355,7 @@ public final class ControllerAnalyzer {
                 .anyMatch(m -> !m.constructor() && m.returnTypeRaw() != null
                         && "WebMvcRegistrations".equals(simpleNameOf(m.returnTypeRaw())));
             if (registrations || configurer && type.method("configurePathMatch") != null) {
-                found.add(type.fqn());
+                found.add(new PrefixConfig(type.fqn(), prefixLiterals(type.file())));
             }
         }
         return found;

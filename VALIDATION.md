@@ -218,9 +218,9 @@ REALWORLD_OUT=D:/springMCP/.realworld/groundtruth2.json python compare.py
 
 | 文件 | 内容 |
 |---|---|
-| `GROUNDTRUTH.md` | 第一批契约对账的逐条过程与 20 个全对来源 |
-| `E2E.md` | 冷启动实测：三个新会话在没见过的仓库上答题 |
-| `GENERALIZATION.md` | 复现与泛化的完整过程、逐项核对 |
+| [`docs/GROUNDTRUTH.md`](docs/GROUNDTRUTH.md) | 第一批契约对账的逐条过程与 20 个全对来源 |
+| [`docs/E2E.md`](docs/E2E.md) | 冷启动实测：三个新会话在没见过的仓库上答题 |
+| [`docs/GENERALIZATION.md`](docs/GENERALIZATION.md) | 复现与泛化的完整过程、逐项核对 |
 | `.realworld/results2e.jsonl` | 第二批 100 个仓库的最终结果 |
 | `.realworld/endpoints2e.jsonl` | 第二批逐端点明细（路径、方法、文件、行号） |
 | `.realworld/groundtruth*.json` | 契约对账的逐条明细 |

@@ -11,6 +11,21 @@ MCP client  ──stdio(JSON-RPC)──▶  spring-mcp  ──JavaParser / Kotli
 两种语言进的是**同一份索引**：Kotlin 声明被规约成与 Java 完全相同的 `CuSummary`，所以工具层一行代码都不用区分语言。
 一个 Kotlin 的 `@RestController` 和一个 Java 写的 `@RestController`，在 `list-controllers` 里没有区别。
 
+### 它看得见什么，看不见什么
+
+先看这张表再决定要不要用——这里的每一条都是取舍，不是待办。
+
+| 看得见 | 看不见 |
+|---|---|
+| `@RestController` / `@Controller` 上的 `@GetMapping` 等注解式端点 | Actuator 端点（`/actuator/**`）：由 starter 注册，源码里没有映射 |
+| `RouterFunction` / `coRouter` 的函数式路由（字面量路径） | Spring Data REST 按 repository 自动暴露的 `/users`、`/users/{id}` |
+| 类前缀 + 方法路径的拼接，含常量折叠（`Const.BASE + "/x"`） | 运行时才注册的映射（`RequestMappingHandlerMapping` 动态 add） |
+| MyBatis / JPA 接口与 XML 的语句、Feign 客户端、网关路由 | `${...}` 占位符与 `@Value` 注入：值由配置决定，只报原文并标未解析 |
+| 条件装配（`@Profile` / `@Conditional*`）**原样列出**，不求解 | 非 Spring 的 Web 框架（Solon 的 `@Mapping`、JAX-RS 的 `@Path`）：会明说"有控制器、没端点" |
+| 全局路径前缀：能读出字面量时报警告并给出候选前缀 | 全局前缀来自配置项（`${yudao.web.api.prefix}`）时，只告警，不猜值 |
+
+一句话：**注解写下来的，它读得到；由配置或运行时决定的，它说不知道。**
+
 ---
 
 ## 一、快速开始
@@ -108,7 +123,7 @@ Linux / macOS 用 `spring-mcp.sh`。脚本会自动找 `JAVA_HOME`、找 jar（�
 三个独立会话各答一遍——90/90 命中首选工具，三份答案逐个相同，两道「没有工具能回答」的陷阱题都答了 NONE。
 三个语义相邻的「面」工具（controllers / gateway / feign）曾计划合并成一个 `analyze-surface` + `mode`，
 合并版实测也是 90/90，但只省 15%（21 KB → 17.9 KB），且出现了 1 次「mode 与参数不匹配」的错误——
-分开时这种错误在结构上不可能发生，所以没有合并。细节与复现脚本见 `TOOLSELECT.md`。
+分开时这种错误在结构上不可能发生，所以没有合并。细节与复现脚本见 [`docs/TOOLSELECT.md`](docs/TOOLSELECT.md)。
 
 所有分析工具接受两个互斥的工程参数：
 
@@ -918,6 +933,23 @@ SPRING_MCP_BASELINE=true ./mvnw test -Dtest=BaselineTest
 ```
 
 golden 只存 `digest` + 数组字段名 + 条数 + 首尾各 20 条样本，完整输出在 spring-boot 上会有几十 MB，不入库。比较前会规范化：绝对路径替换成 `<root>`、剔除耗时与 generation、数组排序 —— **但保留行号与列号**，因为 commit 固定后它们漂移就是真实的行为变化。
+
+### 真实仓库语料
+
+基线固定 8 个仓库、比对完整 JSON；语料固定 11 个仓库、只比对五个数字——
+它回答的是"改完之后，真实项目上数出来的东西有没有变"，5 分钟内能跑完。
+
+仓库与 **commit** 钉在 `tools/corpus/repos.tsv`（跟 HEAD 走的话，上游随便一次提交都会让它变红，
+而它要回答的不是那个问题），期望值在 `tools/corpus/expected.json`。
+
+```bash
+bash tools/corpus/check.sh --jar target/spring-mcp-all.jar          # 按 commit 拉到 .corpus/ 再比对
+bash tools/corpus/check.sh --jar target/spring-mcp-all.jar --update  # 期望值变了，且确认是故意的
+```
+
+覆盖的形态：注解端点、函数式路由、MyBatis 接口与 XML、Feign、网关、多模块，
+外加两个边界——`mybatis-3`（一个 HTTP 端点都没有）和 `solon`（非 Spring 框架，67 个控制器/0 个端点）。
+CI 里的 `corpus` 作业跑的就是它。
 
 基线测试默认跳过（要环境的 `SPRING_MCP_BASELINE=true`），普通 `./mvnw verify` 不受影响。
 
