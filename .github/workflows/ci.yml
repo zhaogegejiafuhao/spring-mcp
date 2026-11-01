@@ -47,9 +47,15 @@ jobs:
       - name: 零编译警告门禁
         # 这个仓库的约定是零警告：新增的 deprecation / unchecked 往往正是 SDK 变更的早期信号，
         # 混在几千行日志里没人会看见，所以让它变成红灯。
+        #
+        # 每条警告单独打成 annotation：日志要登录才能下载，annotation 在仓库页面上直接可见，
+        # 否则"红了一条，不知道为什么"就只能翻几千行。
         run: |
-          if grep -E '^\[WARNING\].*\.java' build.log; then
-            echo "::error::存在编译警告，本仓库要求零警告"
+          if grep -E '^\[WARNING\].*\.java' build.log > warnings.txt; then
+            while IFS= read -r line; do
+              echo "::error title=编译警告::${line}"
+            done < warnings.txt
+            echo "::error title=门禁失败::存在 $(wc -l < warnings.txt) 条编译警告，本仓库要求零警告"
             exit 1
           fi
           echo "无编译警告"
@@ -94,9 +100,14 @@ jobs:
         run: .\mvnw.cmd -B -ntp clean verify
 
       - name: 启动脚本冒烟
-        # .cmd 必须是 CRLF + 纯 ASCII，否则 cmd.exe 会把脚本拆碎；这个步骤同时验证了这一点
+        # .cmd 必须是 CRLF + 纯 ASCII，否则 cmd.exe 会把脚本拆碎；这个步骤同时验证了这一点。
+        # 先把输出落盘再判断：管道给 findstr 时，脚本自身报的错会被吞掉，只剩一句退出码 1。
         shell: cmd
-        run: spring-mcp.cmd --dev index-info --root fixtures\demo-web | findstr /C:"fileCount"
+        run: |
+          spring-mcp.cmd --dev index-info --root fixtures\demo-web > smoke.txt 2>&1
+          echo --- smoke output ---
+          type smoke.txt
+          findstr /C:"fileCount" smoke.txt || (echo ::error title=启动脚本冒烟::输出里没有 fileCount，见日志 smoke output & exit /b 1)
 
   baseline:
     name: 回归基线（4 个真实仓库）
