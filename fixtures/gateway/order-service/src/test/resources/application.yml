@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: test-only
+          uri: lb://order-service
+          predicates:
+            - Path=/test/**

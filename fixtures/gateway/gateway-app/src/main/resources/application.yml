@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: gateway-app
+  cloud:
+    gateway:
+      routes:
+        - id: orders
+          uri: lb://order-service
+          predicates:
+            - Path=/api/orders/**
+          filters:
+            - StripPrefix=1
+        - id: notifications
+          uri: lb://notify-service
+          predicates:
+            - Path=/api/notify/**
+          filters:
+            - StripPrefix=1
+        # Absolute target: not a module of this project.
+        - id: legacy
+          uri: http://legacy.internal:8080
+          predicates:
+            - Path=/legacy/**

@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+          routes:
+            - id: self
+              uri: lb://order-service
+              predicates:
+                - Path=/orders/**

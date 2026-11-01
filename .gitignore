@@ -1,0 +1,41 @@
+# build output
+target/
+build/
+out/
+bin/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+*.iws
+
+# OS
+Thumbs.db
+.DS_Store
+
+# logs
+*.log
+
+# maven wrapper cache
+.mvn/wrapper/maven-wrapper.jar
+
+# regression baseline working copies (cloned on demand)
+.baseline/
+
+# throwaway probe clones for real-world checks
+.probe/
+
+# jvm crash logs (memory pressure during a test run)
+hs_err_pid*.log
+replay_pid*.log
+
+# real-world verification corpus: 231 cloned repositories, ~12 GB. Reproducible from list*.tsv.
+.realworld/
+
+# agent work logs (daily notes, not part of the project)
+.workbuddy/

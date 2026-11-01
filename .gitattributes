@@ -1,0 +1,15 @@
+# 换行符按文件类型固定，不依赖每个人的 git autocrlf 设置。
+#
+# 这两个方向都会真的坏掉，不是风格问题：
+#   *.cmd 用 LF      -> cmd.exe 把脚本拆成 'he'、'xist' 之类碎片报错
+#   *.sh / mvnw 用 CRLF -> Linux 上报 "bad interpreter: /bin/sh^M"
+* text=auto eol=lf
+
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.sh  text eol=lf
+mvnw  text eol=lf
+
+*.jar binary
+*.zip binary
+*.png binary

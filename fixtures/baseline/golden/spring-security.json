@@ -1,0 +1,67 @@
+{
+  "repo" : "spring-security",
+  "commit" : "f97bd2483a52edeed62c0ca8b43275e4e39b6aed",
+  "stack" : "Gradle 多模块",
+  "tools" : {
+    "list-controllers" : {
+      "digest" : "sha256:4cbd8339de7cc91fe168934b1be197ca727d86b47f74cefddd12559e706300bc",
+      "arrayField" : "endpoints",
+      "size" : 3,
+      "sample" : [ {
+        "controllerFqn" : "org.springframework.security.itest.web.TestController",
+        "classPathRaw" : "",
+        "classPathResolved" : true,
+        "httpMethods" : [ "ANY" ],
+        "path" : "/",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "home",
+        "signature" : "home() : String",
+        "file" : "<root>/itest/web/src/main/java/org/springframework/security/itest/web/TestController.java",
+        "line" : 32,
+        "handlerDeclaredIn" : "org.springframework.security.itest.web.TestController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "org.springframework.security.itest.web.TestController",
+        "classPathRaw" : "",
+        "classPathResolved" : true,
+        "httpMethods" : [ "ANY" ],
+        "path" : "/secure/index",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "secure",
+        "signature" : "secure() : String",
+        "file" : "<root>/itest/web/src/main/java/org/springframework/security/itest/web/TestController.java",
+        "line" : 37,
+        "handlerDeclaredIn" : "org.springframework.security.itest.web.TestController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "org.springframework.security.itest.web.TestController",
+        "classPathRaw" : "",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/secure/file?with?special?chars.htm",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "sec1255TestUrl",
+        "signature" : "sec1255TestUrl() : String",
+        "file" : "<root>/itest/web/src/main/java/org/springframework/security/itest/web/TestController.java",
+        "line" : 27,
+        "handlerDeclaredIn" : "org.springframework.security.itest.web.TestController",
+        "conditions" : [ ]
+      } ]
+    },
+    "list-mappers" : {
+      "digest" : "sha256:915174918cc7dc276592352b53f071f1946abe21dc8f5678574d4be5db59989f",
+      "arrayField" : "mappers",
+      "size" : 0,
+      "sample" : [ ]
+    },
+    "search-by-annotation" : {
+      "digest" : "sha256:1d34ff538114e550b180cee740b643f05388aae7935bb3a3d666d86f3d16b7c6",
+      "arrayField" : "hits",
+      "size" : 0,
+      "sample" : [ ]
+    }
+  }
+}

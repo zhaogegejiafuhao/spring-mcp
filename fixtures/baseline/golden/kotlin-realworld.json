@@ -1,0 +1,958 @@
+{
+  "repo" : "kotlin-realworld",
+  "commit" : "cdff2188dfa636c2da0e90dda211358328ac0bca",
+  "stack" : "纯 Kotlin / Gradle 多模块 / Spring MVC / JPA / Security",
+  "tools" : {
+    "list-controllers" : {
+      "digest" : "sha256:c1c1a67f2d38bac80e271b4d26a9cf5d4c74e37a1f5321e604ea7863b96ff014",
+      "arrayField" : "endpoints",
+      "size" : 19,
+      "sample" : [ {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "classPathRaw" : "/api/articles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "DELETE" ],
+        "path" : "/api/articles/{slug}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "deleteArticle",
+        "signature" : "deleteArticle(String, AuthenticatedUser)",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 61,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "classPathRaw" : "/api/articles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "DELETE" ],
+        "path" : "/api/articles/{slug}/favorite",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "unFavoriteArticle",
+        "signature" : "unFavoriteArticle(String, AuthenticatedUser) : ArticleWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 73,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "classPathRaw" : "/api/articles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/api/articles",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getArticles",
+        "signature" : "getArticles(GetArticlesRequest, AuthenticatedUser?) : ArticlesWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 32,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "classPathRaw" : "/api/articles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/api/articles/feed",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "feedArticles",
+        "signature" : "feedArticles(FeedArticleRequest, AuthenticatedUser) : ArticlesWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 38,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "classPathRaw" : "/api/articles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/api/articles/{slug}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getArticle",
+        "signature" : "getArticle(String) : ArticleWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 44,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "classPathRaw" : "/api/articles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/api/articles",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "createArticle",
+        "signature" : "createArticle(CreateArticleRequest, AuthenticatedUser) : ArticleWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 48,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "classPathRaw" : "/api/articles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/api/articles/{slug}/favorite",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "favoriteArticle",
+        "signature" : "favoriteArticle(String, AuthenticatedUser) : ArticleWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 67,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "classPathRaw" : "/api/articles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "PUT" ],
+        "path" : "/api/articles/{slug}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "updateArticle",
+        "signature" : "updateArticle(String, UpdateArticleRequest, AuthenticatedUser) : ArticleWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 54,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.article.TagsController",
+        "classPathRaw" : "/api/tags",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/api/tags",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getTags",
+        "signature" : "getTags() : TagResponse",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/TagsController.kt",
+        "line" : 13,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.article.TagsResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.comment.CommentsController",
+        "classPathRaw" : "/api/articles/{slug}/comments",
+        "classPathResolved" : true,
+        "httpMethods" : [ "DELETE" ],
+        "path" : "/api/articles/{slug}/comments/{commentId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "deleteComment",
+        "signature" : "deleteComment(String, Int, AuthenticatedUser)",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/comment/CommentsController.kt",
+        "line" : 36,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.comment.CommentsResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.comment.CommentsController",
+        "classPathRaw" : "/api/articles/{slug}/comments",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/api/articles/{slug}/comments",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getCommentsFromArticle",
+        "signature" : "getCommentsFromArticle(String, AuthenticatedUser?) : CommentsWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/comment/CommentsController.kt",
+        "line" : 43,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.comment.CommentsResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.comment.CommentsController",
+        "classPathRaw" : "/api/articles/{slug}/comments",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/api/articles/{slug}/comments",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "addComment",
+        "signature" : "addComment(String, AddCommentRequest, AuthenticatedUser) : CommentWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/comment/CommentsController.kt",
+        "line" : 29,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.comment.CommentsResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.user.ProfilesController",
+        "classPathRaw" : "/api/profiles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "DELETE" ],
+        "path" : "/api/profiles/{username}/follow",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "unfollow",
+        "signature" : "unfollow(String, AuthenticatedUser) : ProfileWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/user/ProfilesController.kt",
+        "line" : 31,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.user.ProfilesResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.user.ProfilesController",
+        "classPathRaw" : "/api/profiles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/api/profiles/{username}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getProfile",
+        "signature" : "getProfile(String, AuthenticatedUser?) : ProfileWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/user/ProfilesController.kt",
+        "line" : 19,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.user.ProfilesResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.user.ProfilesController",
+        "classPathRaw" : "/api/profiles",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/api/profiles/{username}/follow",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "follow",
+        "signature" : "follow(String, AuthenticatedUser) : ProfileWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/user/ProfilesController.kt",
+        "line" : 25,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.user.ProfilesResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.user.UserController",
+        "classPathRaw" : "/api/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/api/user",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "get",
+        "signature" : "get(AuthenticatedUser) : UserWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/user/UserController.kt",
+        "line" : 18,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.user.UserResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.user.UserController",
+        "classPathRaw" : "/api/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "PUT" ],
+        "path" : "/api/user",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "update",
+        "signature" : "update(UserUpdateRequest, AuthenticatedUser) : UserWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/user/UserController.kt",
+        "line" : 24,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.user.UserResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.user.UsersController",
+        "classPathRaw" : "/api/users",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/api/users",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "registration",
+        "signature" : "registration(UserRegistrationRequest) : UserWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/user/UsersController.kt",
+        "line" : 17,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.user.UsersResource",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "io.github.gunkim.realworld.api.user.UsersController",
+        "classPathRaw" : "/api/users",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/api/users/login",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "authenticate",
+        "signature" : "authenticate(UserAuthenticateRequest) : UserWrapper",
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/user/UsersController.kt",
+        "line" : 23,
+        "handlerDeclaredIn" : "io.github.gunkim.realworld.api.user.UsersResource",
+        "conditions" : [ ]
+      } ]
+    },
+    "list-mappers" : {
+      "digest" : "sha256:333496d471a1826b206681530f2bec20c5fcd1ca67cd49ac862dcf428ab813e5",
+      "arrayField" : "mappers",
+      "size" : 6,
+      "sample" : [ {
+        "kind" : "JPA",
+        "interfaceFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.ArticleDao",
+        "simpleName" : "ArticleDao",
+        "xmlPath" : null,
+        "entityType" : "ArticleEntity",
+        "idType" : "Int",
+        "declaredMethods" : [ "findBySlug", "findFeedArticles", "getCountAllByArticleIds", "getFavoritesArticles" ],
+        "statements" : [ {
+          "id" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.ArticleDao.findFeedArticles",
+          "commandType" : "QUERY",
+          "name" : "findFeedArticles",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 50
+        }, {
+          "id" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.ArticleDao.getCountAllByArticleIds",
+          "commandType" : "QUERY",
+          "name" : "getCountAllByArticleIds",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 24
+        }, {
+          "id" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.ArticleDao.getFavoritesArticles",
+          "commandType" : "QUERY",
+          "name" : "getFavoritesArticles",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 37
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "JPA",
+        "interfaceFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.ArticleFavoriteDao",
+        "simpleName" : "ArticleFavoriteDao",
+        "xmlPath" : null,
+        "entityType" : "FavoriteEntity",
+        "idType" : "Int",
+        "declaredMethods" : [ "deleteByArticleEntityAndUserEntity" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "JPA",
+        "interfaceFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.TagDao",
+        "simpleName" : "TagDao",
+        "xmlPath" : null,
+        "entityType" : "TagEntity",
+        "idType" : "Int",
+        "declaredMethods" : [ "findByNameIn" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "JPA",
+        "interfaceFqn" : "io.github.gunkim.realworld.infrastructure.jpa.comment.dao.CommentDao",
+        "simpleName" : "CommentDao",
+        "xmlPath" : null,
+        "entityType" : "CommentEntity",
+        "idType" : "Int",
+        "declaredMethods" : [ "findByArticleEntitySlug" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "JPA",
+        "interfaceFqn" : "io.github.gunkim.realworld.infrastructure.jpa.user.dao.FollowDao",
+        "simpleName" : "FollowDao",
+        "xmlPath" : null,
+        "entityType" : "FollowEntity",
+        "idType" : "Long",
+        "declaredMethods" : [ "deleteByFolloweeEntityAndFollowerEntity" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "JPA",
+        "interfaceFqn" : "io.github.gunkim.realworld.infrastructure.jpa.user.dao.UserDao",
+        "simpleName" : "UserDao",
+        "xmlPath" : null,
+        "entityType" : "UserEntity",
+        "idType" : "Long",
+        "declaredMethods" : [ "findAllByFollowerUserId", "findByEmail", "findById", "findByName" ],
+        "statements" : [ {
+          "id" : "io.github.gunkim.realworld.infrastructure.jpa.user.dao.UserDao.findAllByFollowerUserId",
+          "commandType" : "QUERY",
+          "name" : "findAllByFollowerUserId",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 24
+        } ],
+        "issues" : [ ]
+      } ]
+    },
+    "search-by-annotation" : {
+      "digest" : "sha256:2a63039aa6045c1b6dbce2c54e1cf804d8dce53963cce8e1ddb34135d57e6b0e",
+      "arrayField" : "hits",
+      "size" : 19,
+      "sample" : [ {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.article.service.ArticleOwnershipService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/ArticleOwnershipService.kt",
+        "line" : 8,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.article.service.CreateArticleService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/CreateArticleService.kt",
+        "line" : 12,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.article.service.DeleteArticleService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/DeleteArticleService.kt",
+        "line" : 9,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.article.service.FavoriteArticleService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/FavoriteArticleService.kt",
+        "line" : 15,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.article.service.GetArticleService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/GetArticleService.kt",
+        "line" : 10,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.article.service.GetTagService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/GetTagService.kt",
+        "line" : 7,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.article.service.UpdateArticleService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/UpdateArticleService.kt",
+        "line" : 17,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.comment.service.AddCommentService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/comment/service/AddCommentService.kt",
+        "line" : 13,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.comment.service.CommentOwnershipService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/comment/service/CommentOwnershipService.kt",
+        "line" : 7,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.comment.service.CommentValidationService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/comment/service/CommentValidationService.kt",
+        "line" : 7,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.comment.service.DeleteCommentService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/comment/service/DeleteCommentService.kt",
+        "line" : 12,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.comment.service.GetCommentService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/comment/service/GetCommentService.kt",
+        "line" : 8,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.user.service.AuthenticateUserService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/user/service/AuthenticateUserService.kt",
+        "line" : 8,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.user.service.CreateUserService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/user/service/CreateUserService.kt",
+        "line" : 8,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.user.service.FollowUserService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/user/service/FollowUserService.kt",
+        "line" : 11,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.user.service.GetUserService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/user/service/GetUserService.kt",
+        "line" : 9,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.domain.user.service.UpdateUserService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/user/service/UpdateUserService.kt",
+        "line" : 10,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.infrastructure.auth.JwtProvider",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/auth/JwtProvider.kt",
+        "line" : 13,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Service",
+        "annotationSimpleName" : "Service",
+        "elementKind" : "TYPE",
+        "ownerType" : "io.github.gunkim.realworld.infrastructure.auth.UserPasswordService",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/auth/UserPasswordService.kt",
+        "line" : 7,
+        "column" : 0
+      } ]
+    },
+    "search-symbol" : {
+      "digest" : "sha256:19e356626d82e8bf5e19bc8789364ee90feaf46b7c5604182f8e75c343d250c7",
+      "arrayField" : "symbols",
+      "size" : 57,
+      "sample" : [ {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.ArticleResource",
+        "simpleName" : "ArticleResource",
+        "packageName" : "io.github.gunkim.realworld.api.article",
+        "kind" : "INTERFACE",
+        "abstractType" : false,
+        "annotations" : [ "RequestMapping" ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 30
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.ArticleResponseAssembler",
+        "simpleName" : "ArticleResponseAssembler",
+        "packageName" : "io.github.gunkim.realworld.api.article",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Component" ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticleResponseAssembler.kt",
+        "line" : 15
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.ArticlesController",
+        "simpleName" : "ArticlesController",
+        "packageName" : "io.github.gunkim.realworld.api.article",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "RestController" ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/ArticlesController.kt",
+        "line" : 80
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.TagsController",
+        "simpleName" : "TagsController",
+        "packageName" : "io.github.gunkim.realworld.api.article",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "RestController" ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/TagsController.kt",
+        "line" : 17
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.TagsResource",
+        "simpleName" : "TagsResource",
+        "packageName" : "io.github.gunkim.realworld.api.article",
+        "kind" : "INTERFACE",
+        "abstractType" : false,
+        "annotations" : [ "RequestMapping" ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/TagsController.kt",
+        "line" : 11
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.request.CreateArticleRequest",
+        "simpleName" : "CreateArticleRequest",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.request",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/request/CreateArticleRequest.kt",
+        "line" : 3
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.request.FeedArticleRequest",
+        "simpleName" : "FeedArticleRequest",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.request",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/request/FeedArticleRequest.kt",
+        "line" : 3
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.request.GetArticlesRequest",
+        "simpleName" : "GetArticlesRequest",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.request",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/request/GetArticlesRequest.kt",
+        "line" : 3
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.request.UpdateArticleRequest",
+        "simpleName" : "UpdateArticleRequest",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.request",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/request/UpdateArticleRequest.kt",
+        "line" : 3
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.response.ArticleResponse",
+        "simpleName" : "ArticleResponse",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.response",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/response/ArticleResponse.kt",
+        "line" : 7
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.response.ArticleResponse.Companion",
+        "simpleName" : "Companion",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.response",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/response/ArticleResponse.kt",
+        "line" : 19
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.response.TagResponse",
+        "simpleName" : "TagResponse",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.response",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/response/TagResponse.kt",
+        "line" : 3
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.response.wrapper.ArticleWrapper",
+        "simpleName" : "ArticleWrapper",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.response.wrapper",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/response/wrapper/ArticleWrapper.kt",
+        "line" : 5
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.response.wrapper.ArticlesWrapper",
+        "simpleName" : "ArticlesWrapper",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.response.wrapper",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/response/wrapper/ArticlesWrapper.kt",
+        "line" : 5
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.api.article.model.response.wrapper.ArticlesWrapper.Companion",
+        "simpleName" : "Companion",
+        "packageName" : "io.github.gunkim.realworld.api.article.model.response.wrapper",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/api/src/main/kotlin/io/github/gunkim/realworld/api/article/model/response/wrapper/ArticlesWrapper.kt",
+        "line" : 9
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.domain.article.ArticleFindable",
+        "simpleName" : "ArticleFindable",
+        "packageName" : "io.github.gunkim.realworld.domain.article",
+        "kind" : "INTERFACE",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/ArticleFindable.kt",
+        "line" : 8
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.domain.article.exception.ArticleNotFoundException",
+        "simpleName" : "ArticleNotFoundException",
+        "packageName" : "io.github.gunkim.realworld.domain.article.exception",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/exception/ArticleNotFoundException.kt",
+        "line" : 6
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.domain.article.exception.ArticleNotFoundException.Companion",
+        "simpleName" : "Companion",
+        "packageName" : "io.github.gunkim.realworld.domain.article.exception",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/exception/ArticleNotFoundException.kt",
+        "line" : 9
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.domain.article.exception.NotArticleAuthorException",
+        "simpleName" : "NotArticleAuthorException",
+        "packageName" : "io.github.gunkim.realworld.domain.article.exception",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/exception/NotArticleAuthorException.kt",
+        "line" : 7
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.domain.article.exception.NotArticleAuthorException.Companion",
+        "simpleName" : "Companion",
+        "packageName" : "io.github.gunkim.realworld.domain.article.exception",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/exception/NotArticleAuthorException.kt",
+        "line" : 10
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.domain.article.service.GetArticleService",
+        "simpleName" : "GetArticleService",
+        "packageName" : "io.github.gunkim.realworld.domain.article.service",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Service" ],
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/GetArticleService.kt",
+        "line" : 11
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.domain.article.service.GetTagService",
+        "simpleName" : "GetTagService",
+        "packageName" : "io.github.gunkim.realworld.domain.article.service",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Service" ],
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/GetTagService.kt",
+        "line" : 8
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.domain.article.service.UpdateArticleService",
+        "simpleName" : "UpdateArticleService",
+        "packageName" : "io.github.gunkim.realworld.domain.article.service",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Service" ],
+        "file" : "<root>/core/src/main/kotlin/io/github/gunkim/realworld/domain/article/service/UpdateArticleService.kt",
+        "line" : 18
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.ArticleDao",
+        "simpleName" : "ArticleDao",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao",
+        "kind" : "INTERFACE",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/dao/ArticleDao.kt",
+        "line" : 13
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.ArticleFavoriteDao",
+        "simpleName" : "ArticleFavoriteDao",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao",
+        "kind" : "INTERFACE",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/dao/ArticleFavoriteDao.kt",
+        "line" : 8
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao.TagDao",
+        "simpleName" : "TagDao",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.dao",
+        "kind" : "INTERFACE",
+        "abstractType" : false,
+        "annotations" : [ "Repository" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/dao/TagDao.kt",
+        "line" : 8
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.ArticleEntity",
+        "simpleName" : "ArticleEntity",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Entity", "SQLDelete", "SQLRestriction" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/ArticleEntity.kt",
+        "line" : 44
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.ArticleEntity.Companion",
+        "simpleName" : "Companion",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/ArticleEntity.kt",
+        "line" : 135
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.ArticleIdConverter",
+        "simpleName" : "ArticleIdConverter",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Converter" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/ArticleEntity.kt",
+        "line" : 35
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.ArticleTagEntity",
+        "simpleName" : "ArticleTagEntity",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Entity" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/ArticleTagEntity.kt",
+        "line" : 15
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.ArticleTagEntity.Companion",
+        "simpleName" : "Companion",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/ArticleTagEntity.kt",
+        "line" : 56
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.FavoriteEntity",
+        "simpleName" : "FavoriteEntity",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Entity" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/FavoriteEntity.kt",
+        "line" : 15
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.FavoriteEntity.Companion",
+        "simpleName" : "Companion",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/FavoriteEntity.kt",
+        "line" : 53
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.PredicateContext",
+        "simpleName" : "PredicateContext",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/ArticleSpecification.kt",
+        "line" : 28
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.SlugConverter",
+        "simpleName" : "SlugConverter",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Converter" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/ArticleEntity.kt",
+        "line" : 29
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.TagEntity",
+        "simpleName" : "TagEntity",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Entity" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/TagEntity.kt",
+        "line" : 11
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.model.TagEntity.Companion",
+        "simpleName" : "Companion",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.model",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/model/TagEntity.kt",
+        "line" : 42
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.repository.ArticleReadRepositoryImpl",
+        "simpleName" : "ArticleReadRepositoryImpl",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.repository",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Repository", "Transactional" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/repository/ArticleReadRepositoryImpl.kt",
+        "line" : 17
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.repository.ArticleRepositoryImpl",
+        "simpleName" : "ArticleRepositoryImpl",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.repository",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Repository", "Transactional" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/repository/ArticleRepositoryImpl.kt",
+        "line" : 21
+      }, {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.jpa.article.repository.TagReadRepositoryImpl",
+        "simpleName" : "TagReadRepositoryImpl",
+        "packageName" : "io.github.gunkim.realworld.infrastructure.jpa.article.repository",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "annotations" : [ "Repository", "Transactional" ],
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/jpa/article/repository/TagReadRepositoryImpl.kt",
+        "line" : 11
+      } ]
+    },
+    "find-implementations" : {
+      "digest" : "sha256:5a030cf36e18652eb390020142e35c23cd9e97f7cb22a94dc6b97fb509e54dc9",
+      "arrayField" : "implementations",
+      "size" : 1,
+      "sample" : [ {
+        "typeFqn" : "io.github.gunkim.realworld.infrastructure.auth.UserPasswordService",
+        "simpleName" : "UserPasswordService",
+        "kind" : "CLASS",
+        "abstractType" : false,
+        "springStereotypes" : [ "Service" ],
+        "direct" : true,
+        "file" : "<root>/core-impl/src/main/kotlin/io/github/gunkim/realworld/infrastructure/auth/UserPasswordService.kt",
+        "line" : 8
+      } ]
+    }
+  }
+}

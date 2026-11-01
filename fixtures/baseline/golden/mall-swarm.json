@@ -1,0 +1,2896 @@
+{
+  "repo" : "mall-swarm",
+  "commit" : "04c442fe318356bae4445a109dde7af297ce1e84",
+  "stack" : "Spring Cloud Alibaba / Nacos / Gateway / Feign",
+  "tools" : {
+    "list-gateway-routes" : {
+      "digest" : "sha256:3d08fa7c62fffd011c53d704e0fa2ece31b8097f22872faaeda2501f452b8c95",
+      "arrayField" : "routes",
+      "size" : 5,
+      "sample" : [ {
+        "id" : "mall-admin",
+        "uri" : "lb://mall-admin",
+        "serviceId" : "mall-admin",
+        "predicates" : [ "Path=/mall-admin/**" ],
+        "filters" : [ "StripPrefix=1" ],
+        "pathPrefixes" : [ "/mall-admin/**" ],
+        "stripPrefix" : 1,
+        "targetModule" : "mall-admin",
+        "file" : "mall-gateway/src/main/resources/application.yml"
+      }, {
+        "id" : "mall-auth",
+        "uri" : "lb://mall-auth",
+        "serviceId" : "mall-auth",
+        "predicates" : [ "Path=/mall-auth/**" ],
+        "filters" : [ "StripPrefix=1" ],
+        "pathPrefixes" : [ "/mall-auth/**" ],
+        "stripPrefix" : 1,
+        "targetModule" : "mall-auth",
+        "file" : "mall-gateway/src/main/resources/application.yml"
+      }, {
+        "id" : "mall-demo",
+        "uri" : "lb://mall-demo",
+        "serviceId" : "mall-demo",
+        "predicates" : [ "Path=/mall-demo/**" ],
+        "filters" : [ "StripPrefix=1" ],
+        "pathPrefixes" : [ "/mall-demo/**" ],
+        "stripPrefix" : 1,
+        "targetModule" : "mall-demo",
+        "file" : "mall-gateway/src/main/resources/application.yml"
+      }, {
+        "id" : "mall-portal",
+        "uri" : "lb://mall-portal",
+        "serviceId" : "mall-portal",
+        "predicates" : [ "Path=/mall-portal/**" ],
+        "filters" : [ "StripPrefix=1" ],
+        "pathPrefixes" : [ "/mall-portal/**" ],
+        "stripPrefix" : 1,
+        "targetModule" : "mall-portal",
+        "file" : "mall-gateway/src/main/resources/application.yml"
+      }, {
+        "id" : "mall-search",
+        "uri" : "lb://mall-search",
+        "serviceId" : "mall-search",
+        "predicates" : [ "Path=/mall-search/**" ],
+        "filters" : [ "StripPrefix=1" ],
+        "pathPrefixes" : [ "/mall-search/**" ],
+        "stripPrefix" : 1,
+        "targetModule" : "mall-search",
+        "file" : "mall-gateway/src/main/resources/application.yml"
+      } ]
+    },
+    "list-feign-clients" : {
+      "digest" : "sha256:ce5a8a02e5a8faca1e9ea83f08c40954633b5ef3c3a4c433d5104c1bf66eeba6",
+      "arrayField" : "clients",
+      "size" : 5,
+      "sample" : [ {
+        "name" : "mall-admin",
+        "interfaceFqn" : "com.macro.mall.auth.service.UmsAdminService",
+        "pathPrefix" : "",
+        "url" : null,
+        "targetModule" : "mall-admin",
+        "endpoints" : [ {
+          "httpMethods" : [ "POST" ],
+          "path" : "/admin/login",
+          "methodName" : "login",
+          "pathResolved" : true,
+          "line" : 19
+        } ],
+        "file" : "<root>/mall-auth/src/main/java/com/macro/mall/auth/service/UmsAdminService.java"
+      }, {
+        "name" : "mall-admin",
+        "interfaceFqn" : "com.macro.mall.demo.service.FeignAdminService",
+        "pathPrefix" : "",
+        "url" : null,
+        "targetModule" : "mall-admin",
+        "endpoints" : [ {
+          "httpMethods" : [ "GET" ],
+          "path" : "/brand/listAll",
+          "methodName" : "getList",
+          "pathResolved" : true,
+          "line" : 19
+        }, {
+          "httpMethods" : [ "POST" ],
+          "path" : "/admin/login",
+          "methodName" : "login",
+          "pathResolved" : true,
+          "line" : 16
+        } ],
+        "file" : "<root>/mall-demo/src/main/java/com/macro/mall/demo/service/FeignAdminService.java"
+      }, {
+        "name" : "mall-portal",
+        "interfaceFqn" : "com.macro.mall.auth.service.UmsMemberService",
+        "pathPrefix" : "",
+        "url" : null,
+        "targetModule" : "mall-portal",
+        "endpoints" : [ {
+          "httpMethods" : [ "POST" ],
+          "path" : "/sso/login",
+          "methodName" : "login",
+          "pathResolved" : true,
+          "line" : 16
+        } ],
+        "file" : "<root>/mall-auth/src/main/java/com/macro/mall/auth/service/UmsMemberService.java"
+      }, {
+        "name" : "mall-portal",
+        "interfaceFqn" : "com.macro.mall.demo.service.FeignPortalService",
+        "pathPrefix" : "",
+        "url" : null,
+        "targetModule" : "mall-portal",
+        "endpoints" : [ {
+          "httpMethods" : [ "GET" ],
+          "path" : "/cart/list",
+          "methodName" : "list",
+          "pathResolved" : true,
+          "line" : 18
+        }, {
+          "httpMethods" : [ "POST" ],
+          "path" : "/sso/login",
+          "methodName" : "login",
+          "pathResolved" : true,
+          "line" : 15
+        } ],
+        "file" : "<root>/mall-demo/src/main/java/com/macro/mall/demo/service/FeignPortalService.java"
+      }, {
+        "name" : "mall-search",
+        "interfaceFqn" : "com.macro.mall.demo.service.FeignSearchService",
+        "pathPrefix" : "",
+        "url" : null,
+        "targetModule" : "mall-search",
+        "endpoints" : [ {
+          "httpMethods" : [ "GET" ],
+          "path" : "/esProduct/search/simple",
+          "methodName" : "search",
+          "pathResolved" : true,
+          "line" : 14
+        } ],
+        "file" : "<root>/mall-demo/src/main/java/com/macro/mall/demo/service/FeignSearchService.java"
+      } ]
+    },
+    "list-controllers" : {
+      "digest" : "sha256:9bfb5d9bc03c29f809523fd65f4d91d936b6699021455369da3404aac7e5ad9b",
+      "arrayField" : "endpoints",
+      "size" : 245,
+      "sample" : [ {
+        "controllerFqn" : "com.macro.mall.auth.controller.AuthController",
+        "classPathRaw" : "/auth",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/auth/login",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "login",
+        "signature" : "login(String, String, String) : CommonResult",
+        "file" : "<root>/mall-auth/src/main/java/com/macro/mall/auth/controller/AuthController.java",
+        "line" : 34,
+        "handlerDeclaredIn" : "com.macro.mall.auth.controller.AuthController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.CmsPrefrenceAreaController",
+        "classPathRaw" : "/prefrenceArea",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/prefrenceArea/listAll",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "listAll",
+        "signature" : "listAll() : CommonResult<List<CmsPrefrenceArea>>",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/CmsPrefrenceAreaController.java",
+        "line" : 27,
+        "handlerDeclaredIn" : "com.macro.mall.controller.CmsPrefrenceAreaController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.CmsSubjectController",
+        "classPathRaw" : "/subject",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/subject/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getList",
+        "signature" : "getList(String, Integer, Integer) : CommonResult<CommonPage<CmsSubject>>",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/CmsSubjectController.java",
+        "line" : 38,
+        "handlerDeclaredIn" : "com.macro.mall.controller.CmsSubjectController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.CmsSubjectController",
+        "classPathRaw" : "/subject",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/subject/listAll",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "listAll",
+        "signature" : "listAll() : CommonResult<List<CmsSubject>>",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/CmsSubjectController.java",
+        "line" : 30,
+        "handlerDeclaredIn" : "com.macro.mall.controller.CmsSubjectController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.MinioController",
+        "classPathRaw" : "/minio",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/minio/delete",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "delete",
+        "signature" : "delete(String) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/MinioController.java",
+        "line" : 99,
+        "handlerDeclaredIn" : "com.macro.mall.controller.MinioController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.MinioController",
+        "classPathRaw" : "/minio",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/minio/upload",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "upload",
+        "signature" : "upload(MultipartFile) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/MinioController.java",
+        "line" : 41,
+        "handlerDeclaredIn" : "com.macro.mall.controller.MinioController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsCompanyAddressController",
+        "classPathRaw" : "/companyAddress",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/companyAddress/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "list",
+        "signature" : "list() : CommonResult<List<OmsCompanyAddress>>",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsCompanyAddressController.java",
+        "line" : 28,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsCompanyAddressController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderController",
+        "classPathRaw" : "/order",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/order/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "list",
+        "signature" : "list(OmsOrderQueryParam, Integer, Integer) : CommonResult<CommonPage<OmsOrder>>",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderController.java",
+        "line" : 28,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderController",
+        "classPathRaw" : "/order",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/order/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "detail",
+        "signature" : "detail(Long) : CommonResult<OmsOrderDetail>",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderController.java",
+        "line" : 71,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderController",
+        "classPathRaw" : "/order",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/order/delete",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "delete",
+        "signature" : "delete(List<Long>) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderController.java",
+        "line" : 60,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderController",
+        "classPathRaw" : "/order",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/order/update/close",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "close",
+        "signature" : "close(List<Long>, String) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderController.java",
+        "line" : 49,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderController",
+        "classPathRaw" : "/order",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/order/update/delivery",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "delivery",
+        "signature" : "delivery(List<OmsOrderDeliveryParam>) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderController.java",
+        "line" : 38,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderController",
+        "classPathRaw" : "/order",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/order/update/moneyInfo",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "updateReceiverInfo",
+        "signature" : "updateReceiverInfo(OmsMoneyInfoParam) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderController.java",
+        "line" : 90,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderController",
+        "classPathRaw" : "/order",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/order/update/note",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "updateNote",
+        "signature" : "updateNote(Long, String, Integer) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderController.java",
+        "line" : 101,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderController",
+        "classPathRaw" : "/order",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/order/update/receiverInfo",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "updateReceiverInfo",
+        "signature" : "updateReceiverInfo(OmsReceiverInfoParam) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderController.java",
+        "line" : 79,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderReturnApplyController",
+        "classPathRaw" : "/returnApply",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/returnApply/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "list",
+        "signature" : "list(OmsReturnApplyQueryParam, Integer, Integer) : CommonResult<CommonPage<OmsOrderReturnApply>>",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderReturnApplyController.java",
+        "line" : 30,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderReturnApplyController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderReturnApplyController",
+        "classPathRaw" : "/returnApply",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/returnApply/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getItem",
+        "signature" : "getItem(Long) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderReturnApplyController.java",
+        "line" : 51,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderReturnApplyController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderReturnApplyController",
+        "classPathRaw" : "/returnApply",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/returnApply/delete",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "delete",
+        "signature" : "delete(List<Long>) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderReturnApplyController.java",
+        "line" : 40,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderReturnApplyController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderReturnApplyController",
+        "classPathRaw" : "/returnApply",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/returnApply/update/status/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "updateStatus",
+        "signature" : "updateStatus(Long, OmsUpdateStatusParam) : CommonResult",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderReturnApplyController.java",
+        "line" : 59,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderReturnApplyController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.controller.OmsOrderReturnReasonController",
+        "classPathRaw" : "/returnReason",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/returnReason/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "list",
+        "signature" : "list(Integer, Integer) : CommonResult<CommonPage<OmsOrderReturnReason>>",
+        "file" : "<root>/mall-admin/src/main/java/com/macro/mall/controller/OmsOrderReturnReasonController.java",
+        "line" : 60,
+        "handlerDeclaredIn" : "com.macro.mall.controller.OmsOrderReturnReasonController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberController",
+        "classPathRaw" : "/sso",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/sso/register",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "register",
+        "signature" : "register(String, String, String, String) : CommonResult",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberController.java",
+        "line" : 34,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberController",
+        "classPathRaw" : "/sso",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/sso/updatePassword",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "updatePassword",
+        "signature" : "updatePassword(String, String, String) : CommonResult",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberController.java",
+        "line" : 84,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "classPathRaw" : "/member/coupon",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/member/coupon/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "list",
+        "signature" : "list(Integer) : CommonResult<List<SmsCoupon>>",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberCouponController.java",
+        "line" : 55,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "classPathRaw" : "/member/coupon",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/member/coupon/list/cart/{type}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "listCart",
+        "signature" : "listCart(Integer) : CommonResult<List<SmsCouponHistoryDetail>>",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberCouponController.java",
+        "line" : 65,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "classPathRaw" : "/member/coupon",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/member/coupon/listByProduct/{productId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "listByProduct",
+        "signature" : "listByProduct(Long) : CommonResult<List<SmsCoupon>>",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberCouponController.java",
+        "line" : 76,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "classPathRaw" : "/member/coupon",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/member/coupon/listHistory",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "listHistory",
+        "signature" : "listHistory(Integer) : CommonResult<List<SmsCouponHistory>>",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberCouponController.java",
+        "line" : 45,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "classPathRaw" : "/member/coupon",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/member/coupon/add/{couponId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "add",
+        "signature" : "add(Long) : CommonResult",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberCouponController.java",
+        "line" : 37,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberCouponController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "classPathRaw" : "/member/address",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/member/address/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "list",
+        "signature" : "list() : CommonResult<List<UmsMemberReceiveAddress>>",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberReceiveAddressController.java",
+        "line" : 59,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "classPathRaw" : "/member/address",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/member/address/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getItem",
+        "signature" : "getItem(Long) : CommonResult<UmsMemberReceiveAddress>",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberReceiveAddressController.java",
+        "line" : 67,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "classPathRaw" : "/member/address",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/member/address/add",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "add",
+        "signature" : "add(UmsMemberReceiveAddress) : CommonResult",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberReceiveAddressController.java",
+        "line" : 26,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "classPathRaw" : "/member/address",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/member/address/delete/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "delete",
+        "signature" : "delete(Long) : CommonResult",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberReceiveAddressController.java",
+        "line" : 37,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "classPathRaw" : "/member/address",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/member/address/update/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "update",
+        "signature" : "update(Long, UmsMemberReceiveAddress) : CommonResult",
+        "file" : "<root>/mall-portal/src/main/java/com/macro/mall/portal/controller/UmsMemberReceiveAddressController.java",
+        "line" : 48,
+        "handlerDeclaredIn" : "com.macro.mall.portal.controller.UmsMemberReceiveAddressController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.search.controller.EsProductController",
+        "classPathRaw" : "/esProduct",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/esProduct/delete/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "delete",
+        "signature" : "delete(Long) : CommonResult<Object>",
+        "file" : "<root>/mall-search/src/main/java/com/macro/mall/search/controller/EsProductController.java",
+        "line" : 39,
+        "handlerDeclaredIn" : "com.macro.mall.search.controller.EsProductController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.search.controller.EsProductController",
+        "classPathRaw" : "/esProduct",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/esProduct/recommend/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "recommend",
+        "signature" : "recommend(Long, Integer, Integer) : CommonResult<CommonPage<EsProduct>>",
+        "file" : "<root>/mall-search/src/main/java/com/macro/mall/search/controller/EsProductController.java",
+        "line" : 91,
+        "handlerDeclaredIn" : "com.macro.mall.search.controller.EsProductController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.search.controller.EsProductController",
+        "classPathRaw" : "/esProduct",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/esProduct/search",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "search",
+        "signature" : "search(String, Long, Long, Integer, Integer, Integer) : CommonResult<CommonPage<EsProduct>>",
+        "file" : "<root>/mall-search/src/main/java/com/macro/mall/search/controller/EsProductController.java",
+        "line" : 77,
+        "handlerDeclaredIn" : "com.macro.mall.search.controller.EsProductController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.search.controller.EsProductController",
+        "classPathRaw" : "/esProduct",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/esProduct/search/relate",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "searchRelatedInfo",
+        "signature" : "searchRelatedInfo(String) : CommonResult<EsProductRelatedInfo>",
+        "file" : "<root>/mall-search/src/main/java/com/macro/mall/search/controller/EsProductController.java",
+        "line" : 101,
+        "handlerDeclaredIn" : "com.macro.mall.search.controller.EsProductController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.search.controller.EsProductController",
+        "classPathRaw" : "/esProduct",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/esProduct/search/simple",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "search",
+        "signature" : "search(String, Integer, Integer) : CommonResult<CommonPage<EsProduct>>",
+        "file" : "<root>/mall-search/src/main/java/com/macro/mall/search/controller/EsProductController.java",
+        "line" : 67,
+        "handlerDeclaredIn" : "com.macro.mall.search.controller.EsProductController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.search.controller.EsProductController",
+        "classPathRaw" : "/esProduct",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/esProduct/create/{id}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "create",
+        "signature" : "create(Long) : CommonResult<EsProduct>",
+        "file" : "<root>/mall-search/src/main/java/com/macro/mall/search/controller/EsProductController.java",
+        "line" : 55,
+        "handlerDeclaredIn" : "com.macro.mall.search.controller.EsProductController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.search.controller.EsProductController",
+        "classPathRaw" : "/esProduct",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/esProduct/delete/batch",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "delete",
+        "signature" : "delete(List<Long>) : CommonResult<Object>",
+        "file" : "<root>/mall-search/src/main/java/com/macro/mall/search/controller/EsProductController.java",
+        "line" : 47,
+        "handlerDeclaredIn" : "com.macro.mall.search.controller.EsProductController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.macro.mall.search.controller.EsProductController",
+        "classPathRaw" : "/esProduct",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/esProduct/importAll",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "importAllList",
+        "signature" : "importAllList() : CommonResult<Integer>",
+        "file" : "<root>/mall-search/src/main/java/com/macro/mall/search/controller/EsProductController.java",
+        "line" : 31,
+        "handlerDeclaredIn" : "com.macro.mall.search.controller.EsProductController",
+        "conditions" : [ ]
+      } ]
+    },
+    "list-mappers" : {
+      "digest" : "sha256:e9417a1c56d39e7bec02c8db047f31a206e0ae4b6ad71bc5414530add18d0df5",
+      "arrayField" : "mappers",
+      "size" : 107,
+      "sample" : [ {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.CmsPrefrenceAreaProductRelationDao",
+        "simpleName" : "CmsPrefrenceAreaProductRelationDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/CmsPrefrenceAreaProductRelationDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.CmsPrefrenceAreaProductRelationDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.CmsSubjectProductRelationDao",
+        "simpleName" : "CmsSubjectProductRelationDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/CmsSubjectProductRelationDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.CmsSubjectProductRelationDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.OmsOrderDao",
+        "simpleName" : "OmsOrderDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/OmsOrderDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "delivery", "getDetail", "getList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.OmsOrderDao.delivery",
+          "commandType" : "UPDATE",
+          "name" : "delivery",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.dao.OmsOrderDao.getDetail",
+          "commandType" : "SELECT",
+          "name" : "getDetail",
+          "parameterType" : null,
+          "resultType" : "orderDetailResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.dao.OmsOrderDao.getList",
+          "commandType" : "SELECT",
+          "name" : "getList",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.OmsOrderMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.OmsOrderOperateHistoryDao",
+        "simpleName" : "OmsOrderOperateHistoryDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/OmsOrderOperateHistoryDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.OmsOrderOperateHistoryDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.OmsOrderReturnApplyDao",
+        "simpleName" : "OmsOrderReturnApplyDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/OmsOrderReturnApplyDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getDetail", "getList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.OmsOrderReturnApplyDao.getDetail",
+          "commandType" : "SELECT",
+          "name" : "getDetail",
+          "parameterType" : null,
+          "resultType" : "returnApplyDetailResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.dao.OmsOrderReturnApplyDao.getList",
+          "commandType" : "SELECT",
+          "name" : "getList",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.OmsOrderReturnApplyMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsMemberPriceDao",
+        "simpleName" : "PmsMemberPriceDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsMemberPriceDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsMemberPriceDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductAttributeCategoryDao",
+        "simpleName" : "PmsProductAttributeCategoryDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductAttributeCategoryDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getListWithAttr" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductAttributeCategoryDao.getListWithAttr",
+          "commandType" : "SELECT",
+          "name" : "getListWithAttr",
+          "parameterType" : null,
+          "resultType" : "getListWithAttrMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductAttributeDao",
+        "simpleName" : "PmsProductAttributeDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductAttributeDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getProductAttrInfo" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductAttributeDao.getProductAttrInfo",
+          "commandType" : "SELECT",
+          "name" : "getProductAttrInfo",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.dto.ProductAttrInfo",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductAttributeValueDao",
+        "simpleName" : "PmsProductAttributeValueDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductAttributeValueDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductAttributeValueDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductCategoryAttributeRelationDao",
+        "simpleName" : "PmsProductCategoryAttributeRelationDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductCategoryAttributeRelationDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductCategoryAttributeRelationDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductCategoryDao",
+        "simpleName" : "PmsProductCategoryDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductCategoryDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "listWithChildren" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductCategoryDao.listWithChildren",
+          "commandType" : "SELECT",
+          "name" : "listWithChildren",
+          "parameterType" : null,
+          "resultType" : "listWithChildrenMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductDao",
+        "simpleName" : "PmsProductDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getUpdateInfo" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductDao.getUpdateInfo",
+          "commandType" : "SELECT",
+          "name" : "getUpdateInfo",
+          "parameterType" : null,
+          "resultType" : "updateInfoMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.dao.PmsProductDao.selectPrefrenceAreaProductRelationByProductId",
+          "commandType" : "SELECT",
+          "name" : "selectPrefrenceAreaProductRelationByProductId",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.CmsPrefrenceAreaProductRelationMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.dao.PmsProductDao.selectSubjectProductRelationByProductId",
+          "commandType" : "SELECT",
+          "name" : "selectSubjectProductRelationByProductId",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.CmsSubjectProductRelationMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductFullReductionDao",
+        "simpleName" : "PmsProductFullReductionDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductFullReductionDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductFullReductionDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductLadderDao",
+        "simpleName" : "PmsProductLadderDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductLadderDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductLadderDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsProductVertifyRecordDao",
+        "simpleName" : "PmsProductVertifyRecordDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsProductVertifyRecordDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsProductVertifyRecordDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.PmsSkuStockDao",
+        "simpleName" : "PmsSkuStockDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/PmsSkuStockDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList", "replaceList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.PmsSkuStockDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.dao.PmsSkuStockDao.replaceList",
+          "commandType" : "INSERT",
+          "name" : "replaceList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.SmsCouponDao",
+        "simpleName" : "SmsCouponDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/SmsCouponDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getItem" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.SmsCouponDao.getItem",
+          "commandType" : "SELECT",
+          "name" : "getItem",
+          "parameterType" : null,
+          "resultType" : "couponItemParam",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.SmsCouponProductCategoryRelationDao",
+        "simpleName" : "SmsCouponProductCategoryRelationDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/SmsCouponProductCategoryRelationDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.SmsCouponProductCategoryRelationDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.SmsCouponProductRelationDao",
+        "simpleName" : "SmsCouponProductRelationDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/SmsCouponProductRelationDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.SmsCouponProductRelationDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.dao.SmsFlashPromotionProductRelationDao",
+        "simpleName" : "SmsFlashPromotionProductRelationDao",
+        "xmlPath" : "<root>/mall-admin/src/main/resources/dao/SmsFlashPromotionProductRelationDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.dao.SmsFlashPromotionProductRelationDao.getList",
+          "commandType" : "SELECT",
+          "name" : "getList",
+          "parameterType" : null,
+          "resultType" : "flashProductMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper",
+        "simpleName" : "UmsMemberStatisticsInfoMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsMemberStatisticsInfoMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberStatisticsInfoExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberStatisticsInfoExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsMemberStatisticsInfo",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsMemberStatisticsInfo",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberStatisticsInfoExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsMemberStatisticsInfo",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberStatisticsInfoMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsMemberStatisticsInfo",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsMemberTagMapper",
+        "simpleName" : "UmsMemberTagMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsMemberTagMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberTagExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberTagExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsMemberTag",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsMemberTag",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberTagExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsMemberTag",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTagMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsMemberTag",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsMemberTaskMapper",
+        "simpleName" : "UmsMemberTaskMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsMemberTaskMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberTaskExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberTaskExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsMemberTask",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsMemberTask",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsMemberTaskExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsMemberTask",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMemberTaskMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsMemberTask",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsMenuMapper",
+        "simpleName" : "UmsMenuMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsMenuMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsMenuExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsMenuExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsMenu",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsMenu",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsMenuExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsMenu",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsMenuMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsMenu",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsPermissionMapper",
+        "simpleName" : "UmsPermissionMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsPermissionMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsPermissionExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsPermissionExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsPermission",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsPermission",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsPermissionExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsPermission",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsPermissionMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsPermission",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsResourceCategoryMapper",
+        "simpleName" : "UmsResourceCategoryMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsResourceCategoryMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsResourceCategoryExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsResourceCategoryExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsResourceCategory",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsResourceCategory",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsResourceCategoryExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsResourceCategory",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceCategoryMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsResourceCategory",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsResourceMapper",
+        "simpleName" : "UmsResourceMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsResourceMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsResourceExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsResourceExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsResource",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsResource",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsResourceExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsResource",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsResourceMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsResource",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsRoleMapper",
+        "simpleName" : "UmsRoleMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsRoleMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsRole",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsRole",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsRole",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsRole",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper",
+        "simpleName" : "UmsRoleMenuRelationMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsRoleMenuRelationMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleMenuRelationExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleMenuRelationExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsRoleMenuRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsRoleMenuRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleMenuRelationExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsRoleMenuRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleMenuRelationMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsRoleMenuRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper",
+        "simpleName" : "UmsRolePermissionRelationMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsRolePermissionRelationMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsRolePermissionRelationExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsRolePermissionRelationExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsRolePermissionRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsRolePermissionRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsRolePermissionRelationExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsRolePermissionRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRolePermissionRelationMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsRolePermissionRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper",
+        "simpleName" : "UmsRoleResourceRelationMapper",
+        "xmlPath" : "<root>/mall-mbg/src/main/resources/com/macro/mall/mapper/UmsRoleResourceRelationMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countByExample", "deleteByExample", "deleteByPrimaryKey", "insert", "insertSelective", "selectByExample", "selectByPrimaryKey", "updateByExample", "updateByExampleSelective", "updateByPrimaryKey", "updateByPrimaryKeySelective" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.Update_By_Example_Where_Clause",
+          "commandType" : "SQL",
+          "name" : "Update_By_Example_Where_Clause",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.countByExample",
+          "commandType" : "SELECT",
+          "name" : "countByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleResourceRelationExample",
+          "resultType" : "java.lang.Long",
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.deleteByExample",
+          "commandType" : "DELETE",
+          "name" : "deleteByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleResourceRelationExample",
+          "resultType" : null,
+          "includes" : [ "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.deleteByPrimaryKey",
+          "commandType" : "DELETE",
+          "name" : "deleteByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.insert",
+          "commandType" : "INSERT",
+          "name" : "insert",
+          "parameterType" : "com.macro.mall.model.UmsRoleResourceRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.insertSelective",
+          "commandType" : "INSERT",
+          "name" : "insertSelective",
+          "parameterType" : "com.macro.mall.model.UmsRoleResourceRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.selectByExample",
+          "commandType" : "SELECT",
+          "name" : "selectByExample",
+          "parameterType" : "com.macro.mall.model.UmsRoleResourceRelationExample",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List", "Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.selectByPrimaryKey",
+          "commandType" : "SELECT",
+          "name" : "selectByPrimaryKey",
+          "parameterType" : "java.lang.Long",
+          "resultType" : "BaseResultMap",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.updateByExample",
+          "commandType" : "UPDATE",
+          "name" : "updateByExample",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.updateByExampleSelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByExampleSelective",
+          "parameterType" : "map",
+          "resultType" : null,
+          "includes" : [ "Update_By_Example_Where_Clause" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.updateByPrimaryKey",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKey",
+          "parameterType" : "com.macro.mall.model.UmsRoleResourceRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.mapper.UmsRoleResourceRelationMapper.updateByPrimaryKeySelective",
+          "commandType" : "UPDATE",
+          "name" : "updateByPrimaryKeySelective",
+          "parameterType" : "com.macro.mall.model.UmsRoleResourceRelation",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.portal.dao.HomeDao",
+        "simpleName" : "HomeDao",
+        "xmlPath" : "<root>/mall-portal/src/main/resources/dao/HomeDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getFlashProductList", "getHotProductList", "getNewProductList", "getRecommendBrandList", "getRecommendSubjectList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.portal.dao.HomeDao.getFlashProductList",
+          "commandType" : "SELECT",
+          "name" : "getFlashProductList",
+          "parameterType" : null,
+          "resultType" : "flashPromotionProduct",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.HomeDao.getHotProductList",
+          "commandType" : "SELECT",
+          "name" : "getHotProductList",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.PmsProductMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.HomeDao.getNewProductList",
+          "commandType" : "SELECT",
+          "name" : "getNewProductList",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.PmsProductMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.HomeDao.getRecommendBrandList",
+          "commandType" : "SELECT",
+          "name" : "getRecommendBrandList",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.PmsBrandMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.HomeDao.getRecommendSubjectList",
+          "commandType" : "SELECT",
+          "name" : "getRecommendSubjectList",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.CmsSubjectMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.portal.dao.PortalOrderDao",
+        "simpleName" : "PortalOrderDao",
+        "xmlPath" : "<root>/mall-portal/src/main/resources/dao/PortalOrderDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getDetail", "getTimeOutOrders", "releaseSkuStockLock", "updateOrderStatus", "updateSkuStock" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.portal.dao.PortalOrderDao.getDetail",
+          "commandType" : "SELECT",
+          "name" : "getDetail",
+          "parameterType" : null,
+          "resultType" : "orderDetailMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.PortalOrderDao.getTimeOutOrders",
+          "commandType" : "SELECT",
+          "name" : "getTimeOutOrders",
+          "parameterType" : null,
+          "resultType" : "orderDetailMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.PortalOrderDao.releaseSkuStockLock",
+          "commandType" : "UPDATE",
+          "name" : "releaseSkuStockLock",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.PortalOrderDao.updateOrderStatus",
+          "commandType" : "UPDATE",
+          "name" : "updateOrderStatus",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.PortalOrderDao.updateSkuStock",
+          "commandType" : "UPDATE",
+          "name" : "updateSkuStock",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.portal.dao.PortalOrderItemDao",
+        "simpleName" : "PortalOrderItemDao",
+        "xmlPath" : "<root>/mall-portal/src/main/resources/dao/PortalOrderItemDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "insertList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.portal.dao.PortalOrderItemDao.insertList",
+          "commandType" : "INSERT",
+          "name" : "insertList",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.portal.dao.PortalProductDao",
+        "simpleName" : "PortalProductDao",
+        "xmlPath" : "<root>/mall-portal/src/main/resources/dao/PortalProductDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getAvailableCouponList", "getCartProduct", "getPromotionProductList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.portal.dao.PortalProductDao.getAvailableCouponList",
+          "commandType" : "SELECT",
+          "name" : "getAvailableCouponList",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.SmsCouponMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.PortalProductDao.getCartProduct",
+          "commandType" : "SELECT",
+          "name" : "getCartProduct",
+          "parameterType" : null,
+          "resultType" : "cartProductMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.PortalProductDao.getPromotionProductList",
+          "commandType" : "SELECT",
+          "name" : "getPromotionProductList",
+          "parameterType" : null,
+          "resultType" : "promotionProductMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.portal.dao.SmsCouponHistoryDao",
+        "simpleName" : "SmsCouponHistoryDao",
+        "xmlPath" : "<root>/mall-portal/src/main/resources/dao/SmsCouponHistoryDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getCouponList", "getDetailList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.portal.dao.SmsCouponHistoryDao.getCouponList",
+          "commandType" : "SELECT",
+          "name" : "getCouponList",
+          "parameterType" : null,
+          "resultType" : "com.macro.mall.mapper.SmsCouponMapper.BaseResultMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.macro.mall.portal.dao.SmsCouponHistoryDao.getDetailList",
+          "commandType" : "SELECT",
+          "name" : "getDetailList",
+          "parameterType" : null,
+          "resultType" : "couponHistoryDetailMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.macro.mall.search.dao.EsProductDao",
+        "simpleName" : "EsProductDao",
+        "xmlPath" : "<root>/mall-search/src/main/resources/dao/EsProductDao.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "getAllEsProductList" ],
+        "statements" : [ {
+          "id" : "com.macro.mall.search.dao.EsProductDao.getAllEsProductList",
+          "commandType" : "SELECT",
+          "name" : "getAllEsProductList",
+          "parameterType" : null,
+          "resultType" : "esProductListMap",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "JPA",
+        "interfaceFqn" : "com.macro.mall.portal.repository.MemberBrandAttentionRepository",
+        "simpleName" : "MemberBrandAttentionRepository",
+        "xmlPath" : null,
+        "entityType" : "MemberBrandAttention",
+        "idType" : "String",
+        "declaredMethods" : [ "deleteAllByMemberId", "deleteByMemberIdAndBrandId", "findByMemberId", "findByMemberIdAndBrandId" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "JPA",
+        "interfaceFqn" : "com.macro.mall.portal.repository.MemberProductCollectionRepository",
+        "simpleName" : "MemberProductCollectionRepository",
+        "xmlPath" : null,
+        "entityType" : "MemberProductCollection",
+        "idType" : "String",
+        "declaredMethods" : [ "deleteAllByMemberId", "deleteByMemberIdAndProductId", "findByMemberId", "findByMemberIdAndProductId" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "JPA",
+        "interfaceFqn" : "com.macro.mall.portal.repository.MemberReadHistoryRepository",
+        "simpleName" : "MemberReadHistoryRepository",
+        "xmlPath" : null,
+        "entityType" : "MemberReadHistory",
+        "idType" : "String",
+        "declaredMethods" : [ "deleteAllByMemberId", "findByMemberIdOrderByCreateTimeDesc" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      } ]
+    }
+  }
+}

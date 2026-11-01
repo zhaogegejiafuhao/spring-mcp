@@ -1,0 +1,70 @@
+# spring-mcp 声明式扩展示例
+#
+# 放到插件目录（或用 --config 指定）即可生效，不需要写 Java、不需要重新打包。
+# 两种扩展方式：
+#   1. tools    —— 复用内建查询，只固定参数、裁剪输出
+#   2. external —— 起一个子进程，任何语言都能实现工具（需 --allow-external-commands）
+
+version: 1
+
+tools:
+  - name: list-owner-endpoints
+    title: 宠物诊所 /owners 下的端点
+    description: |
+      只列出 petclinic 工程中以 /owners 开头的端点，按 Controller 分组，每个 Controller 最多 3 条。
+
+      适用场景：只想看 OwnerController 和 PetController 的映射，不想被 /vets、/oups 干扰。
+      不适用：看全部端点用 list-controllers；查调用关系用 find-service-callers。
+    query: list-controllers
+    fixed:
+      basePathFilter: /owners
+    expose:
+      - name: projectRoot
+        description: 工程根目录；省略则用启动时配置的默认工程
+      - name: httpMethod
+        description: 只看某个 HTTP 动词，例如 GET
+    output:
+      source: endpoints
+      select: [path, httpMethods, handlerMethod, line]
+      groupBy: controllerFqn
+      sort:
+        - field: path
+      limitPerGroup: 3
+      limit: 10
+    summary: 宠物诊所 /owners 下的端点
+
+  - name: who-calls-order-repository
+    title: 谁在调用 OwnerRepository
+    description: |
+      固定查询 OwnerRepository 的直接调用点，只保留调用方与所在行。
+
+      适用场景：快速确认某个 Repository 的调用面。
+      不适用：需要完整调用链或自定义类名时用 find-service-callers。
+    query: find-service-callers
+    fixed:
+      serviceClass: OwnerRepository
+    expose:
+      - name: projectRoot
+        description: 工程根目录
+    output:
+      source: callSites
+      select: [callerType, callerMethod, line]
+      sort:
+        - field: callerType
+    summary: OwnerRepository 的直接调用点
+
+external:
+  - name: file-stats
+    title: 统计文件规模
+    description: |
+      统计工程里 .java 文件的数量与总字节数，用于快速判断工程规模。
+
+      适用场景：想知道该不该担心索引耗时。
+      不适用：需要精确的类/方法统计时用 list-controllers 等。
+    command: ["python", "stats_tool.py"]
+    cwd: .
+    timeoutMs: 8000
+    maxOutputBytes: 65536
+    expose:
+      - name: includeTests
+        description: 是否把 src/test 也算进去（true/false）

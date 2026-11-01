@@ -1,0 +1,462 @@
+{
+  "repo" : "mybatis-spring-boot",
+  "commit" : "533a3cd206d3c2165a2902395860698830c56997",
+  "stack" : "Maven 多模块 / MyBatis",
+  "tools" : {
+    "list-controllers" : {
+      "digest" : "sha256:ee1559cfdf3d38532af6c4888cf2557eeab54db7097d897dee4b9e421af90b43",
+      "arrayField" : "endpoints",
+      "size" : 2,
+      "sample" : [ {
+        "controllerFqn" : "sample.mybatis.war.controller.CityRestController",
+        "classPathRaw" : "/cities",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/cities/{state}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getCity",
+        "signature" : "getCity(String) : City",
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-war/src/main/java/sample/mybatis/war/controller/CityRestController.java",
+        "line" : 36,
+        "handlerDeclaredIn" : "sample.mybatis.war.controller.CityRestController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "sample.mybatis.web.controller.CityRestController",
+        "classPathRaw" : "/cities",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/cities/{state}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getCity",
+        "signature" : "getCity(String) : City",
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-web/src/main/java/sample/mybatis/web/controller/CityRestController.java",
+        "line" : 36,
+        "handlerDeclaredIn" : "sample.mybatis.web.controller.CityRestController",
+        "conditions" : [ ]
+      } ]
+    },
+    "list-mappers" : {
+      "digest" : "sha256:285bf715ae89ee94aee61dee459e9dc70365a54c3c72b518faa627680c9b5ed2",
+      "arrayField" : "mappers",
+      "size" : 11,
+      "sample" : [ {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.annotation.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : null,
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.annotation.mapper.CityMapper.findByState",
+          "commandType" : "SELECT",
+          "name" : "findByState",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 30
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.freemarker.legacy.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker-legacy/src/main/resources/mappers/CityMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findById", "findByName", "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.freemarker.legacy.mapper.CityMapper.findById",
+          "commandType" : "SELECT",
+          "name" : "findById",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 30
+        }, {
+          "id" : "sample.mybatis.freemarker.legacy.mapper.CityMapper.findByName",
+          "commandType" : "SELECT",
+          "name" : "findByName",
+          "parameterType" : null,
+          "resultType" : "City",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "sample.mybatis.freemarker.legacy.mapper.CityMapper.findByState",
+          "commandType" : "SELECT",
+          "name" : "findByState",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 33
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.freemarker.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker/src/main/resources/mappers/CityMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findByCountry", "findById", "findByName", "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.freemarker.mapper.CityMapper.findByCountry",
+          "commandType" : "SELECT",
+          "name" : "findByCountry",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 40
+        }, {
+          "id" : "sample.mybatis.freemarker.mapper.CityMapper.findById",
+          "commandType" : "SELECT",
+          "name" : "findById",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 32
+        }, {
+          "id" : "sample.mybatis.freemarker.mapper.CityMapper.findByName",
+          "commandType" : "SELECT",
+          "name" : "findByName",
+          "parameterType" : null,
+          "resultType" : "City",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "sample.mybatis.freemarker.mapper.CityMapper.findByState",
+          "commandType" : "SELECT",
+          "name" : "findByState",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 35
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.kotlin.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : null,
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.kotlin.mapper.CityMapper.findByState",
+          "commandType" : "SELECT",
+          "name" : "findByState",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 34
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.thymeleaf.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-thymeleaf/src/main/resources/mappers/CityMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findByCountry", "findById", "findByName", "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.thymeleaf.mapper.CityMapper.findByCountry",
+          "commandType" : "SELECT",
+          "name" : "findByCountry",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 40
+        }, {
+          "id" : "sample.mybatis.thymeleaf.mapper.CityMapper.findById",
+          "commandType" : "SELECT",
+          "name" : "findById",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 32
+        }, {
+          "id" : "sample.mybatis.thymeleaf.mapper.CityMapper.findByName",
+          "commandType" : "SELECT",
+          "name" : "findByName",
+          "parameterType" : null,
+          "resultType" : "City",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "sample.mybatis.thymeleaf.mapper.CityMapper.findByState",
+          "commandType" : "SELECT",
+          "name" : "findByState",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 35
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.velocity.legacy.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity-legacy/src/main/resources/mappers/CityMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findById", "findByName", "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.velocity.legacy.mapper.CityMapper.findById",
+          "commandType" : "SELECT",
+          "name" : "findById",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 30
+        }, {
+          "id" : "sample.mybatis.velocity.legacy.mapper.CityMapper.findByName",
+          "commandType" : "SELECT",
+          "name" : "findByName",
+          "parameterType" : null,
+          "resultType" : "City",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.velocity.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity/src/main/resources/mappers/CityMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findById", "findByName", "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.velocity.mapper.CityMapper.findById",
+          "commandType" : "SELECT",
+          "name" : "findById",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 30
+        }, {
+          "id" : "sample.mybatis.velocity.mapper.CityMapper.findByName",
+          "commandType" : "SELECT",
+          "name" : "findByName",
+          "parameterType" : null,
+          "resultType" : "City",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.war.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : null,
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.war.mapper.CityMapper.findByState",
+          "commandType" : "SELECT",
+          "name" : "findByState",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 30
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.web.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : null,
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.web.mapper.CityMapper.findByState",
+          "commandType" : "SELECT",
+          "name" : "findByState",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 30
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.xml.mapper.CityMapper",
+        "simpleName" : "CityMapper",
+        "xmlPath" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml/src/main/resources/sample/mybatis/xml/mapper/CityMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "findByState" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.xml.mapper.CityMapper.selectCityById",
+          "commandType" : "SELECT",
+          "name" : "selectCityById",
+          "parameterType" : null,
+          "resultType" : "City",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "sample.mybatis.xml.mapper.HotelMapper",
+        "simpleName" : "HotelMapper",
+        "xmlPath" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml/src/main/resources/sample/mybatis/xml/mapper/HotelMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "selectByCityId" ],
+        "statements" : [ {
+          "id" : "sample.mybatis.xml.mapper.HotelMapper.selectByCityId",
+          "commandType" : "SELECT",
+          "name" : "selectByCityId",
+          "parameterType" : null,
+          "resultType" : "Hotel",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      } ]
+    },
+    "search-by-annotation" : {
+      "digest" : "sha256:f6d257d5d21538285bfd883e059b19f54c9f56e92ff009bcc656aab10598fcc7",
+      "arrayField" : "hits",
+      "size" : 11,
+      "sample" : [ {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.annotation.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation/src/main/java/sample/mybatis/annotation/mapper/CityMapper.java",
+        "line" : 27,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.freemarker.legacy.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker-legacy/src/main/java/sample/mybatis/freemarker/legacy/mapper/CityMapper.java",
+        "line" : 27,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.freemarker.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker/src/main/java/sample/mybatis/freemarker/mapper/CityMapper.java",
+        "line" : 29,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.kotlin.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-kotlin/src/main/kotlin/sample/mybatis/kotlin/mapper/CityMapper.kt",
+        "line" : 23,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.thymeleaf.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-thymeleaf/src/main/java/sample/mybatis/thymeleaf/mapper/CityMapper.java",
+        "line" : 29,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.velocity.legacy.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity-legacy/src/main/java/sample/mybatis/velocity/legacy/mapper/CityMapper.java",
+        "line" : 27,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.velocity.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity/src/main/java/sample/mybatis/velocity/mapper/CityMapper.java",
+        "line" : 27,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.war.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-war/src/main/java/sample/mybatis/war/mapper/CityMapper.java",
+        "line" : 27,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.web.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-web/src/main/java/sample/mybatis/web/mapper/CityMapper.java",
+        "line" : 27,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.xml.mapper.CityMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml/src/main/java/sample/mybatis/xml/mapper/CityMapper.java",
+        "line" : 26,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "sample.mybatis.xml.mapper.HotelMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml/src/main/java/sample/mybatis/xml/mapper/HotelMapper.java",
+        "line" : 25,
+        "column" : 0
+      } ]
+    }
+  }
+}

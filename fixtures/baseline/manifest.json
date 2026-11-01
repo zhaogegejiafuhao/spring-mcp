@@ -1,0 +1,142 @@
+{
+  "_comment": "回归基线。commit 固定后 golden 才有可比性；改这里必须重新生成 golden。",
+  "repos": [
+    {
+      "name": "spring-petclinic",
+      "url": "https://github.com/spring-projects/spring-petclinic",
+      "commit": "500158f732419217507c7656904b8e6aa1bcc0d6",
+      "stack": "Maven 单模块",
+      "queries": {
+        "list-controllers": {},
+        "list-mappers": {},
+        "search-by-annotation": {
+          "annotation": "Component",
+          "limit": 200
+        },
+        "find-service-callers": {
+          "serviceClass": "OwnerRepository"
+        },
+        "get-file-dependencies": {
+          "file": "src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java"
+        }
+      }
+    },
+    {
+      "name": "spring-boot",
+      "url": "https://github.com/spring-projects/spring-boot",
+      "commit": "3738b8eb30f0e184a64911a9a5113d4fdbb476ed",
+      "stack": "Maven 40+ 模块",
+      "queries": {
+        "list-controllers": {},
+        "list-mappers": {},
+        "search-by-annotation": {
+          "annotation": "Component",
+          "limit": 200
+        }
+      }
+    },
+    {
+      "name": "mybatis-spring-boot",
+      "url": "https://github.com/mybatis/mybatis-spring-boot",
+      "commit": "533a3cd206d3c2165a2902395860698830c56997",
+      "stack": "Maven 多模块 / MyBatis",
+      "queries": {
+        "list-controllers": {},
+        "list-mappers": {},
+        "search-by-annotation": {
+          "annotation": "Mapper",
+          "limit": 200
+        }
+      }
+    },
+    {
+      "name": "spring-security",
+      "url": "https://github.com/spring-projects/spring-security",
+      "commit": "f97bd2483a52edeed62c0ca8b43275e4e39b6aed",
+      "stack": "Gradle 多模块",
+      "queries": {
+        "list-controllers": {},
+        "list-mappers": {},
+        "search-by-annotation": {
+          "annotation": "Component",
+          "limit": 200
+        }
+      }
+    },
+    {
+      "name": "mybatis-plus-samples",
+      "url": "https://github.com/baomidou/mybatis-plus-samples",
+      "commit": "2f143ddfcf92d0a71d1241d1bb32d7c4185a6f2e",
+      "stack": "Maven 多模块 / MyBatis-Plus",
+      "queries": {
+        "list-controllers": {},
+        "list-mappers": {},
+        "search-by-annotation": {
+          "annotation": "Mapper",
+          "limit": 200
+        }
+      }
+    },
+    {
+      "name": "mall",
+      "url": "https://github.com/macrozheng/mall",
+      "commit": "dcaa93b3150352e5044708d7211b5bed0af4509f",
+      "stack": "Maven 多模块 / MyBatis XML / Lombok",
+      "queries": {
+        "list-controllers": {},
+        "list-mappers": {},
+        "search-by-annotation": {
+          "annotation": "Data",
+          "limit": 200
+        }
+      }
+    },
+    {
+      "name": "ruoyi",
+      "url": "https://github.com/yangzongzhuan/RuoYi",
+      "commit": "9cd770d2ac839999d6a425f70f3bd2cf3a0ee5cd",
+      "stack": "Maven 多模块 / Shiro / Thymeleaf / 通配符 MapperScan",
+      "queries": {
+        "list-controllers": {},
+        "list-mappers": {},
+        "search-by-annotation": {
+          "annotation": "RequiresPermissions",
+          "limit": 300
+        }
+      }
+    },
+    {
+      "name": "mall-swarm",
+      "url": "https://github.com/macrozheng/mall-swarm",
+      "commit": "04c442fe318356bae4445a109dde7af297ce1e84",
+      "stack": "Spring Cloud Alibaba / Nacos / Gateway / Feign",
+      "queries": {
+        "list-gateway-routes": {},
+        "list-feign-clients": {},
+        "list-controllers": {},
+        "list-mappers": {}
+      }
+    },
+    {
+      "name": "kotlin-realworld",
+      "url": "https://github.com/gunkim/kotlin-realworld",
+      "commit": "cdff2188dfa636c2da0e90dda211358328ac0bca",
+      "stack": "纯 Kotlin / Gradle 多模块 / Spring MVC / JPA / Security",
+      "queries": {
+        "list-controllers": {},
+        "list-mappers": {},
+        "search-by-annotation": {
+          "annotation": "Service",
+          "limit": 200
+        },
+        "search-symbol": {
+          "name": "Article",
+          "limit": 60
+        },
+        "find-implementations": {
+          "type": "io.github.gunkim.realworld.domain.auth.service.UserPasswordService"
+        }
+      }
+    }
+  ]
+}

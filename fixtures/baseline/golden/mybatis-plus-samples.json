@@ -1,0 +1,875 @@
+{
+  "repo" : "mybatis-plus-samples",
+  "commit" : "2f143ddfcf92d0a71d1241d1bb32d7c4185a6f2e",
+  "stack" : "Maven 多模块 / MyBatis-Plus",
+  "tools" : {
+    "list-controllers" : {
+      "digest" : "sha256:2bfd3e7264baef237fafc1f80c0801424635823de4cad52844f16ef5fd91d749",
+      "arrayField" : "endpoints",
+      "size" : 1,
+      "sample" : [ {
+        "controllerFqn" : "com.baomidou.mybatisplus.samples.assembly.controller.UserController",
+        "classPathRaw" : "/",
+        "classPathResolved" : true,
+        "httpMethods" : [ "ANY" ],
+        "path" : "/test",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "test",
+        "signature" : "test() : String",
+        "file" : "<root>/mybatis-plus-sample-assembly/src/main/java/com/baomidou/mybatisplus/samples/assembly/controller/UserController.java",
+        "line" : 27,
+        "handlerDeclaredIn" : "com.baomidou.mybatisplus.samples.assembly.controller.UserController",
+        "conditions" : [ ]
+      } ]
+    },
+    "list-mappers" : {
+      "digest" : "sha256:72be6927b03b691ce7fdf04b727c686556c2d7853ae52ea5ca40e34038b3015c",
+      "arrayField" : "mappers",
+      "size" : 39,
+      "sample" : [ {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.no.spring.mapper.PersonMapper",
+        "simpleName" : "PersonMapper",
+        "xmlPath" : null,
+        "entityType" : "Person",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.ar.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.assembly.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.association.mapper.CompanyMapper",
+        "simpleName" : "CompanyMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-association/src/main/resources/mapper/CompanyMapper.xml",
+        "entityType" : "Company",
+        "idType" : null,
+        "declaredMethods" : [ "testResultMapCollection" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.association.mapper.CompanyMapper.testResultMapCollection",
+          "commandType" : "SELECT",
+          "name" : "testResultMapCollection",
+          "parameterType" : null,
+          "resultType" : "companyUser",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.association.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-association/src/main/resources/mapper/UserMapper.xml",
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "selectUserPage" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.association.mapper.UserMapper.Base_Column_List",
+          "commandType" : "SQL",
+          "name" : "Base_Column_List",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.association.mapper.UserMapper.selectUserPage",
+          "commandType" : "SELECT",
+          "name" : "selectUserPage",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.association.entity.User",
+          "includes" : [ "Base_Column_List" ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.crud.mapper.User2Mapper",
+        "simpleName" : "User2Mapper",
+        "xmlPath" : null,
+        "entityType" : "User2",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.crud.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.deluxe.config.MyBaseMapper",
+        "simpleName" : "MyBaseMapper",
+        "xmlPath" : null,
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "deleteAll", "myInsertAll", "mysqlInsertAllBatch" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.deluxe.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-deluxe/src/main/resources/mapper/UserMapper.xml",
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "customerSqlSegment", "findList", "selectUserPage" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.deluxe.mapper.UserMapper.customerSqlSegment",
+          "commandType" : "SELECT",
+          "name" : "customerSqlSegment",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.deluxe.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.deluxe.mapper.UserMapper.findList",
+          "commandType" : "SELECT",
+          "name" : "findList",
+          "parameterType" : "com.baomidou.mybatisplus.samples.deluxe.entity.User",
+          "resultType" : "com.baomidou.mybatisplus.samples.deluxe.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.deluxe.mapper.UserMapper.selectUserPage",
+          "commandType" : "SELECT",
+          "name" : "selectUserPage",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.deluxe.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.dytablename.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.enums.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-enum/src/main/resources/mapper/UserMapper.xml",
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "selectLinkById" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.enums.mapper.UserMapper.selectLinkById",
+          "commandType" : "SELECT",
+          "name" : "selectLinkById",
+          "parameterType" : null,
+          "resultType" : "c_r",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.jsonb.mapper.TestDataMapper",
+        "simpleName" : "TestDataMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-jsonb/src/main/resources/mapper/TestDataMapper.xml",
+        "entityType" : "TestData",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.kotlin.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "user" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.logic.mapper.CommonMapper",
+        "simpleName" : "CommonMapper",
+        "xmlPath" : null,
+        "entityType" : "Common",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.logic.mapper.Null1Mapper",
+        "simpleName" : "Null1Mapper",
+        "xmlPath" : null,
+        "entityType" : "Null1",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.logic.mapper.Null2Mapper",
+        "simpleName" : "Null2Mapper",
+        "xmlPath" : null,
+        "entityType" : "Null2",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.mysql.config.MyBaseMapper",
+        "simpleName" : "MyBaseMapper",
+        "xmlPath" : null,
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "alwaysUpdateSomeColumnById", "insertBatchSomeColumn", "mysqlInsertAllBatch" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.mysql.mapper.TestDataMapper",
+        "simpleName" : "TestDataMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-mysql/src/main/resources/mapper/TestDataMapper.xml",
+        "entityType" : "TestData",
+        "idType" : null,
+        "declaredMethods" : [ "getAllNoTenant", "getById", "getByWrapper", "myPage" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.mysql.mapper.TestDataMapper.getAllNoTenant",
+          "commandType" : "SELECT",
+          "name" : "getAllNoTenant",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 16
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.mysql.mapper.TestDataMapper.getById",
+          "commandType" : "SELECT",
+          "name" : "getById",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 22
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.mysql.mapper.TestDataMapper.getByWrapper",
+          "commandType" : "SELECT",
+          "name" : "getByWrapper",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 19
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.mysql.mapper.TestDataMapper.myPage",
+          "commandType" : "SELECT",
+          "name" : "myPage",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 25
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.optlocker.mapper.PersonMapper",
+        "simpleName" : "PersonMapper",
+        "xmlPath" : null,
+        "entityType" : "Person",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.optlocker.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.pagehelper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-pagination/src/main/resources/mapper/UserMapper.xml",
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "iPageSelect", "myPageSelect", "mySelectMap", "mySelectPage", "mySelectPageMap", "rowBoundList", "userChildrenPage" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper.iPageSelect",
+          "commandType" : "SELECT",
+          "name" : "iPageSelect",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.pagination.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper.myPageSelect",
+          "commandType" : "SELECT",
+          "name" : "myPageSelect",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.pagination.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper.mySelectMap",
+          "commandType" : "SELECT",
+          "name" : "mySelectMap",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.pagination.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper.mySelectPage",
+          "commandType" : "SELECT",
+          "name" : "mySelectPage",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.pagination.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper.mySelectPageMap",
+          "commandType" : "SELECT",
+          "name" : "mySelectPageMap",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.pagination.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper.rowBoundList",
+          "commandType" : "SELECT",
+          "name" : "rowBoundList",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.pagination.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper.userChildrenPage",
+          "commandType" : "SELECT",
+          "name" : "userChildrenPage",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 39
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.quickstart.mapper.SysUserMapper",
+        "simpleName" : "SysUserMapper",
+        "xmlPath" : null,
+        "entityType" : "SysUser",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.quickstart.springmvc.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-quickstart-springmvc/src/main/resources/mappers/UserMapper.xml",
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "selectMaxAge" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.quickstart.springmvc.mapper.UserMapper.selectMaxAge",
+          "commandType" : "SELECT",
+          "name" : "selectMaxAge",
+          "parameterType" : null,
+          "resultType" : "java.lang.Integer",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.resultmap.mapper.ChildMapper",
+        "simpleName" : "ChildMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-resultmap/src/main/resources/mapper/ChildMapper.xml",
+        "entityType" : "Child",
+        "idType" : null,
+        "declaredMethods" : [ "selectByLaoHanId", "selectByLaoMaId", "selectLinkById" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.resultmap.mapper.ChildMapper.selectByLaoHanId",
+          "commandType" : "SELECT",
+          "name" : "selectByLaoHanId",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 17
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.resultmap.mapper.ChildMapper.selectByLaoMaId",
+          "commandType" : "SELECT",
+          "name" : "selectByLaoMaId",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 20
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.resultmap.mapper.ChildMapper.selectLinkById",
+          "commandType" : "SELECT",
+          "name" : "selectLinkById",
+          "parameterType" : null,
+          "resultType" : "c_r",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.resultmap.mapper.ManMapper",
+        "simpleName" : "ManMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-resultmap/src/main/resources/mapper/ManMapper.xml",
+        "entityType" : "Man",
+        "idType" : null,
+        "declaredMethods" : [ "selectLinkById" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.resultmap.mapper.ManMapper.selectLinkById",
+          "commandType" : "SELECT",
+          "name" : "selectLinkById",
+          "parameterType" : null,
+          "resultType" : "m_r",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.resultmap.mapper.WomanMapper",
+        "simpleName" : "WomanMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-resultmap/src/main/resources/mapper/WomanMapper.xml",
+        "entityType" : "Woman",
+        "idType" : null,
+        "declaredMethods" : [ "selectLinkById" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.resultmap.mapper.WomanMapper.selectLinkById",
+          "commandType" : "SELECT",
+          "name" : "selectLinkById",
+          "parameterType" : null,
+          "resultType" : "w_r",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.sequence.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.sharding.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "selectById", "selectFromInventory" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.sharding.mapper.UserMapper.selectFromInventory",
+          "commandType" : "SELECT",
+          "name" : "selectFromInventory",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 17
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.tenant.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-tenant/src/main/java/com/baomidou/mybatisplus/samples/tenant/mapper/UserMapper.xml",
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "getAddrAndUser", "getUserAndAddr", "myCount" ],
+        "statements" : [ {
+          "id" : "com.baomidou.mybatisplus.samples.tenant.mapper.UserMapper.getAddrAndUser",
+          "commandType" : "SELECT",
+          "name" : "getAddrAndUser",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.tenant.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.tenant.mapper.UserMapper.getUserAndAddr",
+          "commandType" : "SELECT",
+          "name" : "getUserAndAddr",
+          "parameterType" : null,
+          "resultType" : "com.baomidou.mybatisplus.samples.tenant.entity.User",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.mybatisplus.samples.tenant.mapper.UserMapper.myCount",
+          "commandType" : "SELECT",
+          "name" : "myCount",
+          "parameterType" : null,
+          "resultType" : "java.lang.Integer",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.typehandler.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.wrapper.mapper.RoleMapper",
+        "simpleName" : "RoleMapper",
+        "xmlPath" : null,
+        "entityType" : "Role",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.mybatisplus.samples.wrapper.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.samples.execution.mapper.StudentMapper",
+        "simpleName" : "StudentMapper",
+        "xmlPath" : null,
+        "entityType" : "Student",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.samples.injector.base.MyBaseMapper",
+        "simpleName" : "MyBaseMapper",
+        "xmlPath" : null,
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "alwaysUpdateSomeColumnById", "deleteAll", "deleteByIdWithFill", "findOne", "insertBatchSomeColumn", "lambdaQueryChain", "lambdaUpdateChain", "queryChain", "updateChain" ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.samples.injector.mapper.StudentMapper",
+        "simpleName" : "StudentMapper",
+        "xmlPath" : null,
+        "entityType" : "Student",
+        "idType" : null,
+        "declaredMethods" : [ "select" ],
+        "statements" : [ {
+          "id" : "com.baomidou.samples.injector.mapper.StudentMapper.select",
+          "commandType" : "SELECT",
+          "name" : "select",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 18
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.samples.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : null,
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.samples.metainfo.mapper.UserMapper",
+        "simpleName" : "UserMapper",
+        "xmlPath" : "<root>/mybatis-plus-sample-auto-fill-metainfo/src/main/resources/mapper/UserMapper.xml",
+        "entityType" : "User",
+        "idType" : null,
+        "declaredMethods" : [ "testMyMethod1", "testMyMethod2", "testMyMethod3", "testMyMethod4", "testMyMethod5" ],
+        "statements" : [ {
+          "id" : "com.baomidou.samples.metainfo.mapper.UserMapper.testMyMethod1",
+          "commandType" : "INSERT",
+          "name" : "testMyMethod1",
+          "parameterType" : "com.baomidou.samples.metainfo.entity.User",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.samples.metainfo.mapper.UserMapper.testMyMethod2",
+          "commandType" : "INSERT",
+          "name" : "testMyMethod2",
+          "parameterType" : "com.baomidou.samples.metainfo.entity.User",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.samples.metainfo.mapper.UserMapper.testMyMethod3",
+          "commandType" : "INSERT",
+          "name" : "testMyMethod3",
+          "parameterType" : "com.baomidou.samples.metainfo.entity.User",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.samples.metainfo.mapper.UserMapper.testMyMethod4",
+          "commandType" : "INSERT",
+          "name" : "testMyMethod4",
+          "parameterType" : "com.baomidou.samples.metainfo.entity.User",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.baomidou.samples.metainfo.mapper.UserMapper.testMyMethod5",
+          "commandType" : "INSERT",
+          "name" : "testMyMethod5",
+          "parameterType" : "com.baomidou.samples.metainfo.entity.User",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.baomidou.samples.performance.mapper.StudentMapper",
+        "simpleName" : "StudentMapper",
+        "xmlPath" : null,
+        "entityType" : "Student",
+        "idType" : null,
+        "declaredMethods" : [ ],
+        "statements" : [ ],
+        "issues" : [ ]
+      } ]
+    },
+    "search-by-annotation" : {
+      "digest" : "sha256:4dc0947bcb718e326821bf4351469a8d8c0795fa124e04f135f4a214861539e3",
+      "arrayField" : "hits",
+      "size" : 14,
+      "sample" : [ {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.mybatisplus.samples.assembly.mapper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-assembly/src/main/java/com/baomidou/mybatisplus/samples/assembly/mapper/UserMapper.java",
+        "line" : 10,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.mybatisplus.samples.association.mapper.CompanyMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-association/src/main/java/com/baomidou/mybatisplus/samples/association/mapper/CompanyMapper.java",
+        "line" : 7,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.mybatisplus.samples.association.mapper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-association/src/main/java/com/baomidou/mybatisplus/samples/association/mapper/UserMapper.java",
+        "line" : 12,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.mybatisplus.samples.jsonb.mapper.TestDataMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-jsonb/src/main/java/com/baomidou/mybatisplus/samples/jsonb/mapper/TestDataMapper.java",
+        "line" : 7,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.mybatisplus.samples.kotlin.mapper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-kotlin/src/main/kotlin/com/baomidou/mybatisplus/samples/kotlin/mapper/UserMapper.kt",
+        "line" : 10,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.mybatisplus.samples.pagehelper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-pagehelper/src/main/java/com/baomidou/mybatisplus/samples/pagehelper/UserMapper.java",
+        "line" : 11,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.mybatisplus.samples.pagination.mapper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-pagination/src/main/java/com/baomidou/mybatisplus/samples/pagination/mapper/UserMapper.java",
+        "line" : 22,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.mybatisplus.samples.sharding.mapper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-sharding/src/main/java/com/baomidou/mybatisplus/samples/sharding/mapper/UserMapper.java",
+        "line" : 10,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.samples.execution.mapper.StudentMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-execution-analysis/src/main/java/com/baomidou/samples/execution/mapper/StudentMapper.java",
+        "line" : 12,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.samples.injector.mapper.StudentMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-sql-injector/src/main/java/com/baomidou/samples/injector/mapper/StudentMapper.java",
+        "line" : 15,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.samples.mapper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-id-generator/src/main/java/com/baomidou/samples/mapper/UserMapper.java",
+        "line" : 10,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.samples.mapper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-id-string/src/main/java/com/baomidou/samples/mapper/UserMapper.java",
+        "line" : 7,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.samples.metainfo.mapper.UserMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-auto-fill-metainfo/src/main/java/com/baomidou/samples/metainfo/mapper/UserMapper.java",
+        "line" : 14,
+        "column" : 0
+      }, {
+        "annotationFqn" : "Mapper",
+        "annotationSimpleName" : "Mapper",
+        "elementKind" : "TYPE",
+        "ownerType" : "com.baomidou.samples.performance.mapper.StudentMapper",
+        "memberName" : null,
+        "signature" : null,
+        "file" : "<root>/mybatis-plus-sample-performance-analysis/src/main/java/com/baomidou/samples/performance/mapper/StudentMapper.java",
+        "line" : 12,
+        "column" : 0
+      } ]
+    }
+  }
+}

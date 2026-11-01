@@ -1,0 +1,136 @@
+name: CI
+
+# 三件事各自独立，因为它们失败的含义完全不同：
+#   build     代码本身（含协议级集成测试、fat jar 的 ServiceLoader 与退出行为）
+#   baseline  分析结果有没有变（4 个真实仓库，跑得慢、要联网，所以单独一个作业）
+#   windows   Windows 特有的路径/换行/长路径问题（本工具的主要使用平台）
+on:
+  push:
+    # 不限定分支名：默认分支可能叫 main 也可能叫 master，写死一个会让另一个静默不跑
+    paths-ignore:
+      - '**.md'
+      - '.workbuddy/**'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 构建与测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          # 按 pom.xml 的哈希缓存 ~/.m2/repository，避免每次重下 40 MB 依赖
+          cache: maven
+
+      - name: 准备 wrapper 权限
+        # 检出后 exec 位若丢失（例如从 zip 导入的仓库），./mvnw 会 Permission denied
+        run: chmod +x mvnw spring-mcp.sh
+
+      - name: 构建 + 全量测试
+        # pipefail 必须有：`mvn | tee` 的退出码是 tee 的，构建失败会被吞掉
+        run: |
+          set -o pipefail
+          ./mvnw -B -ntp clean verify | tee build.log
+
+      - name: 零编译警告门禁
+        # 这个仓库的约定是零警告：新增的 deprecation / unchecked 往往正是 SDK 变更的早期信号，
+        # 混在几千行日志里没人会看见，所以让它变成红灯。
+        run: |
+          if grep -E '^\[WARNING\].*\.java' build.log; then
+            echo "::error::存在编译警告，本仓库要求零警告"
+            exit 1
+          fi
+          echo "无编译警告"
+
+      - name: fat jar 协议冒烟
+        # 覆盖 shade 才能暴露的两件事：META-INF/services 被合并后 JSON mapper 仍能被 ServiceLoader
+        # 找到；客户端关闭 stdin 后进程自行退出（否则客户端每结束一个会话就漏一个 JVM）。
+        run: |
+          printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"ci","version":"1"}}}' \
+            | timeout 90 java -jar target/spring-mcp-all.jar --index-cache=off > init.json
+          jq -e '.result.serverInfo.name == "spring-mcp"' init.json
+          echo "serverInfo: $(jq -r '.result.serverInfo.name + " " + .result.serverInfo.version' init.json)"
+
+      - name: 上传测试报告
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+
+      - name: 上传 jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: spring-mcp-all-jar
+          path: target/spring-mcp-all.jar
+          retention-days: 14
+
+  windows:
+    name: Windows 冒烟
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: 全量测试
+        # 基线用例由 SPRING_MCP_BASELINE 门控，这里不设变量，它会自行跳过
+        run: .\mvnw.cmd -B -ntp clean verify
+
+      - name: 启动脚本冒烟
+        # .cmd 必须是 CRLF + 纯 ASCII，否则 cmd.exe 会把脚本拆碎；这个步骤同时验证了这一点
+        shell: cmd
+        run: spring-mcp.cmd --dev index-info --root fixtures\demo-web | findstr /C:"fileCount"
+
+  baseline:
+    name: 回归基线（4 个真实仓库）
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: 恢复基线仓库克隆
+        # 4 个仓库共约 150 MB（spring-boot 与 spring-security 占绝大部分）。key 里放 manifest 的哈希：
+        # manifest 换了 commit，缓存自然失效并重新克隆。
+        uses: actions/cache@v4
+        with:
+          path: .baseline
+          key: baseline-v1-${{ runner.os }}-${{ hashFiles('fixtures/baseline/manifest.json') }}
+          restore-keys: |
+            baseline-v1-${{ runner.os }}-
+
+      - name: 基线比对
+        env:
+          SPRING_MCP_BASELINE: 'true'
+        run: |
+          chmod +x mvnw
+          ./mvnw -B -ntp test -Dtest=BaselineTest -DfailIfNoTests=false
+
+      - name: 上传差异报告
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baseline-reports
+          path: target/surefire-reports/

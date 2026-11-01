@@ -1,0 +1,2869 @@
+{
+  "repo" : "ruoyi",
+  "commit" : "9cd770d2ac839999d6a425f70f3bd2cf3a0ee5cd",
+  "stack" : "Maven 多模块 / Shiro / Thymeleaf / 通配符 MapperScan",
+  "tools" : {
+    "list-controllers" : {
+      "digest" : "sha256:86be13d6ec4480bfb15e5f33ddb651934f3386fbc59beffa228034af9ab11505",
+      "arrayField" : "endpoints",
+      "size" : 306,
+      "sample" : [ {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "gen",
+        "signature" : "gen() : String",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 58,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen/batchGenCode",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "batchGenCode",
+        "signature" : "batchGenCode(HttpServletResponse, String) : void",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 287,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen/createTable",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "createTable",
+        "signature" : "createTable() : String",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 119,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen/download/{tableName}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "download",
+        "signature" : "download(HttpServletResponse, String) : void",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 245,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen/edit/{tableId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "edit",
+        "signature" : "edit(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 145,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen/genCode/{tableName}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "genCode",
+        "signature" : "genCode(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 257,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen/importTable",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "importTable",
+        "signature" : "importTable() : String",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 109,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen/preview/{tableId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "preview",
+        "signature" : "preview(Long) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 233,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/gen/synchDb/{tableName}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "synchDb",
+        "signature" : "synchDb(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 274,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/tool/gen/column/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "columnList",
+        "signature" : "columnList(GenTableColumn) : TableDataInfo",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 94,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/tool/gen/createTable",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "create",
+        "signature" : "create(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 195,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/tool/gen/db/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "dataList",
+        "signature" : "dataList(GenTable) : TableDataInfo",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 81,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/tool/gen/edit",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "editSave",
+        "signature" : "editSave(GenTable) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 174,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/tool/gen/importTable",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "importTableSave",
+        "signature" : "importTableSave(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 128,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/tool/gen/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "genList",
+        "signature" : "genList(GenTable) : TableDataInfo",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 68,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.generator.controller.GenController",
+        "classPathRaw" : "/tool/gen",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/tool/gen/remove",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "remove",
+        "signature" : "remove(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 185,
+        "handlerDeclaredIn" : "com.ruoyi.generator.controller.GenController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.quartz.controller.SysJobController",
+        "classPathRaw" : "/monitor/job",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/monitor/job",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "job",
+        "signature" : "job() : String",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 44,
+        "handlerDeclaredIn" : "com.ruoyi.quartz.controller.SysJobController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.quartz.controller.SysJobController",
+        "classPathRaw" : "/monitor/job",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/monitor/job/add",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "add",
+        "signature" : "add() : String",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 121,
+        "handlerDeclaredIn" : "com.ruoyi.quartz.controller.SysJobController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.quartz.controller.SysJobController",
+        "classPathRaw" : "/monitor/job",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/monitor/job/cron",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "cron",
+        "signature" : "cron() : String",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 225,
+        "handlerDeclaredIn" : "com.ruoyi.quartz.controller.SysJobController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.quartz.controller.SysJobController",
+        "classPathRaw" : "/monitor/job",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/monitor/job/detail/{jobId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "detail",
+        "signature" : "detail(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 82,
+        "handlerDeclaredIn" : "com.ruoyi.quartz.controller.SysJobController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/system/user/view/{userId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "view",
+        "signature" : "view(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 173,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/add",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "addSave",
+        "signature" : "addSave(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 128,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/authRole/insertAuthRole",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "insertAuthRole",
+        "signature" : "insertAuthRole(Long, Long[]) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 263,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/changeStatus",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "changeStatus",
+        "signature" : "changeStatus(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 322,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/checkEmailUnique",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "checkEmailUnique",
+        "signature" : "checkEmailUnique(SysUser) : boolean",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 312,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/checkLoginNameUnique",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "checkLoginNameUnique",
+        "signature" : "checkLoginNameUnique(SysUser) : boolean",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 292,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/checkPhoneUnique",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "checkPhoneUnique",
+        "signature" : "checkPhoneUnique(SysUser) : boolean",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 302,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/edit",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "editSave",
+        "signature" : "editSave(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 187,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/export",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "export",
+        "signature" : "export(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 81,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/importData",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "importData",
+        "signature" : "importData(MultipartFile, boolean) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 92,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "list",
+        "signature" : "list(SysUser) : TableDataInfo",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 71,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/remove",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "remove",
+        "signature" : "remove(String) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 276,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.system.SysUserController",
+        "classPathRaw" : "/system/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/system/user/resetPwd",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "resetPwdSave",
+        "signature" : "resetPwdSave(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 223,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.system.SysUserController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.tool.BuildController",
+        "classPathRaw" : "/tool/build",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/build",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "build",
+        "signature" : "build() : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/BuildController.java",
+        "line" : 20,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.tool.BuildController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.tool.SwaggerController",
+        "classPathRaw" : "/tool/swagger",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/tool/swagger",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "index",
+        "signature" : "index() : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/SwaggerController.java",
+        "line" : 18,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.tool.SwaggerController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.tool.TestController",
+        "classPathRaw" : "/test/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "DELETE" ],
+        "path" : "/test/user/{userId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "delete",
+        "signature" : "delete(Integer) : R<String>",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/TestController.java",
+        "line" : 91,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.tool.TestController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.tool.TestController",
+        "classPathRaw" : "/test/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/test/user/list",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "userList",
+        "signature" : "userList() : R<List<UserEntity>>",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/TestController.java",
+        "line" : 38,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.tool.TestController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.tool.TestController",
+        "classPathRaw" : "/test/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "GET" ],
+        "path" : "/test/user/{userId}",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "getUser",
+        "signature" : "getUser(Integer) : R<UserEntity>",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/TestController.java",
+        "line" : 46,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.tool.TestController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.tool.TestController",
+        "classPathRaw" : "/test/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "POST" ],
+        "path" : "/test/user/save",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "save",
+        "signature" : "save(UserEntity) : R<String>",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/TestController.java",
+        "line" : 61,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.tool.TestController",
+        "conditions" : [ ]
+      }, {
+        "controllerFqn" : "com.ruoyi.web.controller.tool.TestController",
+        "classPathRaw" : "/test/user",
+        "classPathResolved" : true,
+        "httpMethods" : [ "PUT" ],
+        "path" : "/test/user/update",
+        "pathResolved" : true,
+        "unresolvedReason" : null,
+        "handlerMethod" : "update",
+        "signature" : "update(UserEntity) : R<String>",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/TestController.java",
+        "line" : 73,
+        "handlerDeclaredIn" : "com.ruoyi.web.controller.tool.TestController",
+        "conditions" : [ ]
+      } ]
+    },
+    "list-mappers" : {
+      "digest" : "sha256:48385c7ec8f23a3c7d22d81d9cf9b2ecbdb1af2cd0695c1000b71bc79c5f5337",
+      "arrayField" : "mappers",
+      "size" : 21,
+      "sample" : [ {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.generator.mapper.GenTableColumnMapper",
+        "simpleName" : "GenTableColumnMapper",
+        "xmlPath" : "<root>/ruoyi-generator/src/main/resources/mapper/generator/GenTableColumnMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "deleteGenTableColumnByIds", "deleteGenTableColumns", "insertGenTableColumn", "selectDbTableColumnsByName", "selectGenTableColumnListByTableId", "updateGenTableColumn" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.generator.mapper.GenTableColumnMapper.deleteGenTableColumnByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteGenTableColumnByIds",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableColumnMapper.deleteGenTableColumns",
+          "commandType" : "DELETE",
+          "name" : "deleteGenTableColumns",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableColumnMapper.insertGenTableColumn",
+          "commandType" : "INSERT",
+          "name" : "insertGenTableColumn",
+          "parameterType" : "GenTableColumn",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableColumnMapper.selectDbTableColumnsByName",
+          "commandType" : "SELECT",
+          "name" : "selectDbTableColumnsByName",
+          "parameterType" : "String",
+          "resultType" : "GenTableColumnResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableColumnMapper.selectGenTableColumnListByTableId",
+          "commandType" : "SELECT",
+          "name" : "selectGenTableColumnListByTableId",
+          "parameterType" : "GenTableColumn",
+          "resultType" : "GenTableColumnResult",
+          "includes" : [ "selectGenTableColumnVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableColumnMapper.selectGenTableColumnVo",
+          "commandType" : "SQL",
+          "name" : "selectGenTableColumnVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableColumnMapper.updateGenTableColumn",
+          "commandType" : "UPDATE",
+          "name" : "updateGenTableColumn",
+          "parameterType" : "GenTableColumn",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.generator.mapper.GenTableMapper",
+        "simpleName" : "GenTableMapper",
+        "xmlPath" : "<root>/ruoyi-generator/src/main/resources/mapper/generator/GenTableMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "createTable", "deleteGenTableByIds", "insertGenTable", "selectDbTableList", "selectDbTableListByNames", "selectGenTableAll", "selectGenTableById", "selectGenTableByName", "selectGenTableList", "updateGenTable" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.createTable",
+          "commandType" : "UPDATE",
+          "name" : "createTable",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.deleteGenTableByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteGenTableByIds",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.insertGenTable",
+          "commandType" : "INSERT",
+          "name" : "insertGenTable",
+          "parameterType" : "GenTable",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.selectDbTableList",
+          "commandType" : "SELECT",
+          "name" : "selectDbTableList",
+          "parameterType" : "GenTable",
+          "resultType" : "GenTableResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.selectDbTableListByNames",
+          "commandType" : "SELECT",
+          "name" : "selectDbTableListByNames",
+          "parameterType" : null,
+          "resultType" : "GenTableResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.selectGenTableAll",
+          "commandType" : "SELECT",
+          "name" : "selectGenTableAll",
+          "parameterType" : "String",
+          "resultType" : "GenTableResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.selectGenTableById",
+          "commandType" : "SELECT",
+          "name" : "selectGenTableById",
+          "parameterType" : "Long",
+          "resultType" : "GenTableResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.selectGenTableByName",
+          "commandType" : "SELECT",
+          "name" : "selectGenTableByName",
+          "parameterType" : "String",
+          "resultType" : "GenTableResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.selectGenTableList",
+          "commandType" : "SELECT",
+          "name" : "selectGenTableList",
+          "parameterType" : "GenTable",
+          "resultType" : "GenTableResult",
+          "includes" : [ "selectGenTableVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.selectGenTableVo",
+          "commandType" : "SQL",
+          "name" : "selectGenTableVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.selectTableByName",
+          "commandType" : "SELECT",
+          "name" : "selectTableByName",
+          "parameterType" : "String",
+          "resultType" : "GenTableResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.generator.mapper.GenTableMapper.updateGenTable",
+          "commandType" : "UPDATE",
+          "name" : "updateGenTable",
+          "parameterType" : "GenTable",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.quartz.mapper.SysJobLogMapper",
+        "simpleName" : "SysJobLogMapper",
+        "xmlPath" : "<root>/ruoyi-quartz/src/main/resources/mapper/quartz/SysJobLogMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "cleanJobLog", "deleteJobLogById", "deleteJobLogByIds", "insertJobLog", "selectJobLogAll", "selectJobLogById", "selectJobLogList" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.quartz.mapper.SysJobLogMapper.cleanJobLog",
+          "commandType" : "UPDATE",
+          "name" : "cleanJobLog",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobLogMapper.deleteJobLogById",
+          "commandType" : "DELETE",
+          "name" : "deleteJobLogById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobLogMapper.deleteJobLogByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteJobLogByIds",
+          "parameterType" : "String",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobLogMapper.insertJobLog",
+          "commandType" : "INSERT",
+          "name" : "insertJobLog",
+          "parameterType" : "SysJobLog",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobLogMapper.selectJobLogAll",
+          "commandType" : "SELECT",
+          "name" : "selectJobLogAll",
+          "parameterType" : null,
+          "resultType" : "SysJobLogResult",
+          "includes" : [ "selectJobLogVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobLogMapper.selectJobLogById",
+          "commandType" : "SELECT",
+          "name" : "selectJobLogById",
+          "parameterType" : "Long",
+          "resultType" : "SysJobLogResult",
+          "includes" : [ "selectJobLogVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobLogMapper.selectJobLogList",
+          "commandType" : "SELECT",
+          "name" : "selectJobLogList",
+          "parameterType" : "SysJobLog",
+          "resultType" : "SysJobLogResult",
+          "includes" : [ "selectJobLogVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobLogMapper.selectJobLogVo",
+          "commandType" : "SQL",
+          "name" : "selectJobLogVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.quartz.mapper.SysJobMapper",
+        "simpleName" : "SysJobMapper",
+        "xmlPath" : "<root>/ruoyi-quartz/src/main/resources/mapper/quartz/SysJobMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "deleteJobById", "deleteJobByIds", "insertJob", "selectJobAll", "selectJobById", "selectJobList", "updateJob" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.quartz.mapper.SysJobMapper.deleteJobById",
+          "commandType" : "DELETE",
+          "name" : "deleteJobById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobMapper.deleteJobByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteJobByIds",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobMapper.insertJob",
+          "commandType" : "INSERT",
+          "name" : "insertJob",
+          "parameterType" : "SysJob",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobMapper.selectJobAll",
+          "commandType" : "SELECT",
+          "name" : "selectJobAll",
+          "parameterType" : null,
+          "resultType" : "SysJobResult",
+          "includes" : [ "selectJobVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobMapper.selectJobById",
+          "commandType" : "SELECT",
+          "name" : "selectJobById",
+          "parameterType" : "Long",
+          "resultType" : "SysJobResult",
+          "includes" : [ "selectJobVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobMapper.selectJobList",
+          "commandType" : "SELECT",
+          "name" : "selectJobList",
+          "parameterType" : "SysJob",
+          "resultType" : "SysJobResult",
+          "includes" : [ "selectJobVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobMapper.selectJobVo",
+          "commandType" : "SQL",
+          "name" : "selectJobVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.quartz.mapper.SysJobMapper.updateJob",
+          "commandType" : "UPDATE",
+          "name" : "updateJob",
+          "parameterType" : "SysJob",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysConfigMapper",
+        "simpleName" : "SysConfigMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysConfigMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "checkConfigKeyUnique", "deleteConfigById", "deleteConfigByIds", "insertConfig", "selectConfig", "selectConfigById", "selectConfigList", "updateConfig" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.checkConfigKeyUnique",
+          "commandType" : "SELECT",
+          "name" : "checkConfigKeyUnique",
+          "parameterType" : "String",
+          "resultType" : "SysConfigResult",
+          "includes" : [ "selectConfigVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.deleteConfigById",
+          "commandType" : "DELETE",
+          "name" : "deleteConfigById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.deleteConfigByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteConfigByIds",
+          "parameterType" : "String",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.insertConfig",
+          "commandType" : "INSERT",
+          "name" : "insertConfig",
+          "parameterType" : "SysConfig",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.selectConfig",
+          "commandType" : "SELECT",
+          "name" : "selectConfig",
+          "parameterType" : "SysConfig",
+          "resultType" : "SysConfigResult",
+          "includes" : [ "selectConfigVo", "sqlwhereSearch" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.selectConfigById",
+          "commandType" : "SELECT",
+          "name" : "selectConfigById",
+          "parameterType" : "Long",
+          "resultType" : "SysConfigResult",
+          "includes" : [ "selectConfigVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.selectConfigList",
+          "commandType" : "SELECT",
+          "name" : "selectConfigList",
+          "parameterType" : "SysConfig",
+          "resultType" : "SysConfigResult",
+          "includes" : [ "selectConfigVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.selectConfigVo",
+          "commandType" : "SQL",
+          "name" : "selectConfigVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.sqlwhereSearch",
+          "commandType" : "SQL",
+          "name" : "sqlwhereSearch",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysConfigMapper.updateConfig",
+          "commandType" : "UPDATE",
+          "name" : "updateConfig",
+          "parameterType" : "SysConfig",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysDeptMapper",
+        "simpleName" : "SysDeptMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysDeptMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "checkDeptExistUser", "checkDeptNameUnique", "deleteDeptById", "insertDept", "selectChildrenDeptById", "selectDeptById", "selectDeptCount", "selectDeptList", "selectNormalChildrenDeptById", "selectRoleDeptTree", "updateDept", "updateDeptChildren", "updateDeptSort", "updateDeptStatusNormal" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.checkDeptExistUser",
+          "commandType" : "SELECT",
+          "name" : "checkDeptExistUser",
+          "parameterType" : "Long",
+          "resultType" : "int",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.checkDeptNameUnique",
+          "commandType" : "SELECT",
+          "name" : "checkDeptNameUnique",
+          "parameterType" : null,
+          "resultType" : "SysDeptResult",
+          "includes" : [ "selectDeptVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.deleteDeptById",
+          "commandType" : "DELETE",
+          "name" : "deleteDeptById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.insertDept",
+          "commandType" : "INSERT",
+          "name" : "insertDept",
+          "parameterType" : "SysDept",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.selectChildrenDeptById",
+          "commandType" : "SELECT",
+          "name" : "selectChildrenDeptById",
+          "parameterType" : "Long",
+          "resultType" : "SysDeptResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.selectDeptById",
+          "commandType" : "SELECT",
+          "name" : "selectDeptById",
+          "parameterType" : "Long",
+          "resultType" : "SysDeptResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.selectDeptCount",
+          "commandType" : "SELECT",
+          "name" : "selectDeptCount",
+          "parameterType" : "SysDept",
+          "resultType" : "int",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.selectDeptList",
+          "commandType" : "SELECT",
+          "name" : "selectDeptList",
+          "parameterType" : "SysDept",
+          "resultType" : "SysDeptResult",
+          "includes" : [ "selectDeptVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.selectDeptVo",
+          "commandType" : "SQL",
+          "name" : "selectDeptVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.selectNormalChildrenDeptById",
+          "commandType" : "SELECT",
+          "name" : "selectNormalChildrenDeptById",
+          "parameterType" : "Long",
+          "resultType" : "int",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.selectRoleDeptTree",
+          "commandType" : "SELECT",
+          "name" : "selectRoleDeptTree",
+          "parameterType" : "Long",
+          "resultType" : "String",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.updateDept",
+          "commandType" : "UPDATE",
+          "name" : "updateDept",
+          "parameterType" : "SysDept",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.updateDeptChildren",
+          "commandType" : "UPDATE",
+          "name" : "updateDeptChildren",
+          "parameterType" : "java.util.List",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.updateDeptSort",
+          "commandType" : "UPDATE",
+          "name" : "updateDeptSort",
+          "parameterType" : "SysDept",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDeptMapper.updateDeptStatusNormal",
+          "commandType" : "UPDATE",
+          "name" : "updateDeptStatusNormal",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysDictDataMapper",
+        "simpleName" : "SysDictDataMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysDictDataMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "countDictDataByType", "deleteDictDataById", "deleteDictDataByIds", "insertDictData", "selectDictDataById", "selectDictDataByType", "selectDictDataList", "selectDictLabel", "updateDictData", "updateDictDataType" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.countDictDataByType",
+          "commandType" : "SELECT",
+          "name" : "countDictDataByType",
+          "parameterType" : null,
+          "resultType" : "Integer",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.deleteDictDataById",
+          "commandType" : "DELETE",
+          "name" : "deleteDictDataById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.deleteDictDataByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteDictDataByIds",
+          "parameterType" : "String",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.insertDictData",
+          "commandType" : "INSERT",
+          "name" : "insertDictData",
+          "parameterType" : "SysDictData",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.selectDictDataById",
+          "commandType" : "SELECT",
+          "name" : "selectDictDataById",
+          "parameterType" : "Long",
+          "resultType" : "SysDictDataResult",
+          "includes" : [ "selectDictDataVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.selectDictDataByType",
+          "commandType" : "SELECT",
+          "name" : "selectDictDataByType",
+          "parameterType" : "String",
+          "resultType" : "SysDictDataResult",
+          "includes" : [ "selectDictDataVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.selectDictDataList",
+          "commandType" : "SELECT",
+          "name" : "selectDictDataList",
+          "parameterType" : "SysDictData",
+          "resultType" : "SysDictDataResult",
+          "includes" : [ "selectDictDataVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.selectDictDataVo",
+          "commandType" : "SQL",
+          "name" : "selectDictDataVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.selectDictLabel",
+          "commandType" : "SELECT",
+          "name" : "selectDictLabel",
+          "parameterType" : null,
+          "resultType" : "String",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.updateDictData",
+          "commandType" : "UPDATE",
+          "name" : "updateDictData",
+          "parameterType" : "SysDictData",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictDataMapper.updateDictDataType",
+          "commandType" : "UPDATE",
+          "name" : "updateDictDataType",
+          "parameterType" : "String",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysDictTypeMapper",
+        "simpleName" : "SysDictTypeMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysDictTypeMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "checkDictTypeUnique", "deleteDictTypeById", "deleteDictTypeByIds", "insertDictType", "selectDictTypeAll", "selectDictTypeById", "selectDictTypeByType", "selectDictTypeList", "updateDictType" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.checkDictTypeUnique",
+          "commandType" : "SELECT",
+          "name" : "checkDictTypeUnique",
+          "parameterType" : "String",
+          "resultType" : "SysDictTypeResult",
+          "includes" : [ "selectDictTypeVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.deleteDictTypeById",
+          "commandType" : "DELETE",
+          "name" : "deleteDictTypeById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.deleteDictTypeByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteDictTypeByIds",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.insertDictType",
+          "commandType" : "INSERT",
+          "name" : "insertDictType",
+          "parameterType" : "SysDictType",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.selectDictTypeAll",
+          "commandType" : "SELECT",
+          "name" : "selectDictTypeAll",
+          "parameterType" : null,
+          "resultType" : "SysDictTypeResult",
+          "includes" : [ "selectDictTypeVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.selectDictTypeById",
+          "commandType" : "SELECT",
+          "name" : "selectDictTypeById",
+          "parameterType" : "Long",
+          "resultType" : "SysDictTypeResult",
+          "includes" : [ "selectDictTypeVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.selectDictTypeByType",
+          "commandType" : "SELECT",
+          "name" : "selectDictTypeByType",
+          "parameterType" : "String",
+          "resultType" : "SysDictTypeResult",
+          "includes" : [ "selectDictTypeVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.selectDictTypeList",
+          "commandType" : "SELECT",
+          "name" : "selectDictTypeList",
+          "parameterType" : "SysDictType",
+          "resultType" : "SysDictTypeResult",
+          "includes" : [ "selectDictTypeVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.selectDictTypeVo",
+          "commandType" : "SQL",
+          "name" : "selectDictTypeVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysDictTypeMapper.updateDictType",
+          "commandType" : "UPDATE",
+          "name" : "updateDictType",
+          "parameterType" : "SysDictType",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysLogininforMapper",
+        "simpleName" : "SysLogininforMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysLogininforMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "cleanLogininfor", "deleteLogininforByIds", "insertLogininfor", "selectLogininforList" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysLogininforMapper.cleanLogininfor",
+          "commandType" : "UPDATE",
+          "name" : "cleanLogininfor",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysLogininforMapper.deleteLogininforByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteLogininforByIds",
+          "parameterType" : "String",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysLogininforMapper.insertLogininfor",
+          "commandType" : "INSERT",
+          "name" : "insertLogininfor",
+          "parameterType" : "SysLogininfor",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysLogininforMapper.selectLogininforList",
+          "commandType" : "SELECT",
+          "name" : "selectLogininforList",
+          "parameterType" : "SysLogininfor",
+          "resultType" : "SysLogininforResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysMenuMapper",
+        "simpleName" : "SysMenuMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysMenuMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "checkMenuNameUnique", "deleteMenuById", "insertMenu", "selectCountMenuByParentId", "selectMenuAll", "selectMenuAllByUserId", "selectMenuById", "selectMenuList", "selectMenuListByUserId", "selectMenuNormalAll", "selectMenuTree", "selectMenusByUserId", "selectPermsByRoleId", "selectPermsByUserId", "updateMenu", "updateMenuSort" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.checkMenuNameUnique",
+          "commandType" : "SELECT",
+          "name" : "checkMenuNameUnique",
+          "parameterType" : "SysMenu",
+          "resultType" : "SysMenuResult",
+          "includes" : [ "selectMenuVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.deleteMenuById",
+          "commandType" : "DELETE",
+          "name" : "deleteMenuById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.insertMenu",
+          "commandType" : "INSERT",
+          "name" : "insertMenu",
+          "parameterType" : "SysMenu",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectCountMenuByParentId",
+          "commandType" : "SELECT",
+          "name" : "selectCountMenuByParentId",
+          "parameterType" : null,
+          "resultType" : "Integer",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenuAll",
+          "commandType" : "SELECT",
+          "name" : "selectMenuAll",
+          "parameterType" : null,
+          "resultType" : "SysMenuResult",
+          "includes" : [ "selectMenuVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenuAllByUserId",
+          "commandType" : "SELECT",
+          "name" : "selectMenuAllByUserId",
+          "parameterType" : "Long",
+          "resultType" : "SysMenuResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenuById",
+          "commandType" : "SELECT",
+          "name" : "selectMenuById",
+          "parameterType" : "Long",
+          "resultType" : "SysMenuResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenuList",
+          "commandType" : "SELECT",
+          "name" : "selectMenuList",
+          "parameterType" : "SysMenu",
+          "resultType" : "SysMenuResult",
+          "includes" : [ "selectMenuVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenuListByUserId",
+          "commandType" : "SELECT",
+          "name" : "selectMenuListByUserId",
+          "parameterType" : "SysMenu",
+          "resultType" : "SysMenuResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenuNormalAll",
+          "commandType" : "SELECT",
+          "name" : "selectMenuNormalAll",
+          "parameterType" : null,
+          "resultType" : "SysMenuResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenuTree",
+          "commandType" : "SELECT",
+          "name" : "selectMenuTree",
+          "parameterType" : "Long",
+          "resultType" : "String",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenuVo",
+          "commandType" : "SQL",
+          "name" : "selectMenuVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectMenusByUserId",
+          "commandType" : "SELECT",
+          "name" : "selectMenusByUserId",
+          "parameterType" : "Long",
+          "resultType" : "SysMenuResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectPermsByRoleId",
+          "commandType" : "SELECT",
+          "name" : "selectPermsByRoleId",
+          "parameterType" : "Long",
+          "resultType" : "String",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.selectPermsByUserId",
+          "commandType" : "SELECT",
+          "name" : "selectPermsByUserId",
+          "parameterType" : "Long",
+          "resultType" : "String",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.updateMenu",
+          "commandType" : "UPDATE",
+          "name" : "updateMenu",
+          "parameterType" : "SysMenu",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysMenuMapper.updateMenuSort",
+          "commandType" : "UPDATE",
+          "name" : "updateMenuSort",
+          "parameterType" : "SysMenu",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysNoticeMapper",
+        "simpleName" : "SysNoticeMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysNoticeMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "deleteNoticeByIds", "insertNotice", "selectNoticeById", "selectNoticeList", "updateNotice" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysNoticeMapper.deleteNoticeByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteNoticeByIds",
+          "parameterType" : "String",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeMapper.insertNotice",
+          "commandType" : "INSERT",
+          "name" : "insertNotice",
+          "parameterType" : "SysNotice",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeMapper.selectNoticeById",
+          "commandType" : "SELECT",
+          "name" : "selectNoticeById",
+          "parameterType" : "Long",
+          "resultType" : "SysNoticeResult",
+          "includes" : [ "selectNoticeVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeMapper.selectNoticeList",
+          "commandType" : "SELECT",
+          "name" : "selectNoticeList",
+          "parameterType" : "SysNotice",
+          "resultType" : "SysNoticeResult",
+          "includes" : [ "selectNoticeVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeMapper.selectNoticeVo",
+          "commandType" : "SQL",
+          "name" : "selectNoticeVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeMapper.updateNotice",
+          "commandType" : "UPDATE",
+          "name" : "updateNotice",
+          "parameterType" : "SysNotice",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysNoticeReadMapper",
+        "simpleName" : "SysNoticeReadMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysNoticeReadMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "deleteByNoticeIds", "insertNoticeRead", "insertNoticeReadBatch", "selectIsRead", "selectNoticeListWithReadStatus", "selectReadUsersByNoticeId", "selectUnreadCount" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysNoticeReadMapper.deleteByNoticeIds",
+          "commandType" : "DELETE",
+          "name" : "deleteByNoticeIds",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeReadMapper.insertNoticeRead",
+          "commandType" : "INSERT",
+          "name" : "insertNoticeRead",
+          "parameterType" : "SysNoticeRead",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeReadMapper.insertNoticeReadBatch",
+          "commandType" : "INSERT",
+          "name" : "insertNoticeReadBatch",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeReadMapper.selectIsRead",
+          "commandType" : "SELECT",
+          "name" : "selectIsRead",
+          "parameterType" : null,
+          "resultType" : "int",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeReadMapper.selectNoticeListWithReadStatus",
+          "commandType" : "SELECT",
+          "name" : "selectNoticeListWithReadStatus",
+          "parameterType" : null,
+          "resultType" : "SysNotice",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeReadMapper.selectReadUsersByNoticeId",
+          "commandType" : "SELECT",
+          "name" : "selectReadUsersByNoticeId",
+          "parameterType" : null,
+          "resultType" : "java.util.Map",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysNoticeReadMapper.selectUnreadCount",
+          "commandType" : "SELECT",
+          "name" : "selectUnreadCount",
+          "parameterType" : null,
+          "resultType" : "int",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysOperLogMapper",
+        "simpleName" : "SysOperLogMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysOperLogMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "cleanOperLog", "deleteOperLogByIds", "insertOperlog", "selectOperLogById", "selectOperLogList" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysOperLogMapper.cleanOperLog",
+          "commandType" : "UPDATE",
+          "name" : "cleanOperLog",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysOperLogMapper.deleteOperLogByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteOperLogByIds",
+          "parameterType" : "String",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysOperLogMapper.insertOperlog",
+          "commandType" : "INSERT",
+          "name" : "insertOperlog",
+          "parameterType" : "SysOperLog",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysOperLogMapper.selectOperLogById",
+          "commandType" : "SELECT",
+          "name" : "selectOperLogById",
+          "parameterType" : "Long",
+          "resultType" : "SysOperLogResult",
+          "includes" : [ "selectOperLogVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysOperLogMapper.selectOperLogList",
+          "commandType" : "SELECT",
+          "name" : "selectOperLogList",
+          "parameterType" : "SysOperLog",
+          "resultType" : "SysOperLogResult",
+          "includes" : [ "selectOperLogVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysOperLogMapper.selectOperLogVo",
+          "commandType" : "SQL",
+          "name" : "selectOperLogVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysPostMapper",
+        "simpleName" : "SysPostMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysPostMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "checkPostCodeUnique", "checkPostNameUnique", "deletePostByIds", "insertPost", "selectPostAll", "selectPostById", "selectPostList", "selectPostsByUserId", "updatePost" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.checkPostCodeUnique",
+          "commandType" : "SELECT",
+          "name" : "checkPostCodeUnique",
+          "parameterType" : "String",
+          "resultType" : "SysPostResult",
+          "includes" : [ "selectPostVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.checkPostNameUnique",
+          "commandType" : "SELECT",
+          "name" : "checkPostNameUnique",
+          "parameterType" : "String",
+          "resultType" : "SysPostResult",
+          "includes" : [ "selectPostVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.deletePostByIds",
+          "commandType" : "DELETE",
+          "name" : "deletePostByIds",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.insertPost",
+          "commandType" : "INSERT",
+          "name" : "insertPost",
+          "parameterType" : "SysPost",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.selectPostAll",
+          "commandType" : "SELECT",
+          "name" : "selectPostAll",
+          "parameterType" : null,
+          "resultType" : "SysPostResult",
+          "includes" : [ "selectPostVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.selectPostById",
+          "commandType" : "SELECT",
+          "name" : "selectPostById",
+          "parameterType" : "Long",
+          "resultType" : "SysPostResult",
+          "includes" : [ "selectPostVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.selectPostList",
+          "commandType" : "SELECT",
+          "name" : "selectPostList",
+          "parameterType" : "SysPost",
+          "resultType" : "SysPostResult",
+          "includes" : [ "selectPostVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.selectPostVo",
+          "commandType" : "SQL",
+          "name" : "selectPostVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.selectPostsByUserId",
+          "commandType" : "SELECT",
+          "name" : "selectPostsByUserId",
+          "parameterType" : "Long",
+          "resultType" : "SysPostResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysPostMapper.updatePost",
+          "commandType" : "UPDATE",
+          "name" : "updatePost",
+          "parameterType" : "SysPost",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysRoleDeptMapper",
+        "simpleName" : "SysRoleDeptMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysRoleDeptMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "batchRoleDept", "deleteRoleDept", "deleteRoleDeptByRoleId", "selectCountRoleDeptByDeptId" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysRoleDeptMapper.batchRoleDept",
+          "commandType" : "INSERT",
+          "name" : "batchRoleDept",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleDeptMapper.deleteRoleDept",
+          "commandType" : "DELETE",
+          "name" : "deleteRoleDept",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleDeptMapper.deleteRoleDeptByRoleId",
+          "commandType" : "DELETE",
+          "name" : "deleteRoleDeptByRoleId",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleDeptMapper.selectCountRoleDeptByDeptId",
+          "commandType" : "SELECT",
+          "name" : "selectCountRoleDeptByDeptId",
+          "parameterType" : null,
+          "resultType" : "Integer",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysRoleMapper",
+        "simpleName" : "SysRoleMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysRoleMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "checkRoleKeyUnique", "checkRoleNameUnique", "deleteRoleById", "deleteRoleByIds", "insertRole", "selectRoleById", "selectRoleList", "selectRolesByUserId", "updateRole" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.checkRoleKeyUnique",
+          "commandType" : "SELECT",
+          "name" : "checkRoleKeyUnique",
+          "parameterType" : "String",
+          "resultType" : "SysRoleResult",
+          "includes" : [ "selectRoleVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.checkRoleNameUnique",
+          "commandType" : "SELECT",
+          "name" : "checkRoleNameUnique",
+          "parameterType" : "String",
+          "resultType" : "SysRoleResult",
+          "includes" : [ "selectRoleVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.deleteRoleById",
+          "commandType" : "DELETE",
+          "name" : "deleteRoleById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.deleteRoleByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteRoleByIds",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.insertRole",
+          "commandType" : "INSERT",
+          "name" : "insertRole",
+          "parameterType" : "SysRole",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.selectRoleById",
+          "commandType" : "SELECT",
+          "name" : "selectRoleById",
+          "parameterType" : "Long",
+          "resultType" : "SysRoleResult",
+          "includes" : [ "selectRoleVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.selectRoleContactVo",
+          "commandType" : "SQL",
+          "name" : "selectRoleContactVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.selectRoleList",
+          "commandType" : "SELECT",
+          "name" : "selectRoleList",
+          "parameterType" : "SysRole",
+          "resultType" : "SysRoleResult",
+          "includes" : [ "selectRoleContactVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.selectRoleVo",
+          "commandType" : "SQL",
+          "name" : "selectRoleVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.selectRolesByUserId",
+          "commandType" : "SELECT",
+          "name" : "selectRolesByUserId",
+          "parameterType" : "Long",
+          "resultType" : "SysRoleResult",
+          "includes" : [ "selectRoleContactVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMapper.updateRole",
+          "commandType" : "UPDATE",
+          "name" : "updateRole",
+          "parameterType" : "SysRole",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysRoleMenuMapper",
+        "simpleName" : "SysRoleMenuMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysRoleMenuMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "batchRoleMenu", "deleteRoleMenu", "deleteRoleMenuByRoleId", "selectCountRoleMenuByMenuId" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysRoleMenuMapper.batchRoleMenu",
+          "commandType" : "INSERT",
+          "name" : "batchRoleMenu",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMenuMapper.deleteRoleMenu",
+          "commandType" : "DELETE",
+          "name" : "deleteRoleMenu",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMenuMapper.deleteRoleMenuByRoleId",
+          "commandType" : "DELETE",
+          "name" : "deleteRoleMenuByRoleId",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysRoleMenuMapper.selectCountRoleMenuByMenuId",
+          "commandType" : "SELECT",
+          "name" : "selectCountRoleMenuByMenuId",
+          "parameterType" : null,
+          "resultType" : "Integer",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysUserMapper",
+        "simpleName" : "SysUserMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysUserMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "checkEmailUnique", "checkLoginNameUnique", "checkPhoneUnique", "deleteUserById", "deleteUserByIds", "insertUser", "resetUserPwd", "selectAllocatedList", "selectUnallocatedList", "selectUserByEmail", "selectUserById", "selectUserByLoginName", "selectUserByPhoneNumber", "selectUserList", "updateLoginInfo", "updateUser", "updateUserAvatar", "updateUserStatus" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.checkEmailUnique",
+          "commandType" : "SELECT",
+          "name" : "checkEmailUnique",
+          "parameterType" : "String",
+          "resultType" : "SysUserResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.checkLoginNameUnique",
+          "commandType" : "SELECT",
+          "name" : "checkLoginNameUnique",
+          "parameterType" : "String",
+          "resultType" : "SysUserResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.checkPhoneUnique",
+          "commandType" : "SELECT",
+          "name" : "checkPhoneUnique",
+          "parameterType" : "String",
+          "resultType" : "SysUserResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.deleteUserById",
+          "commandType" : "DELETE",
+          "name" : "deleteUserById",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.deleteUserByIds",
+          "commandType" : "DELETE",
+          "name" : "deleteUserByIds",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.insertUser",
+          "commandType" : "INSERT",
+          "name" : "insertUser",
+          "parameterType" : "SysUser",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.resetUserPwd",
+          "commandType" : "UPDATE",
+          "name" : "resetUserPwd",
+          "parameterType" : "SysUser",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.selectAllocatedList",
+          "commandType" : "SELECT",
+          "name" : "selectAllocatedList",
+          "parameterType" : "SysUser",
+          "resultType" : "SysUserResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.selectUnallocatedList",
+          "commandType" : "SELECT",
+          "name" : "selectUnallocatedList",
+          "parameterType" : "SysUser",
+          "resultType" : "SysUserResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.selectUserByEmail",
+          "commandType" : "SELECT",
+          "name" : "selectUserByEmail",
+          "parameterType" : "String",
+          "resultType" : "SysUserResult",
+          "includes" : [ "selectUserVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.selectUserById",
+          "commandType" : "SELECT",
+          "name" : "selectUserById",
+          "parameterType" : "Long",
+          "resultType" : "SysUserResult",
+          "includes" : [ "selectUserVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.selectUserByLoginName",
+          "commandType" : "SELECT",
+          "name" : "selectUserByLoginName",
+          "parameterType" : "String",
+          "resultType" : "SysUserResult",
+          "includes" : [ "selectUserVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.selectUserByPhoneNumber",
+          "commandType" : "SELECT",
+          "name" : "selectUserByPhoneNumber",
+          "parameterType" : "String",
+          "resultType" : "SysUserResult",
+          "includes" : [ "selectUserVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.selectUserList",
+          "commandType" : "SELECT",
+          "name" : "selectUserList",
+          "parameterType" : "SysUser",
+          "resultType" : "SysUserResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.selectUserVo",
+          "commandType" : "SQL",
+          "name" : "selectUserVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.updateLoginInfo",
+          "commandType" : "UPDATE",
+          "name" : "updateLoginInfo",
+          "parameterType" : "SysUser",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.updateUser",
+          "commandType" : "UPDATE",
+          "name" : "updateUser",
+          "parameterType" : "SysUser",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.updateUserAvatar",
+          "commandType" : "UPDATE",
+          "name" : "updateUserAvatar",
+          "parameterType" : "SysUser",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserMapper.updateUserStatus",
+          "commandType" : "UPDATE",
+          "name" : "updateUserStatus",
+          "parameterType" : "SysUser",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysUserOnlineMapper",
+        "simpleName" : "SysUserOnlineMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysUserOnlineMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "deleteOnlineById", "saveOnline", "selectOnlineByExpired", "selectOnlineById", "selectUserOnlineList" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysUserOnlineMapper.deleteOnlineById",
+          "commandType" : "DELETE",
+          "name" : "deleteOnlineById",
+          "parameterType" : "String",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserOnlineMapper.saveOnline",
+          "commandType" : "INSERT",
+          "name" : "saveOnline",
+          "parameterType" : "SysUserOnline",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserOnlineMapper.selectOnlineByExpired",
+          "commandType" : "SELECT",
+          "name" : "selectOnlineByExpired",
+          "parameterType" : "String",
+          "resultType" : "SysUserOnlineResult",
+          "includes" : [ "selectOnlineVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserOnlineMapper.selectOnlineById",
+          "commandType" : "SELECT",
+          "name" : "selectOnlineById",
+          "parameterType" : "String",
+          "resultType" : "SysUserOnlineResult",
+          "includes" : [ "selectOnlineVo" ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserOnlineMapper.selectOnlineVo",
+          "commandType" : "SQL",
+          "name" : "selectOnlineVo",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : true,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserOnlineMapper.selectUserOnlineList",
+          "commandType" : "SELECT",
+          "name" : "selectUserOnlineList",
+          "parameterType" : "SysUserOnline",
+          "resultType" : "SysUserOnlineResult",
+          "includes" : [ "selectOnlineVo" ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysUserPostMapper",
+        "simpleName" : "SysUserPostMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysUserPostMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "batchUserPost", "countUserPostById", "deleteUserPost", "deleteUserPostByUserId" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysUserPostMapper.batchUserPost",
+          "commandType" : "INSERT",
+          "name" : "batchUserPost",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserPostMapper.countUserPostById",
+          "commandType" : "SELECT",
+          "name" : "countUserPostById",
+          "parameterType" : null,
+          "resultType" : "Integer",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserPostMapper.deleteUserPost",
+          "commandType" : "DELETE",
+          "name" : "deleteUserPost",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserPostMapper.deleteUserPostByUserId",
+          "commandType" : "DELETE",
+          "name" : "deleteUserPostByUserId",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      }, {
+        "kind" : "ANNOTATION",
+        "interfaceFqn" : "com.ruoyi.system.mapper.SysUserRoleMapper",
+        "simpleName" : "SysUserRoleMapper",
+        "xmlPath" : "<root>/ruoyi-system/src/main/resources/mapper/system/SysUserRoleMapper.xml",
+        "entityType" : null,
+        "idType" : null,
+        "declaredMethods" : [ "batchUserRole", "countUserRoleByRoleId", "deleteUserRole", "deleteUserRoleByUserId", "deleteUserRoleInfo", "deleteUserRoleInfos", "selectUserRoleByUserId" ],
+        "statements" : [ {
+          "id" : "com.ruoyi.system.mapper.SysUserRoleMapper.batchUserRole",
+          "commandType" : "INSERT",
+          "name" : "batchUserRole",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserRoleMapper.countUserRoleByRoleId",
+          "commandType" : "SELECT",
+          "name" : "countUserRoleByRoleId",
+          "parameterType" : null,
+          "resultType" : "Integer",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserRoleMapper.deleteUserRole",
+          "commandType" : "DELETE",
+          "name" : "deleteUserRole",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserRoleMapper.deleteUserRoleByUserId",
+          "commandType" : "DELETE",
+          "name" : "deleteUserRoleByUserId",
+          "parameterType" : "Long",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserRoleMapper.deleteUserRoleInfo",
+          "commandType" : "DELETE",
+          "name" : "deleteUserRoleInfo",
+          "parameterType" : "SysUserRole",
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserRoleMapper.deleteUserRoleInfos",
+          "commandType" : "DELETE",
+          "name" : "deleteUserRoleInfos",
+          "parameterType" : null,
+          "resultType" : null,
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        }, {
+          "id" : "com.ruoyi.system.mapper.SysUserRoleMapper.selectUserRoleByUserId",
+          "commandType" : "SELECT",
+          "name" : "selectUserRoleByUserId",
+          "parameterType" : "Long",
+          "resultType" : "SysUserRoleResult",
+          "includes" : [ ],
+          "fragment" : false,
+          "line" : 0
+        } ],
+        "issues" : [ ]
+      } ]
+    },
+    "search-by-annotation" : {
+      "digest" : "sha256:cdd985f7411ef78681c4fd57097189fb66073344e13ee76d0d646e9c10b1441f",
+      "arrayField" : "hits",
+      "size" : 156,
+      "sample" : [ {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "batchGenCode",
+        "signature" : "batchGenCode(HttpServletResponse, String) : void",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 287,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "columnList",
+        "signature" : "columnList(GenTableColumn) : TableDataInfo",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 94,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "dataList",
+        "signature" : "dataList(GenTable) : TableDataInfo",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 81,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "download",
+        "signature" : "download(HttpServletResponse, String) : void",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 245,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "edit",
+        "signature" : "edit(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 145,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "editSave",
+        "signature" : "editSave(GenTable) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 174,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "gen",
+        "signature" : "gen() : String",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 58,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "genCode",
+        "signature" : "genCode(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 257,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "genList",
+        "signature" : "genList(GenTable) : TableDataInfo",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 68,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "importTable",
+        "signature" : "importTable() : String",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 109,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "importTableSave",
+        "signature" : "importTableSave(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 128,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "preview",
+        "signature" : "preview(Long) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 233,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "remove",
+        "signature" : "remove(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 185,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.generator.controller.GenController",
+        "memberName" : "synchDb",
+        "signature" : "synchDb(String) : AjaxResult",
+        "file" : "<root>/ruoyi-generator/src/main/java/com/ruoyi/generator/controller/GenController.java",
+        "line" : 274,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.quartz.controller.SysJobController",
+        "memberName" : "add",
+        "signature" : "add() : String",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 121,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.quartz.controller.SysJobController",
+        "memberName" : "addSave",
+        "signature" : "addSave(SysJob) : AjaxResult",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 132,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.quartz.controller.SysJobController",
+        "memberName" : "changeStatus",
+        "signature" : "changeStatus(SysJob) : AjaxResult",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 95,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.quartz.controller.SysJobController",
+        "memberName" : "detail",
+        "signature" : "detail(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 82,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.quartz.controller.SysJobController",
+        "memberName" : "edit",
+        "signature" : "edit(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 168,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.quartz.controller.SysJobController",
+        "memberName" : "editSave",
+        "signature" : "editSave(SysJob) : AjaxResult",
+        "file" : "<root>/ruoyi-quartz/src/main/java/com/ruoyi/quartz/controller/SysJobController.java",
+        "line" : 180,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "add",
+        "signature" : "add(ModelMap) : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 116,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "addSave",
+        "signature" : "addSave(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 128,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "authRole",
+        "signature" : "authRole(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 247,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "changeStatus",
+        "signature" : "changeStatus(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 323,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "deptTreeData",
+        "signature" : "deptTreeData() : List<Ztree>",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 336,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "edit",
+        "signature" : "edit(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 158,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "editSave",
+        "signature" : "editSave(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 187,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "export",
+        "signature" : "export(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 82,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "importData",
+        "signature" : "importData(MultipartFile, boolean) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 93,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "importTemplate",
+        "signature" : "importTemplate() : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 104,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "insertAuthRole",
+        "signature" : "insertAuthRole(Long, Long[]) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 263,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "list",
+        "signature" : "list(SysUser) : TableDataInfo",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 71,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "remove",
+        "signature" : "remove(String) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 276,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "resetPwd",
+        "signature" : "resetPwd(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 214,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "resetPwdSave",
+        "signature" : "resetPwdSave(SysUser) : AjaxResult",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 223,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "selectDeptTree",
+        "signature" : "selectDeptTree(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 350,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "user",
+        "signature" : "user() : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 64,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.system.SysUserController",
+        "memberName" : "view",
+        "signature" : "view(Long, ModelMap) : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysUserController.java",
+        "line" : 173,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.tool.BuildController",
+        "memberName" : "build",
+        "signature" : "build() : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/BuildController.java",
+        "line" : 20,
+        "column" : 5
+      }, {
+        "annotationFqn" : "RequiresPermissions",
+        "annotationSimpleName" : "RequiresPermissions",
+        "elementKind" : "METHOD",
+        "ownerType" : "com.ruoyi.web.controller.tool.SwaggerController",
+        "memberName" : "index",
+        "signature" : "index() : String",
+        "file" : "<root>/ruoyi-admin/src/main/java/com/ruoyi/web/controller/tool/SwaggerController.java",
+        "line" : 18,
+        "column" : 5
+      } ]
+    }
+  }
+}

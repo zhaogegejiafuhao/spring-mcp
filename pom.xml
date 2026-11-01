@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.springmcp</groupId>
+  <artifactId>spring-mcp</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>spring-mcp</name>
+  <description>Static source-code analysis MCP server for Spring Boot projects (AST only, no Spring context)</description>
+
+  <!--
+    单一模块结构。包名仍按职责分层：
+      io.github.springmcp.spi      插件 API 与领域 DTO（只依赖 JDK 的约定靠人工守）
+      io.github.springmcp.core     索引、JavaParser 解析、五个分析器
+      io.github.springmcp.server   MCP 装配、工具注册、插件加载
+    插件在运行时由 PluginLoader 从 plugins/ 目录加载，与打包方式无关。
+  -->
+
+  <properties>
+    <maven.compiler.release>21</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- 运行时依赖 -->
+    <mcp.sdk.version>2.1.0</mcp.sdk.version>
+    <javaparser.version>3.28.2</javaparser.version>
+    <slf4j.version>2.0.16</slf4j.version>
+    <!-- 必须与 mcp-json-jackson2 传递的 jackson-databind 版本一致，否则会把 databind 抬/降到不匹配版本 -->
+    <jackson.version>2.21.1</jackson.version>
+
+    <!-- 测试依赖 -->
+    <junit.version>5.11.4</junit.version>
+    <assertj.version>3.26.3</assertj.version>
+
+    <!-- 构建插件 -->
+    <compiler.plugin.version>3.13.0</compiler.plugin.version>
+    <surefire.version>3.5.2</surefire.version>
+    <shade.plugin.version>3.6.0</shade.plugin.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- MCP Java SDK 的 BOM：统一管理 mcp-core / mcp-json-jackson2 版本 -->
+      <dependency>
+        <groupId>io.modelcontextprotocol.sdk</groupId>
+        <artifactId>mcp-bom</artifactId>
+        <version>${mcp.sdk.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- 核心 MCP 协议 + STDIO 传输 -->
+    <dependency>
+      <groupId>io.modelcontextprotocol.sdk</groupId>
+      <artifactId>mcp-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.modelcontextprotocol.sdk</groupId>
+      <artifactId>mcp-json-jackson2</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.javaparser</groupId>
+      <artifactId>javaparser-core</artifactId>
+      <version>${javaparser.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>spring-mcp</finalName>
+
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+      <!-- 共享的 fixture 工程，随测试复制到 test-classes -->
+      <testResource>
+        <directory>${project.basedir}/fixtures</directory>
+        <targetPath>fixtures</targetPath>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${compiler.plugin.version}</version>
+        <configuration>
+          <release>${maven.compiler.release}</release>
+          <compilerArgs>
+            <!-- 让 javac 对 deprecation / unchecked 给出细节，便于及早发现 SDK API 变更 -->
+            <arg>-Xlint:all,-serial,-processing</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <!--
+            固定测试 JVM 的堆上限。默认值是物理内存的 1/4，在 16 GB 机器上等于向系统要近 4 GB；
+            实测 5 个仓库（含 spring-boot 的 8413 个文件）在 1 GB 下跑完基线绰绰有余。
+            不设上限的代价是真实存在的：机器上跑着别的东西时 fork 会直接起不来，
+            报 "Native memory allocation (mmap) failed to map 83886080 bytes"。
+            需要更多时用 -DargLine="-Xmx2g" 覆盖。
+          -->
+          <argLine>-Xmx1g</argLine>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>${shade.plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <!-- 固定输出名，README 和客户端配置里可以直接引用，不随版本变化 -->
+              <outputFile>${project.build.directory}/spring-mcp-all.jar</outputFile>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                    <exclude>module-info.class</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+              <transformers>
+                <!-- 合并所有 META-INF/services：SDK 的 JSON mapper supplier 靠 ServiceLoader 发现 -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>io.github.springmcp.server.SpringMcpMain</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

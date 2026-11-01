@@ -1,0 +1,46 @@
+name: Release
+
+# 打 tag（v1.2.3）即发布：跑全量测试，然后把可直接使用的 jar 与两个启动脚本挂到 Release 上。
+# 基线比对不在这里跑：它要联网克隆 150 MB 仓库、耗时以分钟计，属于 CI 的职责而不是发版的前置条件。
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: 发布
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: 构建 + 全量测试
+        run: |
+          chmod +x mvnw spring-mcp.sh
+          ./mvnw -B -ntp clean verify
+
+      - name: 准备附件
+        # 一个压缩包里有 jar + 两个启动脚本，解压即可用；单独的 jar 给只需要那一个文件的人。
+        run: |
+          mkdir -p dist
+          cp target/spring-mcp-all.jar spring-mcp.cmd spring-mcp.sh dist/
+          chmod +x dist/spring-mcp.sh
+          (cd dist && zip -q spring-mcp.zip spring-mcp-all.jar spring-mcp.cmd spring-mcp.sh)
+          ls -lh dist
+
+      - name: 创建 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/spring-mcp-all.jar
+            dist/spring-mcp.zip
+          generate_release_notes: true
+          fail_on_unmatched_files: true
