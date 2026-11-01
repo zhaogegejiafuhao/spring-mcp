@@ -50,13 +50,17 @@ while IFS="$TAB" read -r name url sha; do
   rm -rf "$dir"
   echo "fetch $name@$(echo "$sha" | cut -c1-8)"
   mkdir -p "$dir"
+  # 管道接到 tail 上时，`if` 看到的是 tail 的退出码，git 失败会被悄悄吞掉——
+  # 症状是后面报"没有结果"，而不是"取不到"，完全指错方向。
   if ! { git -C "$dir" init -q &&
          git -C "$dir" remote add origin "$url" &&
          git -C "$dir" fetch -q --depth 1 origin "$sha" &&
-         git -C "$dir" checkout -q FETCH_HEAD; } 2>&1 | tail -3; then
+         git -C "$dir" checkout -q FETCH_HEAD; } > "$dir.fetch.log" 2>&1; then
+    tail -3 "$dir.fetch.log" >&2
     echo "  取不到 $name@$sha" >&2
     exit 1
   fi
+  rm -f "$dir.fetch.log"
   fetched=$((fetched + 1))
 done < "$LIST"
 echo "拉取 $fetched 个，复用 $reused 个，语料目录 $REPOS_DIR"
@@ -116,4 +120,6 @@ if failures:
 
 total = sum(w[fields[0]] for w in expected.values())
 print(f"\n{len(expected)} 个仓库全部一致，端点合计 {total}")
+# 打成 annotation：作业日志要权限才能看，页面上直接能见到这一行才算真的绿了。
+print(f"::notice title=语料::{len(expected)} 个仓库全部一致，端点合计 {total}")
 PY
