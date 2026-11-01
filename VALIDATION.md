@@ -194,7 +194,24 @@ baseline repos: 110, answered repos: 110, duplicates: 0
 
 ---
 
-## 七、自己复现
+## 七、语料进 CI
+
+上面所有数字都来自 `.realworld/` 里 231 个 checkout，那是**一次性**的：换台机器就没了，
+PR 上也看不到它们变了。现在有两层：
+
+| 层 | 规模 | 何时跑 | 比对什么 |
+|---|---|---|---|
+| 回归基线 | 8 个仓库，commit 钉死 | 每次 CI | 完整 JSON 的 digest |
+| **真实仓库语料** | **11 个仓库，commit 钉死** | **每次 CI，约 24 秒** | 五个数字（端点/控制器/mapper/feign/网关） |
+
+语料在 `tools/corpus/`：`repos.tsv` 钉 commit，`expected.json` 存期望值，`check.sh` 拉取、扫描、比对。
+覆盖注解端点、函数式路由、MyBatis、Feign、网关、多模块，外加两个边界——`mybatis-3`（零端点）
+和 `solon`（非 Spring，67 个控制器 / 0 个端点）。
+
+没进 CI 的那 220 个仓库仍然是手工跑，用来发现**新类型**的问题；11 个仓库负责发现**回归**。
+两者分工不同，不要用前者替代后者。
+
+## 八、自己复现
 
 ```bash
 # 单仓库
