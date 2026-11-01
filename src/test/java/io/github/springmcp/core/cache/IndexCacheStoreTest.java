@@ -12,6 +12,8 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.io.TempDir;
 
 import io.github.springmcp.core.Fixtures;
@@ -262,5 +264,24 @@ class IndexCacheStoreTest {
             }
         }
         return target;
+    }
+
+    @Test
+    @EnabledOnOs(OS.WINDOWS)
+    @DisplayName("the same directory in a different spelling is one cache entry")
+    void aliasedRootIsOneEntry(@TempDir Path cacheDir, @TempDir Path projectDir) throws Exception {
+        // CI runners hand out short names (RUNNER~1). Hashing the textual path put the write and the
+        // read under different keys: the cache was written, never found, and no error was raised
+        // anywhere — five unrelated-looking IO failures. Case is the alias every Windows box has.
+        IndexCacheStore store = store(cacheDir);
+        Path project = copyFixture("multi-module", projectDir);
+        Path shouted = Path.of(project.toString().toUpperCase(java.util.Locale.ROOT));
+
+        assertThat(store.fileFor(shouted)).isEqualTo(store.fileFor(project));
+
+        new IndexRegistry(IndexRegistry.Revalidation.NEVER, 60_000, store).open(shouted, OPTIONS);
+        assertThat(store.fileFor(project))
+            .describedAs("换个大小写就找不到自己的缓存：%s", store.lastFailure())
+            .exists();
     }
 }

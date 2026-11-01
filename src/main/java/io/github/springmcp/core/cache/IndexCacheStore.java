@@ -263,9 +263,33 @@ public final class IndexCacheStore {
      * @return the file this store would use, whether or not it exists
      */
     public Path fileFor(Path root) {
-        String key = hashHex(root.toAbsolutePath().normalize().toString());
+        String key = hashHex(canonical(root));
         return directory == null ? Path.of(IndexCacheFormat.FILE_NAME) : directory.resolve(key)
             .resolve(IndexCacheFormat.FILE_NAME);
+    }
+
+
+    /**
+     * One spelling per directory, so the writer and the reader agree on the cache key.
+     *
+     * <p>
+     * {@code toRealPath()} resolves everything the file system treats as an alias: 8.3 short names
+     * (`RUNNER~1` on a CI runner), symlinks, junctions and letter case. Hashing
+     * {@code toAbsolutePath().normalize()} instead meant a store written under the short name was
+     * looked up under the long one — the cache was written, never found, and nothing reported it.
+     * The registry already resolves its root this way; the hash has to match it.
+     * </p>
+     *
+     * @param root project root, in whatever spelling the caller has
+     * @return the canonical form when the path exists, otherwise a merely absolute one
+     */
+    private static String canonical(Path root) {
+        try {
+            return root.toRealPath().toString();
+        }
+        catch (IOException e) {
+            return root.toAbsolutePath().normalize().toString();
+        }
     }
 
     private static List<CuSummary> summariesOf(SourceIndex index) {
