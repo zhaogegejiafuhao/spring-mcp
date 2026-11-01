@@ -119,6 +119,12 @@ if failures:
     raise SystemExit(1)
 
 total = sum(w[fields[0]] for w in expected.values())
+if not update:
+    # 一个总数看不出是哪个仓库在支撑它，也没有任何东西可以贴进 PR。
+    for name in sorted(expected):
+        w = expected[name]
+        print(f"  {name:<46} 端点 {w['endpoints']:>4} 控制器 {w['controllers']:>4} "
+              f"mapper {w['mappers']:>4} feign {w['feignClients']:>3} 网关 {w['gatewayRoutes']:>3}")
 print(f"\n{len(expected)} 个仓库全部一致，端点合计 {total}")
 # 打成 annotation：作业日志要权限才能看，页面上直接能见到这一行才算真的绿了。
 print(f"::notice title=语料::{len(expected)} 个仓库全部一致，端点合计 {total}")
