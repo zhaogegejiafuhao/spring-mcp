@@ -80,8 +80,10 @@ jobs:
               lines = open(path, encoding='utf-8', errors='replace').read().splitlines()
               for i, line in enumerate(lines):
                   if '<<< FAILURE!' in line or '<<< ERROR!' in line:
-                      cause = lines[i + 1].strip()[:220] if i + 1 < len(lines) else ''
-                      print(f"::error::{line.strip()[:180]} | {cause}")
+                      # 断言消息常常另起一行（AssertJ 的 describedAs 就是这样），
+                      # 只取下一行会把最有用的部分截掉。
+                      cause = ' '.join(x.strip() for x in lines[i + 1:i + 4] if x.strip())[:400]
+                      print(f"::error::{line.strip()[:160]} | {cause}")
           PY
 
       - name: 上传测试报告
@@ -125,8 +127,10 @@ jobs:
               lines = open(path, encoding='utf-8', errors='replace').read().splitlines()
               for i, line in enumerate(lines):
                   if '<<< FAILURE!' in line or '<<< ERROR!' in line:
-                      cause = lines[i + 1].strip()[:220] if i + 1 < len(lines) else ''
-                      print(f"::error::{line.strip()[:180]} | {cause}")
+                      # 断言消息常常另起一行（AssertJ 的 describedAs 就是这样），
+                      # 只取下一行会把最有用的部分截掉。
+                      cause = ' '.join(x.strip() for x in lines[i + 1:i + 4] if x.strip())[:400]
+                      print(f"::error::{line.strip()[:160]} | {cause}")
           PY
 
       - name: 启动脚本冒烟
