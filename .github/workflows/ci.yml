@@ -69,6 +69,21 @@ jobs:
           jq -e '.result.serverInfo.name == "spring-mcp"' init.json
           echo "serverInfo: $(jq -r '.result.serverInfo.name + " " + .result.serverInfo.version' init.json)"
 
+      - name: 失败用例摘要
+        # 作业日志要仓库权限才能下载，annotation 在页面上直接可见。失败时把每个用例的名字和
+        # 第一行断言原文打出来，否则"红了一条"就只能靠本地复现去猜。
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import glob
+          for path in glob.glob('target/surefire-reports/*.txt'):
+              lines = open(path, encoding='utf-8', errors='replace').read().splitlines()
+              for i, line in enumerate(lines):
+                  if '<<< FAILURE!' in line or '<<< ERROR!' in line:
+                      cause = lines[i + 1].strip()[:220] if i + 1 < len(lines) else ''
+                      print(f"::error::{line.strip()[:180]} | {cause}")
+          PY
+
       - name: 上传测试报告
         if: failure()
         uses: actions/upload-artifact@v4
