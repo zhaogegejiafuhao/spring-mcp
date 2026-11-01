@@ -39,3 +39,8 @@ replay_pid*.log
 
 # agent work logs (daily notes, not part of the project)
 .workbuddy/
+
+# fixtures/empty 故意包含 target/ 下的产物，用来证明索引器跳过构建输出。
+# 不排除的话，clone 下来这个 fixture 就空了，测试照样绿但不再验证任何东西。
+!fixtures/empty/target/
+!fixtures/empty/target/**
