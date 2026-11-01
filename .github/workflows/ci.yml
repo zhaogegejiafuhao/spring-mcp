@@ -114,6 +114,21 @@ jobs:
         # 基线用例由 SPRING_MCP_BASELINE 门控，这里不设变量，它会自行跳过
         run: .\mvnw.cmd -B -ntp clean verify
 
+      - name: 失败用例摘要
+        # Windows runner 的默认 shell 不是 bash，这里显式指定，复用同一段脚本。
+        if: failure()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import glob
+          for path in glob.glob('target/surefire-reports/*.txt'):
+              lines = open(path, encoding='utf-8', errors='replace').read().splitlines()
+              for i, line in enumerate(lines):
+                  if '<<< FAILURE!' in line or '<<< ERROR!' in line:
+                      cause = lines[i + 1].strip()[:220] if i + 1 < len(lines) else ''
+                      print(f"::error::{line.strip()[:180]} | {cause}")
+          PY
+
       - name: 启动脚本冒烟
         # .cmd 必须是 CRLF + 纯 ASCII，否则 cmd.exe 会把脚本拆碎；这个步骤同时验证了这一点。
         # 先把输出落盘再判断：管道给 findstr 时，脚本自身报的错会被吞掉，只剩一句退出码 1。

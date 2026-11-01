@@ -7,6 +7,8 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.io.TempDir;
 
 /**
@@ -39,7 +41,10 @@ class LauncherConfigTest {
         assertThat(config.catalog().byAlias("web")).isPresent();
     }
 
+    // Windows-only by nature: on POSIX "C:\work\app" is one file name, not a path, so the
+    // folder name is the whole string. The drive-letter branch below only ever runs on Windows.
     @Test
+    @EnabledOnOs(OS.WINDOWS)
     @DisplayName("a Windows drive letter is not mistaken for an alias")
     void windowsDriveLetterIsAPath() {
         ProjectAlias project = LauncherConfig.parseProject("C:\\work\\app");
@@ -49,6 +54,7 @@ class LauncherConfigTest {
     }
 
     @Test
+    @EnabledOnOs(OS.WINDOWS)
     @DisplayName("a Windows path can still carry an alias")
     void aliasWithWindowsPath() {
         ProjectAlias project = LauncherConfig.parseProject("svc:C:\\work\\app");
