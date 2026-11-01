@@ -44,7 +44,12 @@ class IndexCacheStoreTest {
                 IndexCacheStore.at(cacheDir));
         IndexHandle built = first.open(project, OPTIONS);
         assertThat(first.buildCount(project)).isEqualTo(1);
-        assertThat(store(cacheDir).fileFor(project)).exists();
+        // Never trust the write silently: a failed save shows up here as "why", not as an unrelated
+        // FileNotFoundException three lines later.
+        IndexCacheStore store = store(cacheDir);
+        assertThat(store.fileFor(project))
+            .describedAs("缓存未写入：%s", store.lastFailure())
+            .exists();
 
         IndexRegistry second = new IndexRegistry(IndexRegistry.Revalidation.NEVER, 60_000,
                 IndexCacheStore.at(cacheDir));
@@ -185,7 +190,9 @@ class IndexCacheStoreTest {
         IndexCacheStore store = store(cacheDir);
         new IndexRegistry(IndexRegistry.Revalidation.NEVER, 60_000, store).open(project, OPTIONS);
 
-        assertThat(store.fileFor(project)).exists();
+        assertThat(store.fileFor(project))
+            .describedAs("缓存未写入：%s", store.lastFailure())
+            .exists();
         store.invalidate(project);
         assertThat(store.fileFor(project)).doesNotExist();
     }

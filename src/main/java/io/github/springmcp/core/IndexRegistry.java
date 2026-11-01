@@ -288,7 +288,9 @@ public final class IndexRegistry implements CoreAnalyzer {
         if (cache.enabled()) {
             String failure = cache.save(holder.root, options, index);
             if (failure != null) {
-                LOG.debug("索引缓存写入失败: {} ({})", holder.root, failure);
+                // Not fatal — the next run just rebuilds — but silent only looks like "the cache does
+                // nothing", which is impossible to diagnose from the outside.
+                LOG.warn("索引缓存写入失败，下次将重建: {} ({})", holder.root, failure);
             }
         }
         return index;

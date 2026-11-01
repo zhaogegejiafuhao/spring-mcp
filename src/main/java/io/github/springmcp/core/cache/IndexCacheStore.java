@@ -45,6 +45,9 @@ public final class IndexCacheStore {
 
     private final Path directory;
 
+    /** Guarded by nothing: written on the build thread, read by diagnostics and tests. */
+    private volatile String lastFailure;
+
     private final ObjectMapperHolder holder = new ObjectMapperHolder();
 
     private IndexCacheStore(Path directory) {
@@ -92,6 +95,21 @@ public final class IndexCacheStore {
     /**
      * @return whether this store does anything at all
      */
+    /**
+     * Why the last {@link #save} failed, or {@code null} if it succeeded.
+     *
+     * <p>
+     * The write is best-effort — a read-only home directory must not break the tool — so the failure is
+     * returned rather than thrown. Without keeping it, "the cache never helps" is undiagnosable from
+     * outside, which is exactly how five Windows Server tests looked like unrelated IO bugs.
+     * </p>
+     *
+     * @return the last failure description, or {@code null}
+     */
+    public String lastFailure() {
+        return lastFailure;
+    }
+
     public boolean enabled() {
         return directory != null;
     }
@@ -198,6 +216,7 @@ public final class IndexCacheStore {
      */
     public String save(Path root, IndexOptions options, SourceIndex index) {
         if (!enabled()) {
+            lastFailure = null;
             return null;
         }
         List<FileFingerprint> fingerprints = index.fingerprints();
@@ -218,11 +237,13 @@ public final class IndexCacheStore {
                 // Some network shares refuse atomic moves; a plain replace is still better than failing.
                 Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING);
             }
+            lastFailure = null;
             return null;
         }
         catch (IOException | RuntimeException e) {
             deleteQuietly(tmp);
-            return abbreviate(String.valueOf(e.getMessage()));
+            lastFailure = e.getClass().getSimpleName() + ": " + abbreviate(String.valueOf(e.getMessage()));
+            return lastFailure;
         }
     }
 
