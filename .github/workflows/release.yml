@@ -79,11 +79,27 @@ jobs:
           (cd dist && zip -q spring-mcp.zip spring-mcp-all.jar spring-mcp.cmd spring-mcp.sh)
           ls -lh dist
 
+      - name: 准备 Release 正文
+        # 正文直接取 tag 的注释。`generate_release_notes` 在第一个 tag 上生成不出东西——
+        # v0.1.0 第一次发出来，正文只有一行 "Full Changelog"。而 tag 里写的那段本来就是
+        # 给读 release 的人看的，不用再维护第二份。
+        run: |
+          set -eu
+          git tag -l --format='%(contents)' "${GITHUB_REF_NAME}" > release-body.md
+          if [ ! -s release-body.md ]; then
+            echo "::error title=Release 正文是空的::tag ${GITHUB_REF_NAME} 没有注释，补一句再发。"
+            exit 1
+          fi
+          echo "--- release-body.md ---"
+          cat release-body.md
+
       - name: 创建 Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             dist/spring-mcp-all.jar
             dist/spring-mcp.zip
+          body_path: release-body.md
+          # 仍然生成变更列表：tag 注释讲"这个版本是什么"，生成的 notes 补"改了什么"
           generate_release_notes: true
           fail_on_unmatched_files: true
