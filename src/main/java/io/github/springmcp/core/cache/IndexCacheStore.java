@@ -8,10 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringJoiner;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Stream;
 
 import io.github.springmcp.core.index.CuSummary;
 import io.github.springmcp.core.index.FileFingerprint;
@@ -41,12 +45,39 @@ public final class IndexCacheStore {
     /** One megabyte cap on how much of a corrupt file is quoted back in a diagnostic. */
     private static final int MAX_REPORTED_BYTES = 200;
 
+    /**
+     * How much disk the whole cache may occupy before the least recently written projects are dropped.
+     *
+     * <p>
+     * Without a bound the directory only grows: one entry per repository ever analysed, ~36 MB each,
+     * never revisited. The real-world corpus alone (231 repositories) is about 8 GB, and it is not
+     * freed by anything except remembering to delete the folder. The cap is on bytes rather than on
+     * entry count because entry sizes differ by two orders of magnitude.
+     * </p>
+     */
+    private static final long MAX_TOTAL_BYTES = 1L << 30;
+
     private static final String TMP_SUFFIX = ".tmp";
+
+    /**
+     * How long a {@code .tmp} file must sit untouched before it counts as debris.
+     *
+     * <p>
+     * A leftover temp file is normally from a write that died — but it can also be a write that is
+     * happening <em>right now</em> in another process analysing the same project. Deleting that one
+     * makes the other process fail its atomic move and lose a cache write for no reason. A write takes
+     * a fraction of a second, so anything still present after ten minutes is debris.
+     * </p>
+     */
+    private static final long TMP_GRACE_MILLIS = 10 * 60 * 1000L;
 
     private final Path directory;
 
     /** Guarded by nothing: written on the build thread, read by diagnostics and tests. */
     private volatile String lastFailure;
+
+    /** Trimming runs once per store instance: the first write pays for it, the rest do not. */
+    private final AtomicBoolean pruned = new AtomicBoolean();
 
     private final ObjectMapperHolder holder = new ObjectMapperHolder();
 
@@ -93,9 +124,6 @@ public final class IndexCacheStore {
     }
 
     /**
-     * @return whether this store does anything at all
-     */
-    /**
      * Why the last {@link #save} failed, or {@code null} if it succeeded.
      *
      * <p>
@@ -110,6 +138,9 @@ public final class IndexCacheStore {
         return lastFailure;
     }
 
+    /**
+     * @return whether this store does anything at all
+     */
     public boolean enabled() {
         return directory != null;
     }
@@ -238,12 +269,140 @@ public final class IndexCacheStore {
                 Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING);
             }
             lastFailure = null;
-            return null;
         }
         catch (IOException | RuntimeException e) {
             deleteQuietly(tmp);
             lastFailure = e.getClass().getSimpleName() + ": " + abbreviate(String.valueOf(e.getMessage()));
             return lastFailure;
+        }
+
+        // Only after a successful write, and only once per process: the entry just written is the
+        // newest one, so it can never be the one evicted.
+        if (pruned.compareAndSet(false, true)) {
+            pruneQuietly();
+        }
+        return null;
+    }
+
+    /**
+     * Trims the cache directory, never letting a failure escape.
+     *
+     * <p>
+     * Same rule as everywhere else in this class: cache maintenance may not break a tool call. A
+     * locked file, a permission error or a network share that refuses deletes changes nothing about
+     * the answer.
+     * </p>
+     */
+    private void pruneQuietly() {
+        try {
+            prune(MAX_TOTAL_BYTES);
+        }
+        catch (IOException | RuntimeException e) {
+            // Deliberately silent: this is background housekeeping, not a result.
+        }
+    }
+
+    /**
+     * Drops the least recently written projects until the cache fits in {@code maxBytes}.
+     *
+     * <p>
+     * Ordering is by the cache file's modification time, which is when the project was last
+     * <em>built</em>, not last read: a hit does not rewrite the file. A hot project that keeps hitting
+     * can therefore look old and be evicted under pressure — the cost of that mistake is one rebuild,
+     * which is the same cost as having no cache at all, so the trade is safe in the only direction
+     * that matters.
+     * </p>
+     *
+     * <p>
+     * Leftover {@code .tmp} files from writes that died midway are removed first and for free.
+     * </p>
+     *
+     * @param maxBytes budget for the whole directory
+     * @return number of project directories removed
+     * @throws IOException when the directory cannot be listed
+     */
+    int prune(long maxBytes) throws IOException {
+        if (!enabled() || !Files.isDirectory(directory)) {
+            return 0;
+        }
+
+        List<Path> entries = new ArrayList<>();
+        long total = 0;
+        try (Stream<Path> children = Files.list(directory)) {
+            for (Path child : children.toList()) {
+                if (!Files.isDirectory(child)) {
+                    continue;
+                }
+                Path tmp = child.resolve(IndexCacheFormat.FILE_NAME + TMP_SUFFIX);
+                if (ageMillis(tmp) > TMP_GRACE_MILLIS) {
+                    deleteQuietly(tmp);
+                }
+                Path file = child.resolve(IndexCacheFormat.FILE_NAME);
+                if (!Files.isRegularFile(file)) {
+                    // Empty directory from a write that never completed: no bytes to reclaim.
+                    continue;
+                }
+                entries.add(child);
+                total += sizeOf(file);
+            }
+        }
+
+        if (total <= maxBytes) {
+            return 0;
+        }
+
+        entries.sort(Comparator.comparingLong(IndexCacheStore::lastModified));
+        int removed = 0;
+        for (Path entry : entries) {
+            if (total <= maxBytes) {
+                break;
+            }
+            long size = sizeOf(entry.resolve(IndexCacheFormat.FILE_NAME));
+            deleteQuietly(entry.resolve(IndexCacheFormat.FILE_NAME));
+            deleteQuietly(entry);
+            total -= size;
+            removed++;
+        }
+        return removed;
+    }
+
+    /**
+     * @param path file to inspect
+     * @return milliseconds since it was last modified, {@code 0} when it does not exist or cannot be read
+     */
+    private static long ageMillis(Path path) {
+        try {
+            return System.currentTimeMillis() - Files.getLastModifiedTime(path).toMillis();
+        }
+        catch (IOException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * @param path file to measure
+     * @return its size, or {@code 0} when it cannot be read
+     */
+    private static long sizeOf(Path path) {
+        try {
+            return Files.size(path);
+        }
+        catch (IOException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * @param path file to inspect
+     * @return its modification time, or {@code 0} when it cannot be read — which sorts it as the
+     * oldest entry, the right default for something that cannot be examined
+     */
+    private static long lastModified(Path path) {
+        try {
+            return Files.getLastModifiedTime(path.resolve(IndexCacheFormat.FILE_NAME)).toMillis();
+        }
+        catch (IOException e) {
+            return 0;
         }
     }
 

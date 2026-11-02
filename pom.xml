@@ -14,6 +14,18 @@
   <description>Static source-code analysis MCP server for Spring Boot projects (AST only, no Spring context)</description>
 
   <!--
+    与仓库根目录的 LICENSE 保持一致。少了这段，任何要把它引进公司的人第一件事就是来问
+    "能不能用、能不能改、能不能再分发" —— 而答案本来应该写在文件里。
+  -->
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <!--
     单一模块结构。包名仍按职责分层：
       io.github.springmcp.spi      插件 API 与领域 DTO（只依赖 JDK 的约定靠人工守）
       io.github.springmcp.core     索引、JavaParser 解析、五个分析器
@@ -186,6 +198,14 @@
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>io.github.springmcp.server.SpringMcpMain</mainClass>
+                  <!--
+                    SpringMcpMain.VERSION 从这个条目读，不在代码里再写一份。发版流程改的是 pom 的
+                    <version>，所以 jar 报给客户端的版本必然跟着 tag 走，不会各自漂移。
+                  -->
+                  <manifestEntries>
+                    <Implementation-Title>spring-mcp</Implementation-Title>
+                    <Implementation-Version>${project.version}</Implementation-Version>
+                  </manifestEntries>
                 </transformer>
               </transformers>
             </configuration>

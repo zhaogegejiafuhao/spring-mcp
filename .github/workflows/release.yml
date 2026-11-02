@@ -22,10 +22,44 @@ jobs:
           java-version: '21'
           cache: maven
 
+      - name: 校验 tag 与 pom 版本一致
+        id: version
+        # tag 是发版的触发条件，pom 的 <version> 是构建产物的版本——两个数字必须一致，否则
+        # 下载 release 的人看到的版本号和客户端 initialize 拿到的版本号会对不上。
+        # 不一致就停下来并说清该改哪边，而不是挑一个悄悄用。
+        run: |
+          set -eu
+          tag="${GITHUB_REF_NAME#v}"
+          pom="$(./mvnw -B -ntp -q help:evaluate -Dexpression=project.version -DforceStdout | tail -1)"
+          base="${pom%-SNAPSHOT}"
+          if [ "$tag" != "$base" ]; then
+            echo "::error title=tag 与 pom 版本不一致::tag ${GITHUB_REF_NAME} 对应 ${tag}，pom 是 ${pom}。先把 pom 改成 ${tag}-SNAPSHOT 再推这个 tag。"
+            exit 1
+          fi
+          echo "version=${tag}" >> "$GITHUB_OUTPUT"
+          echo "tag ${GITHUB_REF_NAME} 对应 pom ${pom}，构建版本写为 ${tag}"
+
       - name: 构建 + 全量测试
+        # 构建版本取自 tag（去掉 -SNAPSHOT），这样 jar manifest 里的 Implementation-Version
+        # 就是发布版本，SpringMcpMain 报给客户端的也是它。
         run: |
           chmod +x mvnw spring-mcp.sh
+          ./mvnw -B -ntp org.codehaus.mojo:versions-maven-plugin:2.18.0:set \
+            -DnewVersion="${{ steps.version.outputs.version }}" -DgenerateBackupPoms=false
           ./mvnw -B -ntp clean verify
+
+      - name: 校验产物报告的版本
+        # pom 对了不等于产物对了：manifest 的 transformer 配错、或者哪天又有人把版本写回代码里，
+        # 都会让 jar 自己报出另一个数字。这里问 jar，不问 pom。
+        run: |
+          set -eu
+          in_jar="$(unzip -p target/spring-mcp-all.jar META-INF/MANIFEST.MF | tr -d '\r' \
+            | awk -F': ' '/^Implementation-Version:/{print $2}')"
+          if [ "$in_jar" != "${{ steps.version.outputs.version }}" ]; then
+            echo "::error title=产物版本不对::jar manifest 里是 '${in_jar}'，tag 要求 '${{ steps.version.outputs.version }}'"
+            exit 1
+          fi
+          echo "jar manifest 报告的版本: ${in_jar}"
 
       - name: 准备附件
         # 一个压缩包里有 jar + 两个启动脚本，解压即可用；单独的 jar 给只需要那一个文件的人。

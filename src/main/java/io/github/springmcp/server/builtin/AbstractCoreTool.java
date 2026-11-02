@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import io.github.springmcp.server.ProjectAlias;
 import io.github.springmcp.server.ProjectCatalog;
+import io.github.springmcp.server.ProjectRoots;
 import io.github.springmcp.spi.Args;
 import io.github.springmcp.spi.ErrorCode;
 import io.github.springmcp.spi.JsonSchemas;

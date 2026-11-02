@@ -2,7 +2,7 @@ name: CI
 
 # 三件事各自独立，因为它们失败的含义完全不同：
 #   build     代码本身（含协议级集成测试、fat jar 的 ServiceLoader 与退出行为）
-#   baseline  分析结果有没有变（4 个真实仓库，跑得慢、要联网，所以单独一个作业）
+#   baseline  分析结果有没有变（9 个真实仓库，跑得慢、要联网，所以单独一个作业）
 #   windows   Windows 特有的路径/换行/长路径问题（本工具的主要使用平台）
 on:
   push:
@@ -175,7 +175,7 @@ jobs:
         run: bash tools/corpus/check.sh --jar target/spring-mcp-all.jar
 
   baseline:
-    name: 回归基线（4 个真实仓库）
+    name: 回归基线（9 个真实仓库）
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -188,7 +188,7 @@ jobs:
           cache: maven
 
       - name: 恢复基线仓库克隆
-        # 4 个仓库共约 150 MB（spring-boot 与 spring-security 占绝大部分）。key 里放 manifest 的哈希：
+        # 9 个仓库共约 225 MB（spring-boot 与 spring-security 占绝大部分）。key 里放 manifest 的哈希：
         # manifest 换了 commit，缓存自然失效并重新克隆。
         uses: actions/cache@v4
         with:

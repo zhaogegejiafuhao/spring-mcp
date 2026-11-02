@@ -1,4 +1,4 @@
-package io.github.springmcp.server.builtin;
+package io.github.springmcp.server;
 
 import java.nio.file.Path;
 
@@ -7,7 +7,7 @@ import io.github.springmcp.spi.ToolFailure;
 import io.github.springmcp.spi.api.IndexHandle;
 
 /**
- * Guards the entry point every analysis tool shares.
+ * Guards the entry point every analysis shares: the MCP tool surface and the offline {@code --dev} CLI.
  *
  * <p>
  * A wrong {@code projectRoot} is the easiest way to use these tools incorrectly: a parent directory,
@@ -19,10 +19,18 @@ import io.github.springmcp.spi.api.IndexHandle;
  * <p>
  * The check lives here rather than in the index: an empty project is a legitimate snapshot that must
  * cache and must not rebuild in a loop (see {@code IndexCacheStoreTest.emptyProjectStillCaches}).
- * Only the tool surface has to refuse it.
+ * Only the entry points have to refuse it.
+ * </p>
+ *
+ * <p>
+ * It sits in {@code server} rather than in {@code builtin} because there are two callers in sibling
+ * packages. It used to be package-private in {@code builtin}, and the consequence was visible: the
+ * {@code --dev} path answered {@code "endpoints": []} with exit code 0 for a directory the tool
+ * surface rejects — in exactly the situation where someone runs the CLI to find out what the tool is
+ * doing.
  * </p>
  */
-final class ProjectRoots {
+public final class ProjectRoots {
 
     private ProjectRoots() {
     }
@@ -33,7 +41,7 @@ final class ProjectRoots {
      * @return the same handle
      * @throws ToolFailure when the snapshot contains no source file
      */
-    static IndexHandle requireSources(Path root, IndexHandle handle) throws ToolFailure {
+    public static IndexHandle requireSources(Path root, IndexHandle handle) throws ToolFailure {
         if (handle.metadata().fileCount() > 0) {
             return handle;
         }

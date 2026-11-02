@@ -62,8 +62,33 @@ public final class SpringMcpMain {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringMcpMain.class);
 
-    /** Version reported to MCP clients. */
-    public static final String VERSION = "0.1.0";
+    /**
+     * Version reported to MCP clients.
+     *
+     * <p>
+     * Read from the jar manifest, which the shade plugin fills from {@code pom.xml}, so the pom stays
+     * the single source. It used to be a literal here, and a literal has exactly one failure mode:
+     * it keeps saying {@code 0.1.0} after the pom, the tag and the release notes have all moved on.
+     * </p>
+     *
+     * <p>
+     * Falls back to a constant only when there is no manifest to read — running from {@code target/classes}
+     * in a test or an IDE, where {@code getImplementationVersion()} returns {@code null}.
+     * </p>
+     */
+    public static final String VERSION = resolveVersion();
+
+    /** Used when the class is not running from a packaged jar. */
+    private static final String VERSION_FALLBACK = "0.1.0-SNAPSHOT";
+
+    /**
+     * @return the manifest's {@code Implementation-Version}, or the fallback when unavailable
+     */
+    private static String resolveVersion() {
+        Package module = SpringMcpMain.class.getPackage();
+        String manifest = module == null ? null : module.getImplementationVersion();
+        return manifest == null || manifest.isBlank() ? VERSION_FALLBACK : manifest;
+    }
 
     /**
      * How long the server keeps running after the client closed stdin, so a response that is already

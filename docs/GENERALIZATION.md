@@ -16,7 +16,7 @@
 ### 做法
 
 把 110 个仓库切成 8 份，交给 8 个冷启动会话。每个会话只拿到两样东西：工具清单，和一条命令
-`mcp-tool.sh <tool> projectRoot=<目录>`。规则写死：只准调用工具，不许 cat/grep 源码，每个数字必须来自一次真实调用。
+`tools/corpus/mcp-tool.sh <tool> projectRoot=<目录>`。规则写死：只准调用工具，不许 cat/grep 源码，每个数字必须来自一次真实调用。
 
 每个仓库记 5 个数：`endpoints`、`controllers`、`mappers`、`feignClients`、`gatewayRoutes`。
 
@@ -190,7 +190,7 @@ ApplicationsController, InstancesController, InstancesProxyController, Notificat
 cd .realworld && python repro/diff.py
 
 # 第二批扫描（串行，一条命令一个仓库）
-java -cp target/spring-mcp-all.jar .realworld/ScanTools.java \
+java -cp target/spring-mcp-all.jar tools/corpus/ScanTools.java \
      .realworld/repos2 .realworld/results2b.jsonl .realworld/endpoints2b.jsonl
 
 # 契约对账

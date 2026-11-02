@@ -12,8 +12,8 @@
 | 环节 | 做法 |
 |---|---|
 | 被测对象 | 3 个新起的子会话，彼此不知道对方存在，也没读过这个项目的代码 |
-| 提供的东西 | 工具清单（11 个工具的参数与用途）+ 一条命令 `mcp-tool.sh <tool> projectRoot=...` |
-| 管道 | `ToolRunner` 直接构造与 MCP 服务相同的 registry / plugin / `ToolInvocation`，打印 `ToolOutcome` 的结构化载荷；参数名与 `tools/list` 一致 |
+| 提供的东西 | 工具清单（11 个工具的参数与用途）+ 一条命令 `tools/corpus/mcp-tool.sh <tool> projectRoot=...` |
+| 管道 | `McpTool` 直接构造与 MCP 服务相同的 registry / plugin / `ToolInvocation`，打印 `ToolOutcome` 的结构化载荷；参数名与 `tools/list` 一致 |
 | 禁止的事 | 不许 cat / grep / find 任何源码或配置；答案里每个数字必须来自工具输出 |
 | 仓库 | 三个都没在工具里出现过：`Naccl/NBlog`（单模块博客）、`dromara/RuoYi-Vue-Plus`（39 模块后台）、`itwanger/paicoding`（社区系统） |
 | 判分 | 16 条断言（12 题 + paicoding 的工具层复测 4 题），答案事先从工具输出里量好，脚本逐条比对 |
@@ -119,7 +119,8 @@ golden 不变是意料之中的：基线仓库里没有一份配置用了 `@x@`�
 **这不是工具的问题**，MCP 的参数走 JSON、不经过 shell。但它暴露了两件事：
 
 - 我的管道一开始用 DevCli，绕过了工具层的参数处理（`projectRoot` 解析、`scope`、新增的守卫），
-  后来换成 `ToolRunner` 直接进 `ToolProvider.invoke`，才是真的「和 MCP 一样」；
+  后来换成工具层调用器直接进 `ToolProvider.invoke`（现在随仓库发布，就是 `tools/corpus/McpTool.java`），
+  才是真的「和 MCP 一样」；
 - 换管道后同一批问题重测，答案逐字不变——说明之前那一轮的结论不是靠 DevCli 的特性得到的。
 
 顺带修了一处文档与实现不符：README 里写「`RouteLocator` 不解析」，实际早就解析了
@@ -127,7 +128,7 @@ golden 不变是意料之中的：基线仓库里没有一份配置用了 `@x@`�
 
 ## 这批结论的边界
 
-- **传输层没测全**：`ToolRunner` 走的是同一套 registry / plugin / ToolInvocation，但没有过
+- **传输层没测全**：`McpTool` 走的是同一套 registry / plugin / ToolInvocation，但没有过
   stdio 的 JSON-RPC 帧（这部分有 `StdioProtocolTest` 兜底，只是没做端到端）。
 - **只测了 3 个仓库**：都是 Java、都能顺利索引。被索引拒绝的仓库（无源码、路径不存在）没测。
 - **不许读源码是人为约束**：真实使用里 AI 会同时 grep 源码，那时它的答案可能比工具更全——
@@ -139,16 +140,16 @@ golden 不变是意料之中的：基线仓库里没有一份配置用了 `@x@`�
 
 ```bash
 # 单次查询（参数名与 MCP 的 tools/list 一致）
-bash .realworld/mcp-tool.sh list-controllers projectRoot=<目录> basePathFilter=/api
+bash tools/corpus/mcp-tool.sh list-controllers projectRoot=<目录> basePathFilter=/api
 
-# 三份答案 + 工具层复测的判分
+# 三份答案 + 工具层复测的判分（答案与判分脚本当时放在 .realworld/e2e，不在仓库里）
 cd .realworld/e2e && python score_e2e.py
 ```
 
 | 文件 | 内容 |
 |---|---|
-| `e2e/task-template.md` | 发给会话的任务书（规则、工具表、输出格式） |
-| `e2e/answer-*.json` | 四份原始答案，含每次调用的用途 |
-| `e2e/score_e2e.py` | 判分脚本，16 条断言 |
-| `ToolRunner.java` | 工具层调用器：构造真实的 plugin，调 `ToolProvider.invoke`，打印 `ToolOutcome` |
-| `mcp-tool.sh` | 薄封装，处理 MSYS 的路径改写 |
+| `tools/corpus/McpTool.java` | 工具层调用器：构造真实的 plugin，调 `ToolProvider.invoke`，打印 `ToolOutcome` |
+| `tools/corpus/mcp-tool.sh` | 薄封装，处理 MSYS 的路径改写，可重复跑上面那条命令 |
+| `e2e/task-template.md`（不在仓库里） | 发给会话的任务书（规则、工具表、输出格式） |
+| `e2e/answer-*.json`（不在仓库里） | 四份原始答案，含每次调用的用途 |
+| `e2e/score_e2e.py`（不在仓库里） | 判分脚本，16 条断言 |

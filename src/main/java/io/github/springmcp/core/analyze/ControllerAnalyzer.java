@@ -136,8 +136,8 @@ public final class ControllerAnalyzer {
         List<String> inferredControllers = new ArrayList<>();
 
         for (TypeSummary type : types) {
-            boolean declared = isController(type);
             List<Handler> handlers = handlerMethodsOf(type);
+            boolean declared = isController(type);
             if (!declared && !isImplicitController(type, handlers)) {
                 continue;
             }
@@ -159,39 +159,11 @@ public final class ControllerAnalyzer {
                 if (!handler.declaredIn().equals(type.fqn())) {
                     inheritedHandlers++;
                 }
-
-                AnnotationUse mapping = handler.mapping();
-                PathSpec methodPath = pathsOf(mapping, handler.file(), handler.declaredIn());
-                List<String> verbs = verbsOf(mapping);
-
-                if (!classPath.paths().resolved() || !methodPath.resolved()) {
+                HandlerEndpoints found = endpointsOf(type, classPath, handler, query);
+                if (found.unresolved()) {
                     unresolvedPaths++;
                 }
-
-                List<String> conditions = conditionsOf(type, handler.method());
-                List<String> joined = !classPath.paths().resolved() || !methodPath.resolved()
-                        ? List.of(PathJoiner.rawConcat(classPath.paths().rawFirst(), methodPath.rawFirst()))
-                        : PathJoiner.combinations(classPath.paths().paths(), methodPath.paths());
-                for (String path : joined) {
-                    boolean literal = classPath.paths().resolved() && methodPath.resolved();
-                    // A prefix filter cannot be applied to an unresolved expression, so such
-                    // endpoints are kept rather than silently dropped.
-                    if (literal && query.basePathFilter() != null
-                            && !path.startsWith(PathJoiner.cleanFilter(query.basePathFilter()))) {
-                        continue;
-                    }
-                    List<String> effectiveVerbs = filterVerbs(verbs, query.httpMethod());
-                    if (effectiveVerbs.isEmpty()) {
-                        continue;
-                    }
-                    endpoints.add(new Controllers.Endpoint(type.fqn(), rawOf(classPath.annotation()),
-                            classPath.paths().resolved(), effectiveVerbs, path,
-                            classPath.paths().resolved() && methodPath.resolved(),
-                            classPath.paths().resolved() ? methodPath.reason() : classPath.paths().reason(),
-                            handler.method().name(),
-                            handler.method().signature(), handler.file().toString(), handler.method().line(),
-                            handler.declaredIn(), conditions));
-                }
+                endpoints.addAll(found.endpoints());
             }
         }
 
@@ -265,18 +237,61 @@ public final class ControllerAnalyzer {
     }
 
     /**
-     * Finds configuration that rewrites every path below a prefix.
+     * Expands one mapped handler into the endpoints it contributes.
      *
      * <p>
-     * {@code WebMvcRegistrations.setPathPrefixes} and {@code configurePathMatch} add a prefix that no
-     * annotation mentions — the prefix comes from configuration, so it cannot be resolved here. It is
-     * reported instead of ignored: a caller comparing the output with what the front end calls would
-     * otherwise see every URL "missing a segment" and have no way to know why.
+     * Kept separate from {@link #analyze} because the caller's counters and warnings are per
+     * controller, while everything here is per handler: the class prefix, the verb filter and the
+     * base-path filter all apply to this one mapping and nothing else.
      * </p>
      *
-     * @param types every type in the index
-     * @return declarations that may be adding a prefix, in index order
+     * <p>
+     * The {@code unresolved} flag is returned rather than counted here. One handler can produce
+     * several endpoints (path array × verb filter), but the warning says "N handlers", so the caller
+     * has to increment once per handler and not once per endpoint.
+     * </p>
+     *
+     * @param controller type that owns the handler, source of the class-level prefix
+     * @param classPath effective class-level prefix
+     * @param handler the mapped method
+     * @param query caller filters
+     * @return the endpoints this handler contributes, plus whether its path stayed unresolved
      */
+    private HandlerEndpoints endpointsOf(TypeSummary controller, ClassPath classPath, Handler handler,
+            Controllers.Query query) {
+        AnnotationUse mapping = handler.mapping();
+        PathSpec methodPath = pathsOf(mapping, handler.file(), handler.declaredIn());
+        boolean unresolved = !classPath.paths().resolved() || !methodPath.resolved();
+
+        List<String> verbs = filterVerbs(verbsOf(mapping), query.httpMethod());
+        if (verbs.isEmpty()) {
+            return new HandlerEndpoints(List.of(), unresolved);
+        }
+
+        List<String> joined = unresolved
+                ? List.of(PathJoiner.rawConcat(classPath.paths().rawFirst(), methodPath.rawFirst()))
+                : PathJoiner.combinations(classPath.paths().paths(), methodPath.paths());
+
+        // A prefix filter cannot be applied to an unresolved expression, so such endpoints are kept
+        // rather than silently dropped.
+        String filter = unresolved || query.basePathFilter() == null
+                ? null
+                : PathJoiner.cleanFilter(query.basePathFilter());
+
+        List<String> conditions = conditionsOf(controller, handler.method());
+        List<Controllers.Endpoint> endpoints = new ArrayList<>(joined.size());
+        for (String path : joined) {
+            if (filter != null && !path.startsWith(filter)) {
+                continue;
+            }
+            endpoints.add(new Controllers.Endpoint(controller.fqn(), rawOf(classPath.annotation()),
+                    classPath.paths().resolved(), verbs, path, !unresolved,
+                    classPath.paths().resolved() ? methodPath.reason() : classPath.paths().reason(),
+                    handler.method().name(), handler.method().signature(), handler.file().toString(),
+                    handler.method().line(), handler.declaredIn(), conditions));
+        }
+        return new HandlerEndpoints(endpoints, unresolved);
+    }
 
     /**
      * A configuration class that may prefix every path, and the literal prefixes it names.
@@ -340,6 +355,19 @@ public final class ControllerAnalyzer {
         }
     }
 
+    /**
+     * Finds configuration that rewrites every path below a prefix.
+     *
+     * <p>
+     * {@code WebMvcRegistrations.setPathPrefixes} and {@code configurePathMatch} add a prefix that no
+     * annotation mentions — the prefix comes from configuration, so it cannot be resolved here. It is
+     * reported instead of ignored: a caller comparing the output with what the front end calls would
+     * otherwise see every URL "missing a segment" and have no way to know why.
+     * </p>
+     *
+     * @param types every type in the index
+     * @return declarations that may be adding a prefix, in index order
+     */
     private static List<PrefixConfig> pathPrefixConfigurers(List<TypeSummary> types) {
         List<PrefixConfig> found = new ArrayList<>();
         for (TypeSummary type : types) {
@@ -678,6 +706,15 @@ public final class ControllerAnalyzer {
      */
     private record Handler(String declaredIn, MethodSummary method, AnnotationUse mapping,
             java.nio.file.Path file) {
+    }
+
+    /**
+     * What a single handler contributes to the report.
+     *
+     * @param endpoints endpoints after verb and base-path filtering, possibly empty
+     * @param unresolved whether the class-level or method-level path could not be resolved
+     */
+    private record HandlerEndpoints(List<Controllers.Endpoint> endpoints, boolean unresolved) {
     }
 
     /**

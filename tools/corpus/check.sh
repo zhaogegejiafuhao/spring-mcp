@@ -70,9 +70,21 @@ trap 'rm -rf "$OUT"' EXIT
 
 # ScanTools 在同一个进程里逐个建索引，每个仓库用新的 registry；路径参数给白名单，
 # 否则 --repos 指到别的目录时会顺手把里面所有 checkout 都扫一遍。
+#
+# java 不能直接写：这台机器（以及 CI 之外的大多数 Windows 环境）里 java 不在 PATH 上，
+# 只有 JAVA_HOME。VALIDATION 第 4 组那次整批 NO_OUTPUT 就是同一个原因，只不过当时坏在另一个脚本里。
+if [ -n "${JAVA_HOME:-}" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+    JAVA="$JAVA_HOME/bin/java"
+elif command -v java >/dev/null 2>&1; then
+    JAVA=java
+else
+    echo "找不到 java：设 JAVA_HOME，或把 java 放进 PATH" >&2
+    exit 2
+fi
+
 JAR_ARG="$(cygpath -w "$JAR" 2>/dev/null || echo "$JAR")"
 SCAN_ARG="$(cygpath -w "$HERE/ScanTools.java" 2>/dev/null || echo "$HERE/ScanTools.java")"
-java -Dfile.encoding=UTF-8 -cp "$JAR_ARG" "$SCAN_ARG" \
+"$JAVA" -Dfile.encoding=UTF-8 -cp "$JAR_ARG" "$SCAN_ARG" \
   "$REPOS_DIR" "$OUT/results.jsonl" "$OUT/endpoints.jsonl" "$LIST" 2>&1 | tail -1
 
 python - "$OUT/results.jsonl" "$EXPECTED" "$UPDATE" <<'PY'

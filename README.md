@@ -42,7 +42,7 @@ MCP client  ──stdio(JSON-RPC)──▶  spring-mcp  ──JavaParser / Kotli
 
 首次执行会自动下载 Maven 发行版（约 10 MB）到 `~/.m2/wrapper`，之后离线可用。
 
-跑测试（含 6 个 fixture 工程的端到端分析用例）：
+跑测试（含 16 个 fixture 工程的端到端分析用例）：
 
 ```bash
 ./mvnw verify
@@ -481,7 +481,7 @@ spring-mcp/
 ├── pom.xml
 ├── .github/workflows/                 ci.yml（构建/Windows/基线）、release.yml（打 tag 发布）
 ├── .gitattributes                     固定 .cmd 用 CRLF、脚本用 LF
-├── fixtures/                          11 个 fixture 工程 + baseline/，供测试复用
+├── fixtures/                          16 个 fixture 工程 + baseline/，供测试复用
 ├── src/main/java/io/github/springmcp/
 │   ├── spi/                           插件 API + 领域 DTO
 │   │   ├── api/                       CoreAnalyzer / IndexHandle / IndexOptions
@@ -498,14 +498,17 @@ spring-mcp/
 │   │   └── util/                      PathJoiner / AnnotationNames / AstNodes
 │   └── server/                        MCP 装配
 │       ├── ProjectAlias / ProjectCatalog   工程别名与查找
-│       ├── builtin/                   八个分析工具 + list-projects / list-modules（实现 SPI，与第三方插件同一条路径）
+│       ├── ProjectRoots               空目录守卫（工具层与 --dev 共用同一份）
+│       ├── builtin/                   九个分析工具 + list-projects / list-modules（实现 SPI，与第三方插件同一条路径）
 │       ├── mcp/                       ToolRegistrar / ToolResults
 │       ├── plugin/                    PluginLoader / DefaultPluginContext
 │       ├── transport/                 StdioTransportFactory / StdoutGuard / EofAwareInputStream
+│       ├── declarative/               ConfigLoader / DeclarativeTools（配置文件定义工具，不用写 Java）
+│       ├── external/                  ExternalToolProvider（把任意命令行程序包成工具）
 │       └── dev/                       DevCli / BaselineSpec / BaselineNormaliser / BaselineRunner
 ├── src/test/java/io/github/springmcp/
 │   ├── example/ExamplePlugin.java     插件模板（编译进测试、不打包，保证示例不腐烂）
-│   ├── baseline/BaselineTest.java     八个真实仓库的回归基线（默认跳过）
+│   ├── baseline/BaselineTest.java     九个真实仓库的回归基线（默认跳过）
 │   └── server/StdioProtocolTest.java  起真进程走 stdio：工具清单、错误信封、关闭即退出
 └── src/main/resources/simplelogger.properties
 ```
@@ -536,7 +539,7 @@ SourceIndex（不可变快照）
 └── AstCache                            ← 有界 LRU(512)，可丢可重建
 ```
 
-五个分析工具里只有 `find-service-callers` 需要方法体（Java 取 AST，Kotlin 取 token），其余四个用摘要就能回答。
+九个分析工具里只有 `find-service-callers` 需要方法体（Java 取 AST，Kotlin 取 token），其余八个用摘要就能回答。
 而它先用 `calledMethodNames` 预过滤，把候选文件从几千缩到几十分之一，再取方法体：spring-boot 上查 `Environment`
 （命中面很大）全流程 0.9 s。
 
@@ -601,7 +604,8 @@ SourceIndex（不可变快照）
 
 - **缓存在用户目录**（`%LOCALAPPDATA%\spring-mcp\index`），绝不写进被分析的仓库——这工具只读别人的代码，写进去既污染工作区，也会被 `mvn clean` 删掉
 - **任何异常都当未命中**：文件缺失、JSON 损坏、目录只读、版本不符，一律重建，绝不让缓存问题变成一个工具错误
-- 写入用 `tmp` + 原子 move，进程被杀不会留下半个文件
+- 写入用 `tmp` + 原子 move，进程被杀不会留下半个文件；残留的 `.tmp` 会在下次成功写入后顺手清掉
+- **目录有上限**：整份缓存超过 1 GiB 时按最久未构建的顺序删掉旧工程——不做上限的话，231 个仓库的语料就是 8 GB 的静默堆积
 - `CuSummary` / `TypeSummary` / `FieldSummary` 的字段一变，`IndexCacheFormatTest` 就会失败并提示 bump `VERSION`——否则旧文件里缺字段会静默反序列化成半空摘要（`FieldSummary` 是嵌套记录，只比类型名是抓不到它加字段的）
 - 基线测试与 `--dev baseline` 一律不走缓存：基线的意义就是验证解析路径，缓存的答案证明不了任何事
 
@@ -751,7 +755,7 @@ com.acme.MyPlugin
 
 | 能力 | 说明 |
 |---|---|
-| `context.analyzer()` | 只读分析门面：`open(Path, IndexOptions)` → `IndexHandle`，五个分析都在上面 |
+| `context.analyzer()` | 只读分析门面：`open(Path, IndexOptions)` → `IndexHandle`，九个分析都在上面 |
 | `context.logger()` | 写 stderr 的日志（stdout 是协议通道，绝不能用） |
 | `context.pluginsDirectory()` | 插件 jar 所在目录，方便带辅助数据文件 |
 | `context.defaultProjectRoot()` | 命令行 `--project` 的值，可能为 null |
@@ -763,7 +767,7 @@ com.acme.MyPlugin
 - 每个 jar 一个 `URLClassLoader`（父优先），插件之间互相不可见
 - `ServiceLoader` 是惰性的，`ServiceConfigurationError` / `NoClassDefFoundError` 在 `hasNext()`/`next()` 才抛 —— try/catch 包在迭代内部，一个坏 jar 只损失它自己
 - `initialize()` 抛异常、工具名重复、schema 非法、SPI 主版本不匹配 → 丢弃该插件/工具并记一条 report
-- **最坏情况是 0 个插件，服务照常带着 5 个内置工具启动**
+- **最坏情况是 0 个插件，服务照常带着 11 个内置工具启动**
 
 ---
 
@@ -894,9 +898,27 @@ $J --index-cache=off --dev controllers --root /path/to/project
 
 输出是 UTF-8 的 JSON，可以直接管道给 `jq`。参数支持 `--key value` 和 `--key=value` 两种写法。
 
+### 两条通道，别用错
+
+`--dev` 绕过工具层直接调索引，所以它能回答「是不是分析算错了」；但它**不能**证明「客户端调用会被正确处理」。
+
+| 通道 | 走哪一层 | 用来回答 |
+|---|---|---|
+| `--dev <cmd> --root ...` | 直接调索引 | 分析结果对不对 |
+| `bash tools/corpus/mcp-tool.sh <tool> k=v ...` | 真实的工具层（registry / plugin / `ToolInvocation`，参数名与 `tools/list` 一致） | 客户端看到的那一层对不对 |
+
+```bash
+bash tools/corpus/mcp-tool.sh list-controllers projectRoot=fixtures/demo-web
+bash tools/corpus/mcp-tool.sh find-service-callers projectRoot=fixtures/layered-callers service=OrderService
+```
+
+`docs/E2E.md` 和 `docs/GENERALIZATION.md` 里那些「冷启动会话只给工具不给源码」的实测，走的就是第二条——
+测量必须在被测的那一层上做。脚本用源码模式启动（`java McpTool.java`），单次查询方便，批量跑请用
+`tools/corpus/check.sh`。
+
 ### 回归基线
 
-在八个真实仓库上冻结分析结果，用来证明「改一处没把别处改坏」：
+在九个真实仓库上冻结分析结果，用来证明「改一处没把别处改坏」：
 
 | 仓库 | 用途 |
 |---|---|
@@ -974,13 +996,19 @@ CI 里的 `corpus` 作业跑的就是它。
 ### 发版
 
 ```bash
-git tag v0.2.0 && git push origin v0.2.0
+# pom 的 <version> 是版本的唯一来源；v 前缀之外必须与它一致（-SNAPSHOT 会被去掉）
+git tag v0.1.0 && git push origin v0.1.0
 ```
 
-`release.yml` 跑全量测试，然后把 `spring-mcp-all.jar` 与一个含 jar + 两个启动脚本的 `spring-mcp.zip` 挂到 Release。
-两点需要知道：
+`release.yml` 先校验 tag 与 `pom.xml` 的版本（`v0.1.0` ↔ `0.1.0-SNAPSHOT`），不一致就失败并说明该改哪一边；
+然后把构建版本改成 `0.1.0` 跑全量测试，再问 jar 自己报的版本是不是 `0.1.0`，最后把 `spring-mcp-all.jar`
+与一个含 jar + 两个启动脚本的 `spring-mcp.zip` 挂到 Release。
 
-- 报告给客户端的版本号来自 `pom.xml` 的 `<version>`，**不是 tag**。发版前改 pom，或接受两者不一致
+三点需要知道：
+
+- 报给客户端的版本号来自 `pom.xml` 的 `<version>`，经 shade 写进 jar manifest 的 `Implementation-Version`，
+  由 `SpringMcpMain.VERSION` 在运行时读出来——**代码里没有第二个版本号可以漂移**
+- 两者不一致时发版会红，而不是挑一个悄悄用
 - 基线不在发版流程里跑（联网 + 分钟级），它是 CI 的职责
 
 ### 换行符
@@ -1024,7 +1052,8 @@ git tag v0.2.0 && git push origin v0.2.0
 - **跨工程解析**：一次分析一个目录。多个仓库之间的引用永远算「外部」，即使它们在同一个 Maven reactor 里
 - **模块级索引裁剪**：`scope` 只过滤结果，索引始终是全仓库。想少解析就把 `projectRoot` 指向子目录，代价是丢跨模块解析
 - **每个模块独立的 classpath / 依赖版本**：不做依赖冲突仲裁，同名类在多个模块中只会有一个解析结果
-- **缓存清理策略**：不做 LRU，也不回收旧工程的缓存；一个工程约 36 MB，不需要时手动删 `%LOCALAPPDATA%\spring-mcp\index`
+- **缓存的按频率淘汰**：只按总大小兜底——超过 1 GiB 时按「最久没重新构建」的顺序删，不做命中率统计的 LRU。
+  想立刻清空仍然直接删 `%LOCALAPPDATA%\spring-mcp\index`
 - **Kotlin 的表达式级类型推断**：`.kt` 文件**会解析**（类/接口/对象、函数、属性、注解、父类型，含嵌套与 `companion object`），
   但只到声明层。`val repo = findRepo()` 这种由表达式决定类型的地方留空，不猜；`@Value` 之类注入的值也不求值。
   覆盖边界写在工具结果的 warning 里：**`find-service-callers` 也读 Kotlin**，接收者按「局部 `val` → 字段 → 方法参数 →
@@ -1051,4 +1080,15 @@ git tag v0.2.0 && git push origin v0.2.0
 - JDK：`D:\tools\re\jdk-21`（Temurin 21.0.12.1）
 - Maven：`D:\tools\apache-maven-3.9.16`，于 `%USERPROFILE%\.m2\settings.xml` 配置了阿里云镜像
 - 依赖版本：`mcp-bom 2.1.0`、`javaparser-core 3.28.2`、`jackson-dataformat-yaml 2.21.1`、JUnit 5.11.4、AssertJ 3.26.3
-- 索引缓存目录：`%LOCALAPPDATA%\spring-mcp\index`（一个工程一个 36 MB 左右的 `index.json`，不需要时可直接删）
+- 索引缓存目录：`%LOCALAPPDATA%\spring-mcp\index`（一个工程一个 36 MB 左右的 `index.json`；
+  整个目录超过 1 GiB 时，下一次成功写缓存后按最久未构建的顺序自动回收，也可以直接删目录）
+
+---
+
+## 十一、许可
+
+Apache License 2.0，全文见 [`LICENSE`](LICENSE)。
+
+选它是因为这份代码的用法：被公司引进、被第三方写插件、被打包再分发，都需要一条显式的专利授权；
+MIT 没有这一条。想换成 MIT 的话，替换 `LICENSE` 和 `pom.xml` 里的 `<licenses>` 即可，代码里没有
+任何许可相关内容。

@@ -20,7 +20,7 @@
 | 泛化 | **98 个**没调过的项目，13.6 万源文件 | 98/98 成功，0 崩溃，最慢 14 秒 |
 | 内部一致性 | 两万条端点跑两遍（冷/热缓存） | 路径、方法、解析标记**逐条相同**（修复检出后重跑同样相同） |
 
-另外：296 个自动化测试、9 个开源项目的 golden 快照全部稳定。
+另外：315 个自动化测试、9 个开源项目的 golden 快照全部稳定。
 
 ---
 
@@ -232,15 +232,22 @@ PR 上也看不到它们变了。现在有两层：
 
 ## 八、自己复现
 
-```bash
-# 单仓库
-bash .realworld/mcp-tool.sh list-controllers projectRoot=D:/path/to/repo
+单仓库查询没有任何前置条件，脚本就在仓库里：
 
+```bash
+bash tools/corpus/mcp-tool.sh list-controllers projectRoot=D:/path/to/repo
+```
+
+其余复现步骤依赖两样不在仓库里的东西：一批真实仓库的检出（约 12 GB，在 `.realworld/`），
+以及当时用的一次性脚本（`repro/diff.py`、`compare.py`、`checkout-audit.sh`）。
+所以 clone 之后只有上面那一条能直接跑；下面的命令是记录**当时怎么算的**，不是开箱即用的入口——
+
+```bash
 # 110 个仓库的复现比对（550 个数字）
 cd .realworld && python repro/diff.py
 
-# 第二批的批量扫描（串行）
-java -cp target/spring-mcp-all.jar .realworld/ScanTools.java \
+# 第二批的批量扫描（串行）；ScanTools.java 在仓库里，数据目录不在
+java -cp target/spring-mcp-all.jar tools/corpus/ScanTools.java \
      .realworld/repos2 .realworld/results2e.jsonl .realworld/endpoints2e.jsonl
 
 # 先确认检出是完整的——不完整的工作树会给出一份"看起来正常"的少数
@@ -254,12 +261,14 @@ REALWORLD_OUT=D:/springMCP/.realworld/groundtruth2.json python compare.py
 
 | 文件 | 内容 |
 |---|---|
+| `tools/corpus/mcp-tool.sh`（用 `bash` 调） | 单仓库走工具层查询，就是 E2E 与泛化实测用的那条命令 |
+| `tools/corpus/check.sh` | 11 个仓库的回归比对，自己拉检出、自己比对 |
 | [`docs/GROUNDTRUTH.md`](docs/GROUNDTRUTH.md) | 第一批契约对账的逐条过程与 20 个全对来源 |
 | [`docs/E2E.md`](docs/E2E.md) | 冷启动实测：三个新会话在没见过的仓库上答题 |
 | [`docs/GENERALIZATION.md`](docs/GENERALIZATION.md) | 复现与泛化的完整过程、逐项核对 |
-| `.realworld/results2e.jsonl` | 第二批 100 个仓库的最终结果 |
-| `.realworld/endpoints2e.jsonl` | 第二批逐端点明细（路径、方法、文件、行号） |
-| `.realworld/groundtruth*.json` | 契约对账的逐条明细 |
+| `.realworld/results2e.jsonl`（不在仓库里） | 第二批 100 个仓库的最终结果 |
+| `.realworld/endpoints2e.jsonl`（不在仓库里） | 第二批逐端点明细（路径、方法、文件、行号） |
+| `.realworld/groundtruth*.json`（不在仓库里） | 契约对账的逐条明细 |
 
 三份过程文档保留原始细节，结论以上面的表格为准。
 
@@ -294,8 +303,9 @@ REALWORLD_OUT=D:/springMCP/.realworld/groundtruth2.json python compare.py
 跑的过程中暴露的两个问题，都在测试管道上、不在工具上：
 
 - 第 3 组有两个仓库返回空输出（`ZongXR/SuperMarket`、`microsoft/XStudio`），重跑即正常。原因是
-  `mcp-tool.sh` 用 `java ToolRunner.java` 的源码模式，每次调用都要现编译一次，机器有负载时会失败。
-  第 4、5 组改用预编译类，未再出现。
+  `mcp-tool.sh` 用 `java McpTool.java` 的源码模式，每次调用都要现编译一次，机器有负载时会失败。
+  第 4、5 组改用预编译类，未再出现。批量跑就该预编译（`tools/corpus/check.sh` 走的是 `ScanTools`
+  一次进多仓，没这个问题；单条查询的源码模式只适合人手工用）。
 - 第 4 组发现 `fast-run2.sh` 没有 `export JAVA_HOME`，导致整批 `NO_OUTPUT`。已修。
 
 ## 附二：第三批 20 个新仓库

@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import io.github.springmcp.core.IndexRegistry;
+import io.github.springmcp.server.ProjectRoots;
 import io.github.springmcp.spi.ErrorCode;
 import io.github.springmcp.spi.ToolFailure;
 import io.github.springmcp.spi.api.IndexHandle;
@@ -118,7 +119,9 @@ public final class DevCli {
     }
 
     private Object indexInfo(Map<String, String> options) throws ToolFailure {
-        IndexHandle index = open(options);
+        // Metadata is exactly what you want when a directory has no source: this is the one command
+        // that must answer "fileCount=0, modules=[], root=..." instead of refusing.
+        IndexHandle index = openUnchecked(options);
         return Map.of("metadata", index.metadata(), "root", index.root().toString());
     }
 
@@ -247,7 +250,27 @@ public final class DevCli {
                 "differences", differences, "tools", snapshots.size(), "elapsedMs", elapsed);
     }
 
+    /**
+     * Opens a snapshot for an analysis command, refusing a directory that holds no source.
+     *
+     * <p>
+     * The same guard the MCP tool surface applies, and for the same reason: an empty answer is
+     * indistinguishable from a project that exposes nothing. It matters more here, not less — the CLI
+     * is where someone goes to find out whether the analysis or the client is wrong, so answering
+     * {@code "endpoints": []} with exit code 0 for a mistyped {@code --root} sends them looking in the
+     * wrong place.
+     * </p>
+     *
+     * @param options {@code root}, optionally {@code scope}
+     * @return the snapshot
+     * @throws ToolFailure when the directory holds no Java/Kotlin source
+     */
     private IndexHandle open(Map<String, String> options) throws ToolFailure {
+        IndexHandle handle = openUnchecked(options);
+        return ProjectRoots.requireSources(handle.root(), handle);
+    }
+
+    private IndexHandle openUnchecked(Map<String, String> options) throws ToolFailure {
         String root = options.get("root");
         if (root == null) {
             throw ToolFailure.of(ErrorCode.INVALID_ARGUMENT, "缺少 --root", "例如 --root ./fixtures/demo-web");
