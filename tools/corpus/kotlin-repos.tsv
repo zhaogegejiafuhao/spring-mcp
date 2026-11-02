@@ -1,0 +1,12 @@
+# Kotlin 差分对账用的真实仓库：名字<TAB>仓库地址<TAB>commit
+#
+# 钉死 commit：跟 HEAD 走的话，上游一次提交就能让这里变红，而这里要回答的是
+# 「我们的改动有没有改变结果」，不是「上游有没有改代码」。
+#
+# 选择标准：纯 Kotlin 或 Kotlin 为主的 Spring Web 工程，且写法各不相同——
+#   kotlin-realworld   映射声明在接口里，控制器实现接口（最容易被只看 class 的解析器漏掉）
+#   digital-restaurant 多模块微服务，@RequestMapping(value = ["/x"], method = [RequestMethod.POST]) 数组写法
+#   spring-petclinic   教科书式的 @GetMapping("/x")，含两个不带前导斜杠的路径
+gunkim_kotlin-realworld	https://github.com/gunkim/kotlin-realworld	cdff2188dfa636c2da0e90dda211358328ac0bca
+idugalic_digital-restaurant	https://github.com/idugalic/digital-restaurant.git	920248e62c5b7d9b8d3c365b2f911355aa19c7db
+spring-petclinic_spring-petclinic-kotlin	https://github.com/spring-petclinic/spring-petclinic-kotlin.git	817dba3b02261e4291f138d5d8bb8c85c7d49758

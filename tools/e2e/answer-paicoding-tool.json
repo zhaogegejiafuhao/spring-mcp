@@ -1,0 +1,18 @@
+{
+  "repo": "itwanger__paicoding",
+  "answers": {
+    "q1": "343 条 HTTP 端点映射（list-controllers 的 endpoints 数组长度；按 (path, httpMethods) 去重后仍是 343，即没有完全重复的条目）。口径拆解：53 个 Controller（controllerCount=53）、240 个 handler 方法（methodCount=240），因为部分 Controller 的类级映射声明了多个路径（如 AdminLoginController 的 classPathRaw=\"/api/admin, /admin\"），一个 handler 会展开成多条端点，所以端点数 343 > 方法数 240。去重后的路径字符串共 339 个（其中 338 个可静态确定，1 个不可确定）。",
+    "q2": "共 2 条（逐字，含反斜杠与花括号内正则约束）：\n/article/detail/{articleId:\\d+}/{urlSlug}\n/article/detail/{articleId:\\d+}\n两条均为 GET，均来自 com.github.paicoding.forum.web.front.article.view.ArticleViewController（类级 classPathRaw=article），handler 分别为 detailWithSlug 与 detail，pathResolved 均为 true。注意 /admin/article/detail 与 /api/admin/article/detail 虽然包含 article/detail，但前缀是 /admin 与 /api/admin，不属于「以 /article/detail 开头」。",
+    "q3": "有，1 条。路径原文：${server.error.path:${error.path:/error}}（httpMethods=ANY，pathResolved=false，classPathResolved=false，unresolvedReason=PLACEHOLDER）。位置：com.github.paicoding.forum.web.error.CustomizeErrorController#errorHtml，CustomizeErrorController.java 第 17 行。处理方法：不做猜测、不补全成 /error，原样保留工具返回的占位符文本。不能确定的原因：类级映射用的是 Spring 属性占位符（带默认值的嵌套占位符 ${server.error.path:${error.path:/error}}），其真实值取决于运行期配置项 server.error.path / error.path，静态分析拿不到配置文件的实际取值，工具因此标记 pathResolved=false。",
+    "q4": "Spring Cloud Gateway 路由：0 条（没有配置）。Feign 客户端：0 个（没有）。依据：list-gateway-routes 返回 routes=[]、count=0、discoveryLocatorEnabled=false；list-feign-clients 返回 clients=[]、total=0，两次调用均无 warnings。"
+  },
+  "calls": [
+    {"tool": "list-projects", "args": {}, "note": "确认工程是否需要预先登记；返回 count=0，说明可直接用 projectRoot 路径调用"},
+    {"tool": "list-modules", "args": {"projectRoot": "D:/springMCP/.realworld/repos/itwanger__paicoding"}, "note": "看清仓库模块结构（5 个模块：paicoding-api/core/service/ui/web），确定端点应集中在 paicoding-web"},
+    {"tool": "list-controllers", "args": {"projectRoot": "D:/springMCP/.realworld/repos/itwanger__paicoding"}, "note": "全量端点清单；得到 controllerCount=53、methodCount=240、warnings 提示 1 个 handler 路径无法静态求值；输出被截断，另存后本地解析"},
+    {"tool": "list-controllers", "args": {"projectRoot": "D:/springMCP/.realworld/repos/itwanger__paicoding", "shellRedirect": "> D:/springMCP/.realworld/e2e/tmp/lc_all.json"}, "note": "同一条命令把 stdout 重定向落盘（未读取任何源码），再用 JSON 解析统计 endpoints 长度=343、distinct path=339、distinct (path,method)=343、pathResolved=false 的条目=1，并筛出以 /article/detail 开头的路径"},
+    {"tool": "list-gateway-routes", "args": {"projectRoot": "D:/springMCP/.realworld/repos/itwanger__paicoding"}, "note": "回答 q4 的网关部分：routes=[]、count=0、discoveryLocatorEnabled=false"},
+    {"tool": "list-feign-clients", "args": {"projectRoot": "D:/springMCP/.realworld/repos/itwanger__paicoding"}, "note": "回答 q4 的 Feign 部分：clients=[]、total=0"},
+    {"tool": "list-controllers", "args": {"projectRoot": "D:/springMCP/.realworld/repos/itwanger__paicoding", "basePathFilter": "/article/detail"}, "note": "试图用官方过滤器交叉验证 q2；该过滤器未按前缀过滤（只回传了那 1 条未解析端点），因此 q2 结论以全量输出中的本地筛选为准"}
+  ]
+}

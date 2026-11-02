@@ -1,0 +1,61 @@
+{
+  "repo": "Naccl__NBlog",
+  "answers": {
+    "q1": "79 个。依据 list-controllers 的单次返回：controllerCount=27（27 个 @RestController 控制器）、methodCount=79、endpoints 数组长度=79，三者自洽。按 HTTP 方法拆分：GET 33 + PUT 18 + POST 15 + DELETE 13 = 79。交叉验证：search-by-annotation(annotation=RestController) 命中 total=27 个类型，与 27 个控制器一致；list-gateway-routes 返回 routes=[]、count=0，没有网关改写前缀，所以这 79 条就是应用实际暴露的路径。includeTests 取 false 或 true 都仍是 27/79（测试目录下没有额外端点）。注意：这 79 条里包含 1 条受条件装配控制的端点（见 q3），也包含 1 条路径无法静态求值的端点（见 q2）。",
+    "q2": "有，1 条。\n1) POST  /tg/${tg.bot.token}  ->  处理方法 getUpdate，控制器 top.naccl.controller.TelegramBotController（TelegramBotController.java:35），pathResolved=false，unresolvedReason=PLACEHOLDER。\n原因：映射路径里写的是 Spring 占位符 ${tg.bot.token}，值在运行时由外部配置注入才能确定；该控制器依赖 top.naccl.config.properties.TelegramProperties（get-file-dependencies 显示它是 internal 依赖），静态分析只能拿到占位符原文，拿不到 token 字面量，所以工具按原文返回并标记为未解析，而不是猜一个 URL。\n除这 1 条外，其余 78 条 pathResolved 均为 true（其中 /moment/like/{id}、/admin/blog/{id}/visibility 属于路径变量模板，是另一种情况：路径模板本身可确定，只是变量段需要调用方填值）。",
+    "q3": "有，1 个。就是 q2 里那条：top.naccl.controller.TelegramBotController 的 POST /tg/${tg.bot.token}（getUpdate）。conditions 字段给出条件：@ConditionalOnProperty(name=\"comment.notify.channel\", havingValue=CommentConstants.TELEGRAM)。即只有当配置项 comment.notify.channel 的取值等于常量 CommentConstants.TELEGRAM 时，这个控制器才被装配、端点才被注册；否则整个控制器不加载，该路径不存在。工具返回的 warnings 也明确写了「1 个端点受条件装配控制」。补充说明（不猜）：havingValue 是常量引用而非字面量，工具未给出 CommentConstants.TELEGRAM 的实际字符串值（search-symbol 只返回了该常量的类型位置 top.naccl.constant.CommentConstants，没有字段值）。",
+    "q4": "不能。三个理由：\n1) 那条路径里的 ${tg.bot.token} 是占位符，真实值只有运行时配置才知道；直接把 \"/tg/${tg.bot.token}\" 当 URL 拼进去，发出去的是一个含 ${} 的非法路径，不可能命中映射。\n2) 就算猜一个 token 填进去也不成立：token 是部署方的密钥，不是仓库里的固定常量，换环境就变，抄清单的人无法得知。\n3) 该端点还受 @ConditionalOnProperty 控制（comment.notify.channel = CommentConstants.TELEGRAM），环境不满足时这个控制器根本不会注册，请求只会 404 —— 也就是说它在某些部署里压根不存在，写死调用方代码会得到一个必然失败的调用。\n结论：这条只能标注为「路径不可静态确定 + 条件存在」，由使用方在运行时从配置读取 token 并在确认该功能开启后再拼路径；不能填进代码当固定 URL。清单里另外 78 条 pathResolved=true 的路径可以按原样当 URL 用（带 {id} 的按路径变量替换）。"
+  },
+  "calls": [
+    {
+      "tool": "list-projects",
+      "args": {},
+      "note": "想先确认已登记工程；该管道对 list-projects 返回 unknown tool（脚本在 case 分支之后才判断 list-projects，属管道自身缺陷），因此改为直接用 list-modules/list-controllers 指定 root"
+    },
+    {
+      "tool": "list-modules",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog"},
+      "note": "确认是否多模块工程（决定 scope 是否可用）：modules=[]、dependencies={}，工具按单模块处理"
+    },
+    {
+      "tool": "list-controllers",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog"},
+      "note": "取全量 HTTP 端点清单，读 controllerCount/methodCount/endpoints/warnings，统计未解析与条件装配条目"
+    },
+    {
+      "tool": "list-controllers",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog", "includeTests": "false"},
+      "note": "确认排除测试代码后的数量：27 / 79"
+    },
+    {
+      "tool": "list-controllers",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog", "includeTests": "true"},
+      "note": "确认包含测试代码后是否多出端点：仍是 27 / 79，测试目录下无额外端点"
+    },
+    {
+      "tool": "list-controllers",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog", "scope": "all"},
+      "note": "试探 scope 作用域（另试过 main / test）：返回 INVALID_ARGUMENT「该工程未识别到多模块结构，--scope 不可用」，佐证单模块、无需分部计数"
+    },
+    {
+      "tool": "get-file-dependencies",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog", "file": "blog-api/src/main/java/top/naccl/controller/TelegramBotController.java"},
+      "note": "查 /tg/${tg.bot.token} 的占位值来源：依赖 top.naccl.config.properties.TelegramProperties，说明值来自运行时配置类，静态不可求值"
+    },
+    {
+      "tool": "search-by-annotation",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog", "annotation": "RestController"},
+      "note": "交叉核对控制器数量：total=27，与 list-controllers 的 controllerCount=27 一致"
+    },
+    {
+      "tool": "list-gateway-routes",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog"},
+      "note": "确认是否有网关改写路径前缀：routes=[]、count=0、discoveryLocatorEnabled=false，端点路径即真实路径"
+    },
+    {
+      "tool": "search-symbol",
+      "args": {"root": "/d/springMCP/.realworld/repos/Naccl__NBlog", "name": "CommentConstants"},
+      "note": "想把 conditions 里的 CommentConstants.TELEGRAM 还原成字面量：只返回类型位置 top.naccl.constant.CommentConstants，未给字段值，故答案中如实说明该值未知"
+    }
+  ]
+}

@@ -19,6 +19,7 @@
 | 可复现 | 110 仓库 × 5 字段 = **550 个数字** | **0 处不一致** |
 | 泛化 | **98 个**没调过的项目，13.6 万源文件 | 98/98 成功，0 崩溃，最慢 14 秒 |
 | 内部一致性 | 两万条端点跑两遍（冷/热缓存） | 路径、方法、解析标记**逐条相同**（修复检出后重跑同样相同） |
+| Kotlin 差分 | 3 个真实 Kotlin 工程，80 条端点 | 与「第二份实现」逐条一致（正则 vs 词法器，互不看对方代码） |
 
 另外：320 个自动化测试、9 个开源项目的 golden 快照全部稳定。
 
@@ -135,6 +136,33 @@ baseline repos: 110, answered repos: 110, duplicates: 0
 
 ---
 
+## Kotlin：用第二份实现来对账
+
+Java 侧的准绳是别人写下的东西——前端 API 文件里的 `url:`、集成测试里 `mockMvc.perform(get("/x"))`。
+Kotlin 侧一直没有这种外部准绳：`KotlinContractTest` 的期望值是从 fixture 里读出来再写进断言的，
+同一个人出题又判卷。
+
+现在加一份第二实现：`tools/corpus/check-kotlin.py` 用正则从 `.kt` 源码里数映射注解，不碰词法器、
+不建 AST、不共用任何代码，再和工具的输出逐条比。
+
+| 仓库 | 写法特点 | 工具 | 正则 | 一致 |
+|---|---|---|---|---|
+| `gunkim/kotlin-realworld` | 映射声明在接口里，控制器实现接口 | 19 | 19 | 19 |
+| `idugalic/digital-restaurant` | 多模块微服务，`value = ["/x"]` 数组写法 | 43 | 43 | 43 |
+| `spring-petclinic-kotlin` | 教科书式 `@GetMapping("/x")`，含两个不带前导斜杠的路径 | 18 | 18 | 18 |
+
+80 条端点逐条一致，正则侧没有跳过任何"复杂表达式"。仓库与 commit 钉在 `tools/corpus/kotlin-repos.tsv`，
+`tools/corpus/` 下的脚本按它自动检出。
+
+这个准绳能证明的范围比 Java 侧窄：只覆盖正则能表达的语法，且假设一个文件一个控制器。但两边不一致时
+会直接列出来（"只在工具" / "只在正则"），所以窄归窄，不会假装通过。
+
+顺带说明它不是"同一份逻辑换个写法"：正则的第一版有三个 bug——注释里的 `object of type 'Vets'` 被当成
+类声明、接口里的方法注解被当成类前缀、路径没补前导斜杠。三个都修掉之后才对上，说明这两条路确实是
+独立算出来的。
+
+---
+
 ## 这一路抓到的七个问题
 
 验证的价值不在于确认它对，而在于**找到了它哪里不对**。七个都改了，或者明确写进了限制。
@@ -232,15 +260,22 @@ PR 上也看不到它们变了。现在有两层：
 
 ## 自己复现
 
-单仓库查询没有任何前置条件，脚本就在仓库里：
+这几条 clone 下来就能跑，脚本自己拉检出（仓库与 commit 钉在 `tools/corpus/*.tsv`）：
 
 ```bash
+# 单仓库，走真实工具层而不是 --dev
 bash tools/corpus/mcp-tool.sh list-controllers projectRoot=D:/path/to/repo
+
+# 11 个 Java 仓库的语料比对
+bash tools/corpus/check.sh --jar target/spring-mcp-all.jar
+
+# Kotlin 差分对账：正则数出来的端点 vs 工具的输出
+python tools/corpus/check-kotlin.py --jar target/spring-mcp-all.jar
 ```
 
-其余复现步骤依赖两样不在仓库里的东西：一批真实仓库的检出（约 12 GB，在 `.realworld/`），
-以及当时用的一次性脚本（`repro/diff.py`、`compare.py`、`checkout-audit.sh`）。
-所以 clone 之后只有上面那一条能直接跑；下面的命令是记录**当时怎么算的**，不是开箱即用的入口——
+剩下的复现步骤依赖 `.realworld/` 里那批约 12 GB 的检出，以及当时用的一次性脚本
+（`repro/diff.py`、`compare.py`、`checkout-audit.sh`），它们不进仓库。下面的命令是记录
+**当时怎么算的**，不是开箱即用的入口——
 
 ```bash
 # 110 个仓库的复现比对（550 个数字）

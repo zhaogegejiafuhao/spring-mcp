@@ -142,14 +142,14 @@ golden 不变是意料之中的：基线仓库里没有一份配置用了 `@x@`�
 # 单次查询（参数名与 MCP 的 tools/list 一致）
 bash tools/corpus/mcp-tool.sh list-controllers projectRoot=<目录> basePathFilter=/api
 
-# 三份答案 + 工具层复测的判分（答案与判分脚本当时放在 .realworld/e2e，不在仓库里）
-cd .realworld/e2e && python score_e2e.py
+# 四份答案 + 工具层复测的判分，脚本和答案都在仓库里
+python tools/e2e/score_e2e.py
 ```
 
 | 文件 | 内容 |
 |---|---|
 | `tools/corpus/McpTool.java` | 工具层调用器：构造真实的 plugin，调 `ToolProvider.invoke`，打印 `ToolOutcome` |
 | `tools/corpus/mcp-tool.sh` | 薄封装，处理 MSYS 的路径改写，可重复跑上面那条命令 |
-| `e2e/task-template.md`（不在仓库里） | 发给会话的任务书（规则、工具表、输出格式） |
-| `e2e/answer-*.json`（不在仓库里） | 四份原始答案，含每次调用的用途 |
-| `e2e/score_e2e.py`（不在仓库里） | 判分脚本，16 条断言 |
+| `tools/e2e/task-template.md` | 发给会话的任务书（规则、工具表、输出格式） |
+| `tools/e2e/answer-*.json` | 四份原始答案，含每次调用的用途 |
+| `tools/e2e/score_e2e.py` | 判分脚本，16 条断言，`python tools/e2e/score_e2e.py` 直接跑 |
