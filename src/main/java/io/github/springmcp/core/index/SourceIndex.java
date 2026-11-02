@@ -411,6 +411,23 @@ public final class SourceIndex implements IndexHandle {
             warnings.add(functional.unexpanded()
                     + " 个 RouterFunctions.route(...) 没有字面量路径（谓词是方法引用或常量），未展开为端点");
         }
+        if (functional.unresolvedPrefixes() > 0) {
+            // Not a detail: every one of these paths is missing a prefix the code does apply, so a
+            // caller comparing them with what the front end calls would see them all as absent.
+            warnings.add(functional.unresolvedPrefixes()
+                    + " 个端点位于 nest(...) 之下，而该前缀无法静态求值（如 \"/apis/\" + groupVersion），"
+                    + "path 不含这层前缀且 pathResolved=false，请勿直接当作可访问地址: "
+                    + String.join("、", functional.prefixSamples()));
+        }
+        if (!functional.structuralNests().isEmpty()) {
+            // The prefix crosses a type boundary: CustomEndpointsBuilder nests a router that each
+            // CustomEndpoint builds elsewhere. Nothing here can attribute it to an endpoint, but a
+            // reader comparing these paths with real traffic has to know the layer exists.
+            warnings.add("发现 " + functional.structuralNests().size()
+                    + " 处 nest(...) 的前缀作用在别处（路由由变量或另一个类的返回值得出），未应用到本报告的路径；"
+                    + "若这些端点正是你查的那批，它们的真实 URL 前面还有一层前缀: "
+                    + String.join("、", functional.structuralNests().stream().limit(3).toList()));
+        }
 
         List<Controllers.Endpoint> extra = new ArrayList<>();
         for (Controllers.Endpoint endpoint : functional.endpoints()) {
