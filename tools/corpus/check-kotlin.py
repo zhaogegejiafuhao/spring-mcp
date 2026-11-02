@@ -291,6 +291,11 @@ def main():
         totals['skipped'] += skipped['complex']
         if only_tool or only_regex:
             failures += 1
+        elif not got and not want:
+            # 空对空永远相等。仓库结构变了、检出不对、或者哪一边整体失效时，
+            # 这里会安静地打印"一致"——那是最糟的假绿。
+            print('    两边都是 0 条端点：这不是一致，是没测到东西')
+            failures += 1
 
     print()
     if failures:
