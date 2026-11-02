@@ -18,17 +18,57 @@ MCP client  ──stdio(JSON-RPC)──▶  spring-mcp  ──JavaParser / Kotli
 | 看得见 | 看不见 |
 |---|---|
 | `@RestController` / `@Controller` 上的 `@GetMapping` 等注解式端点 | Actuator 端点（`/actuator/**`）：由 starter 注册，源码里没有映射 |
-| `RouterFunction` / `coRouter` 的函数式路由（字面量路径） | Spring Data REST 按 repository 自动暴露的 `/users`、`/users/{id}` |
+| `RouterFunction` / `coRouter` 的函数式路由（字面量路径），含同文件内 `nest(...)` 的字面量前缀 | 跨类的路由装配（A 类的 `nest` 套 B 类返回的路由）：只告警说这层前缀存在且未应用，不拼路径 |
 | 类前缀 + 方法路径的拼接，含常量折叠（`Const.BASE + "/x"`） | 运行时才注册的映射（`RequestMappingHandlerMapping` 动态 add） |
 | MyBatis / JPA 接口与 XML 的语句、Feign 客户端、网关路由 | `${...}` 占位符与 `@Value` 注入：值由配置决定，只报原文并标未解析 |
 | 条件装配（`@Profile` / `@Conditional*`）**原样列出**，不求解 | 非 Spring 的 Web 框架（Solon 的 `@Mapping`、JAX-RS 的 `@Path`）：会明说"有控制器、没端点" |
+| `nest(...)` 前缀是非字面量（`path("/apis/" + gv)`）时，端点标 `pathResolved=false` | 前缀分散在多个 `nest` 上时，只拼能读出来的那几层 |
 | 全局路径前缀：能读出字面量时报警告并给出候选前缀 | 全局前缀来自配置项（`${yudao.web.api.prefix}`）时，只告警，不猜值 |
 
 一句话：**注解写下来的，它读得到；由配置或运行时决定的，它说不知道。**
 
 ---
 
-## 一、快速开始
+## 目录
+
+**用它**
+
+- [它看得见什么，看不见什么](#它看得见什么看不见什么) — 先看这张表，再决定要不要用
+- [快速开始](#快速开始) — 构建、接进 MCP 客户端、验证
+- [内置工具](#内置工具) — 十一个工具的参数与行为
+- [结果与错误格式](#结果与错误格式) — 成功与失败分别长什么样
+
+**扩展它**
+
+- [写一个插件](#写一个插件) — SPI、classloader 隔离
+- [声明式扩展](#声明式扩展) — 改配置就能加工具，不用写 Java
+
+**维护它**
+
+- [工程结构](#工程结构) — 包分层、索引、缓存
+- [离线命令行](#离线命令行) — 不经过 MCP，直接查
+- [CI 与发版](#ci-与发版)
+
+**边界**
+
+- [读不出来的东西](#读不出来的东西) — 刻意不做的事，以及做到哪一层
+- [环境备忘](#环境备忘)
+- [许可](#许可)
+
+**证据**——想知道它准不准，看这几篇，不要看功能列表
+
+| 文档 | 回答什么问题 |
+|---|---|
+| [`VALIDATION.md`](VALIDATION.md) | 那些数字凭什么可信：四层互相独立的证据 |
+| [`docs/E2E.md`](docs/E2E.md) | 一个没见过该仓库的 AI，只给工具能不能答对 |
+| [`docs/GENERALIZATION.md`](docs/GENERALIZATION.md) | 换成 98 个没调过的仓库还成不成立 |
+| [`docs/GROUNDTRUTH.md`](docs/GROUNDTRUTH.md) | 跟前端和集成测试里写死的 URL 逐条对账 |
+| [`docs/REALWORLD.md`](docs/REALWORLD.md) | 110 个仓库的扫描过程与踩到的坑 |
+| [`docs/TOOLSELECT.md`](docs/TOOLSELECT.md) | 工具该不该合并，以及怎么测的 |
+
+---
+
+## 快速开始
 
 ### 构建
 
@@ -85,7 +125,7 @@ Linux / macOS 用 `spring-mcp.sh`。脚本会自动找 `JAVA_HOME`、找 jar（�
 | `--include-tests` | 默认也扫描 `src/test/java` |
 | `--max-indexed-files=<n>` | 单次索引的文件数上限（默认 20000），超限报 `INDEX_TOO_LARGE` |
 | `--index-cache=on\|off` | 跨进程复用已建好的索引，默认 `on`（见下文「索引落盘」） |
-| `--dev <cmd>` | 不进 MCP，直接跑离线命令行（见第七节） |
+| `--dev <cmd>` | 不进 MCP，直接跑离线命令行（见「离线命令行」） |
 | `-h`, `--help` | 用法 |
 
 环境变量：`SPRING_MCP_PLUGINS_DIR`、`SPRING_MCP_INDEX_REVALIDATE`（`stat` / `ttl` / `never`，默认 `stat`）、
@@ -114,7 +154,7 @@ Linux / macOS 用 `spring-mcp.sh`。脚本会自动找 `JAVA_HOME`、找 jar（�
 
 ---
 
-## 二、内置工具
+## 内置工具
 
 十一个工具：九个做源码/配置分析，两个用来发现「能查哪些工程 / 工程里有哪些模块」。
 工具清单（描述 + inputSchema）约 21 KB，每个会话付一次。
@@ -137,6 +177,20 @@ Linux / macOS 用 `spring-mcp.sh`。脚本会自动找 `JAVA_HOME`、找 jar（�
 什么都不暴露」从外面看是同一句话——所以这里选了报错，并在 hint 里给出下一步（先 `list-modules`）。
 
 九个分析工具还都接受 `scope`（限定模块，见下文 `list-modules` 与 `scope`）。
+
+| 工具 | 回答什么 |
+|---|---|
+| `list-controllers` | 有哪些 HTTP 端点：路径、方法、handler、文件与行号 |
+| `find-service-callers` | 谁在调这个 Service 方法（Java 取 AST，Kotlin 取 token） |
+| `find-implementations` | 接口或抽象类的实现，含间接继承 |
+| `list-mappers` | MyBatis 接口与 XML 的语句、JPA repository |
+| `search-symbol` | 按名字找类 / 方法 / 字段 |
+| `search-by-annotation` | 按注解找元素（默认按简单名匹配） |
+| `get-file-dependencies` | 一个文件的双向依赖：它用到谁、谁用到它 |
+| `list-gateway-routes` | 网关路由表：配置文件 + `RouteLocator` |
+| `list-feign-clients` | Feign 客户端，以及它声明的接口 |
+| `list-projects` | 配了哪些工程别名（不开索引，毫秒级） |
+| `list-modules` | 工程里有哪些模块与模块间依赖（要开索引） |
 
 ### `list-projects`
 
@@ -441,7 +495,7 @@ mall-swarm 上的实测：5 个客户端 → `mall-admin`×2、`mall-portal`×2�
 
 ---
 
-## 三、结果与错误格式
+## 结果与错误格式
 
 成功：
 
@@ -472,7 +526,202 @@ mall-swarm 上的实测：5 个客户端 → `mall-admin`×2、`mall-portal`×2�
 
 ---
 
-## 四、工程结构
+## 写一个插件
+
+三步：实现接口、写 services 文件、丢进 `plugins/`。不需要改主程序、不需要重新打包。
+
+```java
+public final class MyPlugin implements SpringMcpPlugin {
+
+    private PluginContext context;
+
+    @Override public String id() { return "com.acme.my-plugin"; }
+    @Override public String version() { return "1.0.0"; }
+
+    @Override
+    public void initialize(PluginContext context) throws ToolFailure {
+        this.context = context;
+        context.logger().info("plugin ready");
+    }
+
+    @Override
+    public List<ToolProvider> tools() {
+        return List.of(new MyTool(context));
+    }
+}
+```
+
+```java
+final class MyTool implements ToolProvider {
+
+    private final PluginContext context;
+
+    MyTool(PluginContext context) { this.context = context; }
+
+    @Override
+    public ToolDescriptor descriptor() {
+        return ToolDescriptor.builder("my-tool")              // 必须 kebab-case
+            .description("做什么，以及什么时候不该用它")
+            .inputSchema(JsonSchemas.object()
+                .string("projectRoot", "工程根目录", false, null))
+            .build();
+    }
+
+    @Override
+    public ToolOutcome invoke(ToolInvocation invocation) {
+        try {
+            var index = context.analyzer().open(Path.of("/abs/path"), IndexOptions.defaults());
+            var report = index.findByAnnotation(new Annotations.Query("Scheduled", Set.of(), false, 100));
+            return ToolOutcome.ok(report, "找到 " + report.hits().size() + " 处");
+        } catch (ToolFailure f) {
+            return ToolOutcome.fail(f);                        // 不要抛异常
+        }
+    }
+}
+```
+
+`META-INF/services/io.github.springmcp.spi.SpringMcpPlugin`：
+
+```
+com.acme.MyPlugin
+```
+
+插件工程只有一个依赖：`spring-mcp-all.jar` 的 `provided` 作用域（或直接用 `system`/本地 `lib` 引入）。
+
+```xml
+<dependency>
+  <groupId>io.github.springmcp</groupId>
+  <artifactId>spring-mcp</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <scope>provided</scope>
+</dependency>
+```
+
+用 `provided` 是必须的：SPI 类型必须由服务端的父 classloader 提供，若插件自带一份，`SpringMcpPlugin` 在两个 classloader 里就是两个不同的类，`ServiceLoader` 会报 `Provider ... not a subtype`。
+
+打包后把 jar 放进插件目录，重启服务，`tools/list` 里就会多出 `my-tool`。
+
+完整可运行的例子见 `src/test/java/io/github/springmcp/example/ExamplePlugin.java`。它放在测试源码里是有意的：由 `ExamplePluginTest` 编译并验证，示例不会失效，同时不会被打进服务 jar（插件从 `plugins/` 加载，内置在 jar 里的插件是死代码）。
+
+### 插件能拿到什么
+
+| 能力 | 说明 |
+|---|---|
+| `context.analyzer()` | 只读分析门面：`open(Path, IndexOptions)` → `IndexHandle`，九个分析都在上面 |
+| `context.logger()` | 写 stderr 的日志（stdout 是协议通道，绝不能用） |
+| `context.pluginsDirectory()` | 插件 jar 所在目录，方便带辅助数据文件 |
+| `context.defaultProjectRoot()` | 命令行 `--project` 的值，可能为 null |
+
+拿不到 MCP 类型、JavaParser 类型或索引实现类。这不是限制，是隔离。
+
+### 隔离保证
+
+- 每个 jar 一个 `URLClassLoader`（父优先），插件之间互相不可见
+- `ServiceLoader` 是惰性的，`ServiceConfigurationError` / `NoClassDefFoundError` 在 `hasNext()`/`next()` 才抛 —— try/catch 包在迭代内部，一个坏 jar 只损失它自己
+- `initialize()` 抛异常、工具名重复、schema 非法、SPI 主版本不匹配 → 丢弃该插件/工具并记一条 report
+- **最坏情况是 0 个插件，服务照常带着 11 个内置工具启动**
+
+---
+
+## 声明式扩展
+
+改配置文件就能加工具，不用写 Java、不用建插件工程。
+
+上一节那种插件要写 Java、要 Maven 工程。但真实需求里绝大多数扩展**不是要新算法，是要新视图**：固定几个参数、只留需要的字段、按类分组。这类扩展改配置文件就够了。
+
+文件位置：`--config=<file>` → `SPRING_MCP_CONFIG` → 插件目录下的 `spring-mcp.yaml` / `.yml` / `.json`。
+按扩展名自动识别格式，两种都支持。
+
+### 声明式工具：复用内建查询
+
+```yaml
+version: 1
+tools:
+  - name: list-owner-endpoints          # 必须 kebab-case
+    title: 宠物诊所 /owners 下的端点
+    description: |
+      只列出 /owners 开头的端点，按 Controller 分组，每组最多 3 条。
+      适用场景：…… 不适用：看全部端点用 list-controllers。
+    query: list-controllers             # 五种内建查询之一
+    fixed:                              # 固定参数，调用方不可更改
+      basePathFilter: /owners
+    expose:                             # 暴露给调用方的参数
+      - name: httpMethod
+        description: 只看某个 HTTP 动词
+    output:
+      source: endpoints                 # structuredContent 里的数组字段
+      select: [path, httpMethods, handlerMethod, line]
+      groupBy: controllerFqn
+      sort: [{ field: path }]
+      limitPerGroup: 3
+      limit: 10
+    summary: 宠物诊所 /owners 下的端点
+```
+
+它是**代理**内建工具，不是重写：参数解析、错误码、warning 合并全部走原来那条路径，所以输出和 `list-controllers` 加同样过滤后完全一致。
+`schema` 也是从被代理工具裁出来的，所以内建工具后来加了 `scope`，声明式工具自动就有——`fixed: {scope: [services/order]}`
+就能做一个「只看订单模块端点」的专用工具，不需要改代码。
+
+三条规则值得记住：
+
+- **配置永远赢**。`fixed` 里的值调用方改不了——想改就该直接用内建工具。
+- **`fixed` 的参数不出现在 schema 里**，而是写进工具描述的「固定参数」一行。留在 schema 里会让调用方以为可传，传了又被忽略，是最糟的组合。
+- **base 的必填参数既没 expose 也没 fixed → 拒绝这个工具**。这条专挡「做了个查调用点的工具却忘了固定 `serviceClass`」——那种工具能注册成功、`tools/list` 里看着正常、每次调用都失败。
+
+`output` 只做 `select` / `groupBy` / `sort` / `limit` / `limitPerGroup`，**不做表达式求值、不做 JSONPath、不做模板**。要计算就写外部进程工具或真插件。
+
+### 外部进程工具：任何语言
+
+```yaml
+external:
+  - name: file-stats
+    description: 统计工程里 .java 文件的数量与总字节数。
+    command: ["python", "stats_tool.py"]   # 必须是数组，不经 shell
+    cwd: .                                  # 相对「配置文件所在目录」，不许逃逸
+    timeoutMs: 8000
+    maxOutputBytes: 65536
+    expose:
+      - name: includeTests
+```
+
+协议：一次调用起一个进程，**stdin 一个 JSON、stdout 一个 JSON、退出码 0**。
+
+```jsonc
+// 子进程收到
+{"protocol":"spring-mcp.external/1","tool":"file-stats","arguments":{...},
+ "projectRoot":"/abs/project","context":{"pluginsDirectory":"..."}}
+
+// 子进程应当输出（成功）
+{"ok":true,"data":{...},"summary":"30 个文件","warnings":[]}
+// 或（失败）
+{"ok":false,"code":"PLUGIN_ERROR","message":"...","hint":"..."}
+```
+
+`cwd` 相对**配置文件所在目录**而不是被分析的工程——扩展应该自带脚本，不该要求每个被分析的仓库里都有你的脚本。工程路径仍然通过 `projectRoot` 传给子进程。
+
+### 安全：默认关闭
+
+外部进程工具需要显式 `--allow-external-commands` 才注册。不加这个开关时：**启动不失败**，这些工具被跳过并记一条汇总日志。
+
+另外有三道加载期检查：`command` 必须是数组（字符串一律拒，避免 shell 注入）；`command[0]` 不能是 `sh`/`bash`/`cmd`/`powershell`；`cwd` 不能逃出扩展目录。
+
+> ⚠️ 这个开关只管「能不能起进程」，**不是沙箱**。子进程继承环境变量和完整文件系统权限。只在你信任这份配置文件时才打开。
+
+### 配置出错只丢一个工具
+
+语法错 → 整份文件被忽略并记一条；单条工具字段拼错 → 只损失那一条，其余照常注册。和 jar 插件的隔离哲学一致：可选扩展出问题，服务必须继续跑。
+
+完整可运行的例子见 `fixtures/declarative-example/`
+
+```bash
+java -jar target/spring-mcp-all.jar \
+  --config=fixtures/declarative-example/spring-mcp.yaml \
+  --allow-external-commands --project=/path/to/petclinic
+```
+
+---
+
+## 工程结构
 
 **一个 Maven 模块、一个 jar**。包按职责分层，不拆子模块：
 
@@ -674,200 +923,9 @@ SourceIndex（不可变快照）
 
 ---
 
-## 五、写一个插件
+## 离线命令行
 
-三步：实现接口、写 services 文件、丢进 `plugins/`。不需要改主程序、不需要重新打包。
-
-```java
-public final class MyPlugin implements SpringMcpPlugin {
-
-    private PluginContext context;
-
-    @Override public String id() { return "com.acme.my-plugin"; }
-    @Override public String version() { return "1.0.0"; }
-
-    @Override
-    public void initialize(PluginContext context) throws ToolFailure {
-        this.context = context;
-        context.logger().info("plugin ready");
-    }
-
-    @Override
-    public List<ToolProvider> tools() {
-        return List.of(new MyTool(context));
-    }
-}
-```
-
-```java
-final class MyTool implements ToolProvider {
-
-    private final PluginContext context;
-
-    MyTool(PluginContext context) { this.context = context; }
-
-    @Override
-    public ToolDescriptor descriptor() {
-        return ToolDescriptor.builder("my-tool")              // 必须 kebab-case
-            .description("做什么，以及什么时候不该用它")
-            .inputSchema(JsonSchemas.object()
-                .string("projectRoot", "工程根目录", false, null))
-            .build();
-    }
-
-    @Override
-    public ToolOutcome invoke(ToolInvocation invocation) {
-        try {
-            var index = context.analyzer().open(Path.of("/abs/path"), IndexOptions.defaults());
-            var report = index.findByAnnotation(new Annotations.Query("Scheduled", Set.of(), false, 100));
-            return ToolOutcome.ok(report, "找到 " + report.hits().size() + " 处");
-        } catch (ToolFailure f) {
-            return ToolOutcome.fail(f);                        // 不要抛异常
-        }
-    }
-}
-```
-
-`META-INF/services/io.github.springmcp.spi.SpringMcpPlugin`：
-
-```
-com.acme.MyPlugin
-```
-
-插件工程只有一个依赖：`spring-mcp-all.jar` 的 `provided` 作用域（或直接用 `system`/本地 `lib` 引入）。
-
-```xml
-<dependency>
-  <groupId>io.github.springmcp</groupId>
-  <artifactId>spring-mcp</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
-  <scope>provided</scope>
-</dependency>
-```
-
-用 `provided` 是必须的：SPI 类型必须由服务端的父 classloader 提供，若插件自带一份，`SpringMcpPlugin` 在两个 classloader 里就是两个不同的类，`ServiceLoader` 会报 `Provider ... not a subtype`。
-
-打包后把 jar 放进插件目录，重启服务，`tools/list` 里就会多出 `my-tool`。
-
-完整可运行的例子见 `src/test/java/io/github/springmcp/example/ExamplePlugin.java`。它放在测试源码里是有意的：由 `ExamplePluginTest` 编译并验证，示例不会失效，同时不会被打进服务 jar（插件从 `plugins/` 加载，内置在 jar 里的插件是死代码）。
-
-### 插件能拿到什么
-
-| 能力 | 说明 |
-|---|---|
-| `context.analyzer()` | 只读分析门面：`open(Path, IndexOptions)` → `IndexHandle`，九个分析都在上面 |
-| `context.logger()` | 写 stderr 的日志（stdout 是协议通道，绝不能用） |
-| `context.pluginsDirectory()` | 插件 jar 所在目录，方便带辅助数据文件 |
-| `context.defaultProjectRoot()` | 命令行 `--project` 的值，可能为 null |
-
-拿不到 MCP 类型、JavaParser 类型或索引实现类。这不是限制，是隔离。
-
-### 隔离保证
-
-- 每个 jar 一个 `URLClassLoader`（父优先），插件之间互相不可见
-- `ServiceLoader` 是惰性的，`ServiceConfigurationError` / `NoClassDefFoundError` 在 `hasNext()`/`next()` 才抛 —— try/catch 包在迭代内部，一个坏 jar 只损失它自己
-- `initialize()` 抛异常、工具名重复、schema 非法、SPI 主版本不匹配 → 丢弃该插件/工具并记一条 report
-- **最坏情况是 0 个插件，服务照常带着 11 个内置工具启动**
-
----
-
-## 六、声明式扩展（不用写 Java）
-
-上一节那种插件要写 Java、要 Maven 工程。但真实需求里绝大多数扩展**不是要新算法，是要新视图**：固定几个参数、只留需要的字段、按类分组。这类扩展改配置文件就够了。
-
-文件位置：`--config=<file>` → `SPRING_MCP_CONFIG` → 插件目录下的 `spring-mcp.yaml` / `.yml` / `.json`。
-按扩展名自动识别格式，两种都支持。
-
-### 6.1 声明式工具：复用内建查询
-
-```yaml
-version: 1
-tools:
-  - name: list-owner-endpoints          # 必须 kebab-case
-    title: 宠物诊所 /owners 下的端点
-    description: |
-      只列出 /owners 开头的端点，按 Controller 分组，每组最多 3 条。
-      适用场景：…… 不适用：看全部端点用 list-controllers。
-    query: list-controllers             # 五种内建查询之一
-    fixed:                              # 固定参数，调用方不可更改
-      basePathFilter: /owners
-    expose:                             # 暴露给调用方的参数
-      - name: httpMethod
-        description: 只看某个 HTTP 动词
-    output:
-      source: endpoints                 # structuredContent 里的数组字段
-      select: [path, httpMethods, handlerMethod, line]
-      groupBy: controllerFqn
-      sort: [{ field: path }]
-      limitPerGroup: 3
-      limit: 10
-    summary: 宠物诊所 /owners 下的端点
-```
-
-它是**代理**内建工具，不是重写：参数解析、错误码、warning 合并全部走原来那条路径，所以输出和 `list-controllers` 加同样过滤后完全一致。
-`schema` 也是从被代理工具裁出来的，所以内建工具后来加了 `scope`，声明式工具自动就有——`fixed: {scope: [services/order]}`
-就能做一个「只看订单模块端点」的专用工具，不需要改代码。
-
-三条规则值得记住：
-
-- **配置永远赢**。`fixed` 里的值调用方改不了——想改就该直接用内建工具。
-- **`fixed` 的参数不出现在 schema 里**，而是写进工具描述的「固定参数」一行。留在 schema 里会让调用方以为可传，传了又被忽略，是最糟的组合。
-- **base 的必填参数既没 expose 也没 fixed → 拒绝这个工具**。这条专挡「做了个查调用点的工具却忘了固定 `serviceClass`」——那种工具能注册成功、`tools/list` 里看着正常、每次调用都失败。
-
-`output` 只做 `select` / `groupBy` / `sort` / `limit` / `limitPerGroup`，**不做表达式求值、不做 JSONPath、不做模板**。要计算就写外部进程工具或真插件。
-
-### 6.2 外部进程工具：任何语言
-
-```yaml
-external:
-  - name: file-stats
-    description: 统计工程里 .java 文件的数量与总字节数。
-    command: ["python", "stats_tool.py"]   # 必须是数组，不经 shell
-    cwd: .                                  # 相对「配置文件所在目录」，不许逃逸
-    timeoutMs: 8000
-    maxOutputBytes: 65536
-    expose:
-      - name: includeTests
-```
-
-协议：一次调用起一个进程，**stdin 一个 JSON、stdout 一个 JSON、退出码 0**。
-
-```jsonc
-// 子进程收到
-{"protocol":"spring-mcp.external/1","tool":"file-stats","arguments":{...},
- "projectRoot":"/abs/project","context":{"pluginsDirectory":"..."}}
-
-// 子进程应当输出（成功）
-{"ok":true,"data":{...},"summary":"30 个文件","warnings":[]}
-// 或（失败）
-{"ok":false,"code":"PLUGIN_ERROR","message":"...","hint":"..."}
-```
-
-`cwd` 相对**配置文件所在目录**而不是被分析的工程——扩展应该自带脚本，不该要求每个被分析的仓库里都有你的脚本。工程路径仍然通过 `projectRoot` 传给子进程。
-
-### 6.3 安全：默认关闭
-
-外部进程工具需要显式 `--allow-external-commands` 才注册。不加这个开关时：**启动不失败**，这些工具被跳过并记一条汇总日志。
-
-另外有三道加载期检查：`command` 必须是数组（字符串一律拒，避免 shell 注入）；`command[0]` 不能是 `sh`/`bash`/`cmd`/`powershell`；`cwd` 不能逃出扩展目录。
-
-> ⚠️ 这个开关只管「能不能起进程」，**不是沙箱**。子进程继承环境变量和完整文件系统权限。只在你信任这份配置文件时才打开。
-
-### 6.4 配置出错只丢一个工具
-
-语法错 → 整份文件被忽略并记一条；单条工具字段拼错 → 只损失那一条，其余照常注册。和 jar 插件的隔离哲学一致：可选扩展出问题，服务必须继续跑。
-
-完整可运行的例子见 `fixtures/declarative-example/`
-
-```bash
-java -jar target/spring-mcp-all.jar \
-  --config=fixtures/declarative-example/spring-mcp.yaml \
-  --allow-external-commands --project=/path/to/petclinic
-```
-
----
-
-## 七、离线命令行（调试用）
+不经过 MCP 协议，直接跑同一次分析，用来分清是分析错了还是客户端错了。
 
 怀疑结果不对时，先用同样的查询走离线通道，一眼看出是分析层还是协议层的问题：
 
@@ -977,7 +1035,7 @@ CI 里的 `corpus` 作业跑的就是它。
 
 ---
 
-## 八、CI 与发版
+## CI 与发版
 
 `.github/workflows/ci.yml` 三个作业，失败的含义互不重叠：
 
@@ -1022,58 +1080,60 @@ git tag v0.1.0 && git push origin v0.1.0
 
 ---
 
-## 九、MVP 明确不支持
+## 读不出来的东西
 
-这些是刻意的边界，不是遗漏。碰到时不猜，而是返回原文 + 标记未解析：
+这些是刻意的边界，不是遗漏。碰到时不猜，而是返回原文并标记未解析——**一个看起来完整、实际不对的答案，
+比一个明说不知道的答案更糟**。分两类：根本不读的，和读了但只到某一层的。
 
-- **动态 Bean**：`@Bean` 方法返回类型、`FactoryBean`、`@Profile` 分支。条件装配本身不求解（没有活动环境），
+### 根本不读
+
+- **动态 Bean**：`@Bean` 方法的返回类型、`FactoryBean`、`@Profile` 分支。条件装配本身不求解（没有活动环境），
   但落在 controller / handler 上的 `@Profile` 与 `@Conditional*` 会逐条写进端点的 `conditions` 字段
 - **非 HTTP 映射**：RSocket 的 `@MessageMapping`、GraphQL 的 `@SchemaMapping` 不产生端点。它们所在的
   `@Controller` 会被点名列出（「N 个 controller 没有任何 HTTP 映射」），不会被当成空 controller。
-  数量很大时（≥10 且占比过半）会再加一句提示：也可能这批类用的是别的 Web 框架——Solon 同样用
-  `@Controller` 标注、但映射用的是它自己的 `@Mapping`，本工具不认，于是看起来像「有控制器、没端点」
-- **无声明式契约的远程调用**：`RestTemplate` / `RestClient` / `WebClient` 的 URL 在调用点拼装，无法
-  静态还原，因此不进 `list-feign-clients`；只有 `@FeignClient` 这类接口式契约能被读出
-- **`RouterFunctions` 的非字面量谓词**：`route(this::acceptsXml, handler)` 这类没有路径可报，
-  会计数提示「未展开」，而不是编一个路径
+  数量很大时（≥10 且占比过半）会再加一句：也可能这批类用的是别的 Web 框架——Solon 同样用 `@Controller`
+  标注、映射却用它的 `@Mapping`，本工具不认，于是看起来像「有控制器、没端点」
+- **无声明式契约的远程调用**：`RestTemplate` / `RestClient` / `WebClient` 的 URL 在调用点拼装，静态还原不了，
+  因此不进 `list-feign-clients`；只有 `@FeignClient` 这类接口式契约能被读出
 - **AOP 代理**：`@Transactional` / `@Cacheable` 织入后的实际调用目标
-- **常量值与占位符**：`${api.prefix}` 这类占位符、`@Value` 注入的值不做求值——包括
-  `${x:默认值}` 这种带默认值的写法（默认值只是「属性没被覆盖时」的值，静态分析看不到覆盖）。编译期常量会求值（见
-  `list-controllers`），但常量本身若是 `System.getenv(...)` 这类调用，就还是不知道
-- **全局路径前缀**：`WebMvcRegistrations.setPathPrefixes` / `configurePathMatch` 给所有 controller 加的前缀
-  来自配置，工具只报注解里的路径，并在 warnings 里点名这类配置出现在哪
-- **后缀映射**：`web.xml` 里的 `*.do` / `*.action` 不解析，只认注解与 `RouterFunctions`
-- **starter 注册的端点**：actuator、captcha-plus 这类库自动注册的路径不在源码里，工具看不到
-- **SpEL**、`@Value` 表达式
+- **SpEL 与 `@Value` 表达式**
+- **后缀映射**：`web.xml` 里的 `*.do` / `*.action`——只认注解与 `RouterFunctions`
+- **starter 注册的端点**：actuator、captcha-plus 这类库自动注册的路径不在源码里
 - **元注解推导**：`@GetMapping` 不会被当成 `@RequestMapping`，`@MyRestController` 这类组合注解也不会被认出
-- **两层以上的调用链**：`depth` 上限是 2；更深的传递闭包需要类型级调用图，本版本不做（第 2 层本身也是近似）
-- **泛型推断与类型环境**：没有 symbol solver，接收者类型只从语法声明推断
-- **MyBatis 动态 SQL**：`<if>`/`<foreach>` 不展开，只记录 statement 元信息
-- **跨工程解析**：一次分析一个目录。多个仓库之间的引用永远算「外部」，即使它们在同一个 Maven reactor 里
-- **模块级索引裁剪**：`scope` 只过滤结果，索引始终是全仓库。想少解析就把 `projectRoot` 指向子目录，代价是丢跨模块解析
-- **每个模块独立的 classpath / 依赖版本**：不做依赖冲突仲裁，同名类在多个模块中只会有一个解析结果
-- **缓存的按频率淘汰**：只按总大小兜底——超过 1 GiB 时按「最久没重新构建」的顺序删，不做命中率统计的 LRU。
-  想立刻清空仍然直接删 `%LOCALAPPDATA%\spring-mcp\index`
-- **Kotlin 的表达式级类型推断**：`.kt` 文件**会解析**（类/接口/对象、函数、属性、注解、父类型，含嵌套与 `companion object`），
-  但只到声明层。`val repo = findRepo()` 这种由表达式决定类型的地方留空，不猜；`@Value` 之类注入的值也不求值。
-  覆盖边界写在工具结果的 warning 里：**`find-service-callers` 也读 Kotlin**，接收者按「局部 `val` → 字段 → 方法参数 →
-  类名」的次序定型（和 Java 侧同一套规则），定不了型的调用进 `unresolved` 而不是被猜出来。
-  实测 spring-boot（438 个 `.kt`）解析 0 失败，多出 11 个 Kotlin 端点、61 个 `@Component`；
-  `kotlin-realworld` 上 `find-service-callers(ArticleRepository)` 找到 10 处，全部 `FIELD`、全部 EXACT
-- **`.kts` 不算源码**：构建脚本不是应用代码，收进来只会夸大工程规模
-- **mapper XML 的发现深度上限 24**：超过这个深度的 XML 不会被发现，也不会有警告。设上限是为了防病态目录树；
-  `mall` 那种 9 层是常态，24 层留了足够余量
-- **XML 与测试资源**：`--include-tests` 为 false 时，`*/src/test/resources` 下的 mapper XML 也不扫
-  （否则会出现 namespace 指向测试类、接口又没被索引的 XML-only 记录）
-- **代码定义的网关路由**：`RouteLocator`（Java DSL 与 Kotlin DSL）会解析，识别不了的 `uri` 按原文返回并计数；
+- **跨工程解析**：一次分析一个目录。仓库之间的引用永远算「外部」，哪怕它们在同一个 Maven reactor 里
+- **每个模块独立的 classpath**：不做依赖冲突仲裁，同名类在多个模块里只有一个解析结果
+- **两层以上的调用链**：`depth` 上限是 2；更深的传递闭包需要类型级调用图
+- **泛型推断**：没有 symbol solver，接收者类型只从语法声明推断
+
+### 读，但只到某一层
+
+- **常量与占位符**：`${api.prefix}`、`@Value` 注入的值不求值，包括 `${x:默认值}` 这种写法（默认值只是
+  「属性没被覆盖时」的值）。编译期常量会求值，但常量本身若是 `System.getenv(...)` 之类的调用，仍然不知道
+- **`RouterFunctions` 的非字面量谓词**：`route(this::acceptsXml, handler)` 没有路径可报，会计数提示「未展开」
+- **`nest(...)` 的跨类前缀**：同文件内的字面量前缀会拼上；前缀由另一个类在注册时套上（halo 的
+  `CustomEndpointsBuilder` 就是），只能告警说这层前缀存在且未应用，不替你把路径拼出一个大概
+- **全局路径前缀**：`setPathPrefixes` / `configurePathMatch` 加的前缀来自配置，工具报的是注解里的路径，
+  并在 warnings 里点名这类配置出现在哪
+- **Kotlin**：`.kt` **会解析**（类/接口/对象、函数、属性、注解、父类型，含嵌套与 `companion object`），
+  但只到声明层。`val repo = findRepo()` 这种由表达式决定类型的地方留空；`find-service-callers` 也读 Kotlin，
+  接收者按「局部 `val` → 字段 → 方法参数 → 类名」定型，定不了型的进 `unresolved`
+- **MyBatis 动态 SQL**：`<if>` / `<foreach>` 不展开，只记录 statement 元信息
+- **mapper XML 的发现深度**：上限 24 层。`mall` 那种 9 层是常态，设上限是为了防病态目录树；
+  超过深度的 XML 不会被发现，也不会有警告
+- **`--include-tests` 为 false 时**，`*/src/test/resources` 下的 mapper XML 也不扫（否则会出现
+  namespace 指向测试类、接口又没被索引的 XML-only 记录）
+- **代码定义的网关路由**：`RouteLocator` 的 Java DSL 与 Kotlin DSL 会解析，识别不了的 `uri` 按原文返回并计数；
   配置文件里读不到路由时会明说，而不是给出「没有网关」的结论
 - **网关的鉴权与限流规则**：`secure.ignore.urls` 这类业务白名单不解析——它属于配置语义，不是路由表
+- **模块级索引裁剪**：`scope` 只过滤结果，索引始终是全仓库。想少解析就把 `projectRoot` 指向子目录，
+  代价是丢跨模块解析
+- **`.kts` 不算源码**：构建脚本不是应用代码，收进来只会夸大工程规模
 
 碰到 `unresolved` 或 `pathResolved=false` 时，正确做法是让调用方自己去看那个文件——这比给出一个自信的错误答案好。
 
 ---
 
-## 十、环境备忘
+## 环境备忘
 
 本机开发环境（仅供参考）：
 
@@ -1085,7 +1145,7 @@ git tag v0.1.0 && git push origin v0.1.0
 
 ---
 
-## 十一、许可
+## 许可
 
 Apache License 2.0，全文见 [`LICENSE`](LICENSE)。
 
