@@ -22,6 +22,12 @@ jobs:
           java-version: '21'
           cache: maven
 
+      - name: 准备 wrapper 权限
+        # 检出后 mvnw 的 exec 位不保证在（仓库里存的是 644），而下面第一步就要用它。
+        # 少了这一步，`./mvnw | tail -1` 的退出码是 tail 的 0，失败被吞成空字符串——
+        # v0.1.0 第一次发版就是这样红的，报错还说"pom 是 。"。
+        run: chmod +x mvnw spring-mcp.sh
+
       - name: 校验 tag 与 pom 版本一致
         id: version
         # tag 是发版的触发条件，pom 的 <version> 是构建产物的版本——两个数字必须一致，否则
@@ -30,7 +36,11 @@ jobs:
         run: |
           set -eu
           tag="${GITHUB_REF_NAME#v}"
-          pom="$(./mvnw -B -ntp -q help:evaluate -Dexpression=project.version -DforceStdout | tail -1)"
+          pom="$(bash ./mvnw -B -ntp -q help:evaluate -Dexpression=project.version -DforceStdout | tail -1)"
+          if [ -z "${pom}" ]; then
+            echo "::error title=读不到 pom 版本::mvnw help:evaluate 没有输出。先确认 ./mvnw 能跑（权限、网络、JDK），再谈版本是否一致。"
+            exit 1
+          fi
           base="${pom%-SNAPSHOT}"
           if [ "$tag" != "$base" ]; then
             echo "::error title=tag 与 pom 版本不一致::tag ${GITHUB_REF_NAME} 对应 ${tag}，pom 是 ${pom}。先把 pom 改成 ${tag}-SNAPSHOT 再推这个 tag。"
@@ -43,7 +53,6 @@ jobs:
         # 构建版本取自 tag（去掉 -SNAPSHOT），这样 jar manifest 里的 Implementation-Version
         # 就是发布版本，SpringMcpMain 报给客户端的也是它。
         run: |
-          chmod +x mvnw spring-mcp.sh
           ./mvnw -B -ntp org.codehaus.mojo:versions-maven-plugin:2.18.0:set \
             -DnewVersion="${{ steps.version.outputs.version }}" -DgenerateBackupPoms=false
           ./mvnw -B -ntp clean verify
