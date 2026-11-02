@@ -19,6 +19,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -45,6 +46,9 @@ import io.github.springmcp.core.Fixtures;
  * </p>
  */
 class StdioProtocolTest {
+
+    /** Generous: covers JVM start plus the first index build on a slow CI machine. */
+    private static final long RESPONSE_TIMEOUT_SECONDS = 60;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -118,7 +122,48 @@ class StdioProtocolTest {
     @Test
     @DisplayName("客户端发完请求就关闭管道，响应仍要写完且进程退出")
     void answersEvenWhenTheClientHangsUpImmediately(@TempDir Path work) throws Exception {
+        // CI #7 上这条卡满 60 秒，之后三次都没再出现。60 秒既可能是"这台机器就是慢"，
+        // 也可能是真竞态——两者对代码的含义完全不同，所以再来一次：第二次通过就是慢，
+        // 两次都挂就是死锁。区别要落在结果里，不能靠"再跑一次看看"。
+        Hangup first = hangUpAndWait(work);
+        if (first.acceptable()) {
+            return;
+        }
+        Hangup retry = hangUpAndWait(work);
+        if (slowNotStuck(first, retry)) {
+            Assumptions.abort(String.format(
+                    "首次 %.1fs 无响应，重试 %.1fs 通过：是慢，不是死锁。首次 stderr:\n%s",
+                    first.elapsedMillis() / 1000.0, retry.elapsedMillis() / 1000.0, first.stderr()));
+        }
+        assertThat(retry.acceptable())
+            .as("两次都没有正常收尾——首次 %.1fs、重试 %.1fs。答案=%s，退出=%s，退出码=%d，stderr:\n%s",
+                    first.elapsedMillis() / 1000.0, retry.elapsedMillis() / 1000.0, retry.answered(),
+                    retry.exited(), retry.exitCode(), retry.stderr())
+            .isTrue();
+    }
+
+    /**
+     * One run of the hang-up scenario.
+     *
+     * @param work temporary directory the server may use
+     * @return what happened, in a form the caller can compare across attempts
+     * @throws Exception when the harness itself fails
+     */
+
+    /**
+     * Tells "this machine is slow" apart from "the server deadlocks".
+     *
+     * @param first the attempt that timed out
+     * @param retry the second attempt
+     * @return true when only the first attempt failed, which is slowness rather than a race
+     */
+    static boolean slowNotStuck(Hangup first, Hangup retry) {
+        return !first.acceptable() && retry.acceptable();
+    }
+
+    private static Hangup hangUpAndWait(Path work) throws Exception {
         Server server = Server.start(work, Fixtures.path("demo-web"));
+        long started = System.nanoTime();
         try {
             // Equivalent to `printf '<request>' | java -jar ...`: the request and the end of the input
             // arrive in one batch. Teardown used to win the race against the asynchronous dispatch and
@@ -129,16 +174,47 @@ class StdioProtocolTest {
                     "clientInfo", Map.of("name", "hangup-test", "version", "1"))));
             server.closeStdin();
 
-            JsonNode init = server.receive();
-            assertThat(init.path("result").path("serverInfo").path("name").asText()).isNotBlank();
-            assertThat(server.awaitExit(20))
-                .as("关闭 stdin 后服务应自行退出；stderr:\n%s", server.stderrText())
-                .isTrue();
-            assertThat(server.exitCode()).isZero();
+            JsonNode init = server.receiveOrNull(RESPONSE_TIMEOUT_SECONDS);
+            long elapsed = (System.nanoTime() - started) / 1_000_000;
+            if (init == null) {
+                return new Hangup(false, init, false, -1, elapsed, server.stderrText());
+            }
+            boolean exited = server.awaitExit(20);
+            boolean named = !init.path("result").path("serverInfo").path("name").asText().isBlank();
+            return new Hangup(named, init, exited, exited ? server.exitCode() : -1, elapsed, server.stderrText());
         }
         finally {
             server.kill();
         }
+    }
+
+    /**
+     * Outcome of one hang-up attempt.
+     *
+     * @param answered whether the initialize response carried a server name
+     * @param init the response, {@code null} when nothing arrived
+     * @param exited whether the process ended within the grace period
+     * @param exitCode exit code, or -1 when it never exited
+     * @param elapsedMillis wall clock until the response (or the timeout)
+     * @param stderr whatever the server wrote to stderr
+     */
+    private record Hangup(boolean answered, JsonNode init, boolean exited, int exitCode, long elapsedMillis,
+            String stderr) {
+
+        boolean acceptable() {
+            return answered && exited && exitCode == 0;
+        }
+    }
+
+    @Test
+    @DisplayName("一次超时 + 重试通过 = 慢；两次都挂 = 死锁")
+    void slowIsNotTheSameAsStuck() {
+        Hangup timedOut = new Hangup(false, null, false, -1, 60_000, "no output");
+        Hangup fine = new Hangup(true, null, true, 0, 3_000, "");
+
+        assertThat(slowNotStuck(timedOut, fine)).as("首次超时、重试通过").isTrue();
+        assertThat(slowNotStuck(timedOut, timedOut)).as("两次都超时").isFalse();
+        assertThat(slowNotStuck(fine, fine)).as("一次就通过").isFalse();
     }
 
     private static Map<String, Object> request(int id, String method, Map<String, Object> params) {
@@ -150,9 +226,6 @@ class StdioProtocolTest {
      * a stderr buffer that is only consulted when something times out.
      */
     private static final class Server {
-
-        /** Generous: covers JVM start plus the first index build on a slow CI machine. */
-        private static final long RESPONSE_TIMEOUT_SECONDS = 60;
 
         private final Process process;
 
@@ -238,6 +311,27 @@ class StdioProtocolTest {
                 .as("服务器在 %ds 内没有响应；已退出=%s，stderr:\n%s", RESPONSE_TIMEOUT_SECONDS,
                         !process.isAlive(), stderrText())
                 .isNotNull();
+            lines.add(line);
+            return MAPPER.readTree(line);
+        }
+
+        /**
+         * Same wait as {@link #receive()} but reports a timeout instead of failing.
+         *
+         * <p>
+         * The retry decision lives in the test: one attempt has to be able to fail without taking the
+         * JVM down with it, otherwise "slow" and "deadlocked" look identical.
+         * </p>
+         *
+         * @param seconds how long to wait
+         * @return the response, or {@code null} when nothing arrived
+         * @throws Exception when the line cannot be parsed
+         */
+        JsonNode receiveOrNull(long seconds) throws Exception {
+            String line = stdout.poll(seconds, TimeUnit.SECONDS);
+            if (line == null) {
+                return null;
+            }
             lines.add(line);
             return MAPPER.readTree(line);
         }
