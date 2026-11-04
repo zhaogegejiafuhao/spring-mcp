@@ -35,6 +35,7 @@ MCP client  ──stdio(JSON-RPC)──▶  spring-mcp  ──JavaParser / Kotli
 
 - [它看得见什么，看不见什么](#它看得见什么看不见什么) — 先看这张表，再决定要不要用
 - [快速开始](#快速开始) — 构建、接进 MCP 客户端、验证
+- [接进 AI 客户端：skill](#接进-ai-客户端skill) — 让客户端自己知道什么时候该调哪个工具
 - [内置工具](#内置工具) — 十一个工具的参数与行为
 - [结果与错误格式](#结果与错误格式) — 成功与失败分别长什么样
 
@@ -113,6 +114,35 @@ Linux / macOS 用 `spring-mcp.sh`。脚本会自动找 `JAVA_HOME`、找 jar（�
 ```
 
 `--project` 设默认工程根，之后调用工具时可以省略 `projectRoot`；一个会话里要切多个工程时，在工具参数里传 `projectRoot` 覆盖即可。
+
+### 接进 AI 客户端：skill
+
+工具清单能告诉模型「有哪些工具」，但告诉不了它「结果里 `pathResolved=false` 该怎么办」「为什么 `0 个端点` 要先怀疑目录」。
+`skills/` 下是两份 SKILL.md 标准的 skill，把这层判断写成了文件：
+
+| 目录 | 用途 |
+|---|---|
+| [`skills/spring-mcp/`](skills/spring-mcp/SKILL.md) | **问答**：这个 URL 谁处理、谁调了这个 Service、mapper、Feign、网关路由。附 `reference/`（判读口径）与 `scripts/preflight`（环境自检） |
+| [`skills/spring-mcp-audit/`](skills/spring-mcp-audit/SKILL.md) | **体检**：一次产出端点 / 持久层 / 出站 / 网关的全景报告，八节模板 + 五项交叉校验 |
+
+装到客户端（复制目录即可，不需要构建）：
+
+```bash
+cp -r skills/spring-mcp ~/.claude/skills/       # Claude Code
+cp -r skills/spring-mcp ~/.workbuddy/skills/    # WorkBuddy
+```
+
+打完 jar 后先跑一次自检，它会告诉你 java 在不在、jar 在哪，并打印这台机器该用的 `mcpServers` 配置：
+
+```bash
+sh skills/spring-mcp/scripts/preflight.sh
+```
+
+打包成可上传的 zip（顶层一个目录、根上是 `SKILL.md`、不含任何二进制）：
+
+```bash
+bash skills/build.sh    # 产物在 target/skills/dist/
+```
 
 ### 命令行参数
 
