@@ -1,0 +1,42 @@
+<!doctype html><meta charset="utf-8">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#14112F;color:#EAE7FF;font:15px/1.55 "Segoe UI","Microsoft YaHei",sans-serif;width:1200px;padding:44px 48px}
+  h2{font-size:16px;font-weight:600;margin:0 0 10px;color:#EDEAFF}
+  h2:not(:first-of-type){margin-top:30px}
+  table{border-collapse:collapse;width:100%;margin:0 0 6px;font-size:13.5px}
+  th{text-align:left;font-weight:500;color:#9D96D2;border-bottom:1px solid #332C6E;padding:7px 10px}
+  td{border-bottom:1px solid #262054;padding:8px 10px;color:#DCD7FA}
+  td.m{font-family:Consolas,monospace;font-size:13px;color:#B9B2EC}
+  ul{margin:0;padding-left:20px;color:#C7C1EE}
+  li{margin-bottom:7px}
+  li b{color:#EDEAFF;font-weight:500}
+  code{font-family:Consolas,monospace;font-size:13.5px;background:#201B4E;padding:1px 5px;border-radius:4px;color:#D9D3FF}
+  pre{font-family:Consolas,monospace;font-size:13px;line-height:1.85;background:#191544;border:1px solid #2C2760;border-radius:10px;padding:14px 16px;margin:0;color:#C9C3F5}
+  pre .c{color:#8177C8}
+  pre .a{color:#F2B03F}
+</style>
+
+<h2>Cross-service edges</h2>
+<table>
+<tr><th>Client</th><th>Target module</th><th>Endpoints declared</th></tr>
+<tr><td class="m">mall-admin ×2</td><td class="m">mall-admin</td><td class="m">3</td></tr>
+<tr><td class="m">mall-portal ×2</td><td class="m">mall-portal</td><td class="m">3</td></tr>
+<tr><td class="m">mall-search ×1</td><td class="m">mall-search</td><td class="m">1</td></tr>
+</table>
+
+<h2>Not determined</h2>
+<ul>
+  <li><b>0 of 245</b> endpoints depend on a placeholder or an injected value. Nothing here was guessed.</li>
+  <li><code>discovery.locator.enabled=true</code> — beyond the 5 declared routes there are implicit
+      <code>/{serviceId}/**</code> routes. The report says so instead of presenting a complete-looking table.</li>
+  <li>Out of scope by construction: Actuator endpoints, runtime-registered mappings,
+      <code>RestTemplate</code> URLs, AOP proxy targets.</li>
+</ul>
+
+<h2>Reproduce</h2>
+<pre>list-modules          <span class="c">projectRoot=~/work/mall-swarm</span>
+list-controllers      <span class="c">projectRoot=~/work/mall-swarm</span>
+list-gateway-routes   <span class="c">projectRoot=~/work/mall-swarm</span>
+list-feign-clients    <span class="c">projectRoot=~/work/mall-swarm</span>
+list-mappers          <span class="c">projectRoot=~/work/mall-swarm</span></pre>

@@ -47,3 +47,7 @@ replay_pid*.log
 
 # 语料检查用的 checkout（tools/corpus/repos.tsv 可重建）
 .corpus/
+
+# 第三方市场上的上架物料：定价策略、审核应答口径、如果被拒的退路。
+# 这些东西留在本地，不进公开仓库 —— 审核方搜到这个仓库时不应该读到自己的评分标准。
+skills/agensi-*.md

@@ -1,0 +1,44 @@
+<!doctype html><meta charset="utf-8">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#14112F;color:#EAE7FF;font:15px/1.55 "Segoe UI","Microsoft YaHei",sans-serif;width:1200px;padding:44px 48px}
+  h1{font-size:23px;font-weight:600;margin:0 0 4px;letter-spacing:.2px}
+  .meta{color:#8F88C8;font-size:13px;margin-bottom:26px}
+  .meta b{color:#B9B2EC;font-weight:500}
+  .stats{display:flex;gap:14px;margin-bottom:30px}
+  .stat{flex:1;border:1px solid #2C2760;border-radius:10px;padding:12px 14px;background:#191544}
+  .stat .n{font:600 26px/1.1 Consolas,monospace;color:#EDEAFF}
+  .stat .k{font-size:12.5px;color:#8F88C8;margin-top:5px}
+  .stat.hi .n{color:#F2B03F}
+  h2{font-size:16px;font-weight:600;margin:26px 0 8px;color:#EDEAFF}
+  p{margin:0 0 12px;color:#C7C1EE}
+  code{font-family:Consolas,monospace;font-size:13.5px;background:#201B4E;padding:1px 5px;border-radius:4px;color:#D9D3FF}
+  table{border-collapse:collapse;width:100%;margin:6px 0 18px;font-size:13.5px}
+  th{text-align:left;font-weight:500;color:#9D96D2;border-bottom:1px solid #332C6E;padding:7px 10px}
+  td{border-bottom:1px solid #262054;padding:8px 10px;color:#DCD7FA}
+  td.m{font-family:Consolas,monospace;font-size:13px;color:#B9B2EC}
+  tr.a td{color:#F2B03F}
+  .note{color:#8F88C8;font-size:13px;margin-top:-8px}
+</style>
+<h1>mall-swarm — Spring surface audit</h1>
+<div class="meta">9 modules · commit <b>04c442f</b> · static analysis, nothing built or started</div>
+
+<div class="stats">
+  <div class="stat"><div class="n">245</div><div class="k">endpoints</div></div>
+  <div class="stat"><div class="n">107</div><div class="k">mappers</div></div>
+  <div class="stat"><div class="n">1,142</div><div class="k">SQL statements</div></div>
+  <div class="stat hi"><div class="n">0</div><div class="k">endpoints needing a guess</div></div>
+</div>
+
+<h2>Why the 404s happen</h2>
+<p>Five gateway routes, each with <code>StripPrefix=1</code>. The URL a client calls is
+<code>/mall-&lt;module&gt;</code> plus the annotation path — and <b>7 endpoints are declared in more than one module</b>.</p>
+
+<table>
+<tr><th>Annotation path</th><th>Declared at</th><th>Client calls</th></tr>
+<tr><td class="m">GET /order/list</td><td class="m">mall-admin / OmsOrderController.java:28</td><td class="m">/mall-admin/order/list</td></tr>
+<tr><td class="m">GET /order/list</td><td class="m">mall-portal / OmsPortalOrderController.java:72</td><td class="m">/mall-portal/order/list</td></tr>
+<tr><td class="m">GET /brand/list</td><td class="m">mall-admin / PmsBrandController.java:77</td><td class="m">/mall-admin/brand/list</td></tr>
+<tr><td class="m">GET /brand/list</td><td class="m">mall-demo / DemoController.java:83</td><td class="m">/mall-demo/brand/list</td></tr>
+</table>
+<div class="note">Same annotation path, two services, two public URLs. Invisible in a grep of <code>@GetMapping</code>.</div>
