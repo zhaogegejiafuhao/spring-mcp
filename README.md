@@ -624,6 +624,7 @@ bash tools/corpus/mcp-tool.sh find-service-callers projectRoot=fixtures/layered-
 | `mall` | 524 文件的真实电商项目：76 个 mapper 全无 `@Mapper`、106 个 XML、Lombok |
 | `ruoyi` | 285 文件的国产后台框架：`@MapperScan("com.ruoyi.**.mapper")` 通配符包、Shiro、Thymeleaf |
 | `mall-swarm` | Spring Cloud Alibaba：Nacos + Gateway + Feign，唯一带真实网关路由表的样本 |
+| `kotlin-realworld` | Kotlin 单模块：映射声明在接口里、控制器实现接口——Kotlin 侧差分对账的基准 |
 
 `mybatis-plus-samples` 是后加的：它第一次跑就暴露出「只认 `@Mapper` 注解」只认出 12 个 mapper
 （实际 38 个，其中 32 个能从 `BaseMapper<T>` 推断出实体类型），以及 `@RequestMapping("/")` 被拼成 `//test`。
