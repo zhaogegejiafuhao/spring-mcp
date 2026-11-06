@@ -1,5 +1,7 @@
 # spring-mcp
 
+<sub>English: [README.en.md](README.en.md)</sub>
+
 Spring Boot 源码静态扫描的 MCP（Model Context Protocol）服务，Java 与 Kotlin 都读。
 
 **只做静态分析**（Java 走 JavaParser 的 AST，Kotlin 走声明级解析）：不启动 Spring 上下文，不把目标工程的类加载进 classpath，不编译目标工程。给它一个工程目录，它读源码、建索引，然后回答"这个 URL 谁处理""这个 Service 谁在调""这个表由哪个 mapper 操作"。
