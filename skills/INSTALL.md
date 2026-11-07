@@ -73,3 +73,19 @@ source root — run `list-modules` and point `projectRoot` at a module.
 | `INVALID_ARGUMENT: 目录下没有 Java/Kotlin 源码` | `projectRoot` is a parent, a frontend, or a Maven aggregator module |
 | `INVALID_ARGUMENT: scope 不可用` | Single-module project — drop `scope` |
 | Tools do not appear in the client | The MCP server is not trusted/enabled in the client, or the client was not restarted |
+
+## Other clients
+
+The skill itself is client-agnostic: a `SKILL.md` plus references. What differs is where each client
+looks for it, and whether it reads `SKILL.md` at all.
+
+- **WorkBuddy** — copy this folder to `~/.workbuddy/skills/spring-mcp/` and restart the app; or drag
+  `SKILL.md` into the chat box; or install from SkillHub. Verified to load on 2026-11-07.
+- **Claude Code** — `~/.claude/skills/spring-mcp/`.
+- **Any client that does not understand `SKILL.md`** — paste the rules into its project-level
+  instructions (`AGENTS.md`, `.cursor/rules/`, 自定义规则) instead. The fallback text is in
+  `CLIENT-SETUP.md`.
+
+`CLIENT-SETUP.md` has the per-client table, the `AGENTS.md` fallback, and how to verify which of the
+two layers is missing when something does not work.
+

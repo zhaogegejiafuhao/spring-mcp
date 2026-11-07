@@ -23,6 +23,7 @@ mkdir -p "$STAGE/free" "$STAGE/paid" "$DIST"
 # --- free ------------------------------------------------------------------
 cp -R "$ROOT/skills/spring-mcp" "$STAGE/free/spring-mcp"
 cp "$ROOT/skills/INSTALL.md" "$STAGE/free/spring-mcp/INSTALL.md"
+cp "$ROOT/skills/CLIENT-SETUP.md" "$STAGE/free/spring-mcp/CLIENT-SETUP.md"
 
 # --- paid ------------------------------------------------------------------
 # Same reference/ and scripts/ as the free skill, different SKILL.md, plus the
@@ -34,6 +35,7 @@ cp -R "$ROOT/skills/spring-mcp/scripts" "$STAGE/paid/spring-mcp-audit/scripts"
 cp "$ROOT/skills/spring-mcp-audit/reference/report-template.md" \
    "$STAGE/paid/spring-mcp-audit/reference/report-template.md"
 cp "$ROOT/skills/INSTALL.md" "$STAGE/paid/spring-mcp-audit/INSTALL.md"
+cp "$ROOT/skills/CLIENT-SETUP.md" "$STAGE/paid/spring-mcp-audit/CLIENT-SETUP.md"
 
 # --- normalize + zip -------------------------------------------------------
 # .cmd must keep CRLF after packaging; the zip is built from the working tree,

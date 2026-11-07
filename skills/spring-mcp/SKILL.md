@@ -1,6 +1,23 @@
 ---
 name: spring-mcp
+display_name: Spring 源码问答
+display_name_en: Spring MCP
 description: Turn any Spring Boot or Spring Cloud repository into answers about its HTTP surface, service call graph, persistence layer, Feign edges and gateway routes, using the spring-mcp MCP server for static analysis. Use it when asked which method serves a URL, what a controller exposes, who calls a service method, which mapper handles a table, what the gateway routes to, or for an endpoint inventory of a Java or Kotlin Spring project. Triggers include Spring 端点, 接口在哪, 谁调用了这个 Service, controller 清单, mapper, Feign, 网关路由.
+description_zh: 静态分析 Spring Boot / Spring Cloud 源码：这个 URL 由哪个方法处理、谁调用了这个 Service、哪个 mapper 操作这张表、Feign 与网关路由是什么。Java 与 Kotlin 都读，不编译、不启动应用。
+description_en: Static analysis of a Spring codebase through the spring-mcp MCP server — endpoints, service callers, mappers, Feign clients and gateway routes. Reads Java and Kotlin source; compiles nothing and starts nothing.
+examples_zh:
+  - "这个工程暴露了哪些接口？"
+  - "谁调用了 OrderService.create？"
+  - "哪些 mapper 操作 t_order 表？"
+  - "网关把 /api/orders/** 转到了哪个服务？"
+examples_en:
+  - "What endpoints does this project expose?"
+  - "Who calls OrderService.create?"
+  - "Which mapper handles the t_order table?"
+  - "Where does the gateway route /api/orders/**?"
+version: 0.1.0
+author: zhaogegejiafuhao
+tags: [spring, spring-boot, spring-cloud, java, kotlin, static-analysis, mcp]
 ---
 
 # spring-mcp

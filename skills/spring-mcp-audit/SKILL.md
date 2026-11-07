@@ -1,6 +1,21 @@
 ---
 name: spring-mcp-audit
+display_name: Spring 仓库体检
+display_name_en: Spring Surface Audit
 description: Produce a full inventory report of a Spring Boot or Spring Cloud repository as one markdown deliverable, covering every HTTP endpoint, the persistence layer, Feign edges, gateway routes, unresolved paths and cross-checks between them. Use it when asked for a repository audit, an endpoint inventory, an API surface report, an onboarding document for an unfamiliar Spring codebase, or a pre-migration review of a Java or Kotlin Spring project. Triggers include 仓库体检, 接口清单, 端点盘点, API 盘点, 微服务调用梳理, Spring 项目调研报告.
+description_zh: 给一个 Spring Boot / Spring Cloud 仓库出体检报告：全部端点（含文件与行号）、持久层、Feign 出站边、网关路由、未能静态确定的路径，以及网关前缀与控制器、Feign 与目标模块之间的五项交叉校验。
+description_en: One markdown report per repository — every endpoint with file and line, the persistence layer, Feign edges, gateway routes, unresolved paths, and five cross-checks a grep cannot do.
+examples_zh:
+  - "给我盘点一下这个仓库都暴露了哪些接口"
+  - "网关改写之后老是 404，帮我查一下客户端实际该调哪个路径"
+  - "做个微服务调用关系梳理，出一份调研报告"
+examples_en:
+  - "Give me a full endpoint inventory of this repository"
+  - "We keep getting 404s after the gateway rewrite — what path should clients actually call?"
+  - "Map which service calls which, and write it up as a report"
+version: 0.1.0
+author: zhaogegejiafuhao
+tags: [spring, spring-boot, spring-cloud, codebase-audit, api-inventory, mcp]
 ---
 
 # spring-mcp audit
