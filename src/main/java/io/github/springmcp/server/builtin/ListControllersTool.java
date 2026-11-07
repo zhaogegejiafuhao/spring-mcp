@@ -1,5 +1,6 @@
 package io.github.springmcp.server.builtin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.github.springmcp.server.ProjectCatalog;
@@ -21,6 +22,9 @@ public final class ListControllersTool extends AbstractCoreTool {
 
     public static final String NAME = "list-controllers";
 
+    /** Upper bound for limit / offset, so a typo cannot turn into an unbounded loop. */
+    private static final int MAX_PAGE = 100_000;
+
     /**
      * @param analyzer analysis facade
      * @param catalog configured projects, used to resolve the {@code project} alias
@@ -36,7 +40,10 @@ public final class ListControllersTool extends AbstractCoreTool {
             .bool("includeTests", "是否同时扫描 src/test/java，默认 false", false)
             .string("basePathFilter", "只保留以该前缀开头的端点路径，例如 /api", false, null)
             .enumString("httpMethod", "只保留该 HTTP 动词的端点", false,
-                    List.of("GET", "POST", "PUT", "DELETE", "PATCH", "ANY"));
+                    List.of("GET", "POST", "PUT", "DELETE", "PATCH", "ANY"))
+            .integer("limit", "本次最多返回多少条端点，用于大仓库分页；省略或 0 表示不截断。"
+                    + "controllerCount / methodCount 始终是全量", false, 0, MAX_PAGE)
+            .integer("offset", "从第几条匹配的端点开始返回，配合 limit 翻页，默认 0", false, 0, MAX_PAGE);
 
         return ToolDescriptor.builder(NAME)
             .title("列出 Controller 端点")
@@ -67,9 +74,28 @@ public final class ListControllersTool extends AbstractCoreTool {
             Controllers.Report report = index.controllers(new Controllers.Query(args.optionalBoolean("includeTests", false),
                     args.optionalString("basePathFilter", null), args.optionalString("httpMethod", null)));
 
-            String text = summary("端点", report.endpoints().size(),
+            List<String> pageWarnings = new ArrayList<>();
+            int total = report.endpoints().size();
+            int limit = args.optionalInt("limit", 0, 0, MAX_PAGE);
+            int offset = args.optionalInt("offset", 0, 0, MAX_PAGE);
+
+            if (limit > 0 || offset > 0) {
+                int from = Math.min(offset, total);
+                int to = limit > 0 ? Math.min(total, from + limit) : total;
+                report = new Controllers.Report(report.endpoints().subList(from, to), report.controllerCount(),
+                        report.methodCount(), report.warnings());
+                if (to < total) {
+                    // 页码要说清楚：不说明的话，endpoints 的长度会被当成「工程只有这么多端点」。
+                    pageWarnings.add("端点列表已分页：本次返回第 " + (from + 1) + "–" + to + " 条，共 " + total
+                            + " 条。controllerCount / methodCount 仍是全量；继续翻页请用 offset=" + to);
+                }
+            }
+
+            String text = summary("端点", total,
                     report.controllerCount() + " 个 Controller / " + report.methodCount() + " 个 handler", index);
-            return ToolOutcome.ok(report, text, mergeWarnings(report.warnings(), index));
+            List<String> warnings = new ArrayList<>(pageWarnings);
+            warnings.addAll(report.warnings());
+            return ToolOutcome.ok(report, text, mergeWarnings(warnings, index));
         }
         catch (ToolFailure f) {
             return ToolOutcome.fail(f);

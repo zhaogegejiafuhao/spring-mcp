@@ -13,7 +13,7 @@ examples_en:
   - "Give me a full endpoint inventory of this repository"
   - "We keep getting 404s after the gateway rewrite — what path should clients actually call?"
   - "Map which service calls which, and write it up as a report"
-version: 0.1.0
+version: 0.1.1
 author: zhaogegejiafuhao
 tags: [spring, spring-boot, spring-cloud, codebase-audit, api-inventory, mcp]
 ---
@@ -64,6 +64,10 @@ means there is no module structure — say "single module" and never use `scope`
 list-controllers projectRoot=<root>
 list-controllers projectRoot=<root> scope=[<module>]   (per module, when multi-module)
 ```
+
+Never pass `limit` here. Paging is for interactive questions on huge repositories; an audit that
+claims "every endpoint" must have every endpoint, and a truncated list with a warning is still a
+truncated report.
 
 Record per endpoint: verb, path, `controllerFqn`, `handlerMethod`, `file`, `line`,
 `pathResolved`, `conditions`, `handlerDeclaredIn`.

@@ -1,0 +1,50 @@
+name: Missed endpoint
+description: A URL, controller, mapper, Feign client or route exists in source but is missing from the result
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most useful report this project can receive — coverage gaps are how the corpus
+        and the baselines grew.
+
+        Before filing, skim [它看得见什么，看不见什么](https://github.com/zhaogegejiafuhao/spring-mcp#它看得见什么看不见什么).
+        Actuator endpoints, runtime-registered mappings, `RestTemplate` URLs and non-Spring frameworks
+        are out of scope by design, and reporting them is still fine — just say which one it is.
+  - type: input
+    id: repo
+    attributes:
+      label: Repository
+      description: Public URL, plus the commit you tested. A private repo is fine too — then paste the declaring class instead.
+      placeholder: https://github.com/owner/name @ abc1234
+    validations:
+      required: true
+  - type: input
+    id: missed
+    attributes:
+      label: What is missing
+      description: The path, class or mapper that should have appeared
+      placeholder: GET /api/orders/{id}
+    validations:
+      required: true
+  - type: textarea
+    id: declared
+    attributes:
+      label: Where it is declared
+      description: File, line, and the annotation or XML as written. If it comes from a parent class or an interface, say so — inherited mappings are the classic case.
+      render: java
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Command and output
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The release tag, or the first line of `java -jar spring-mcp-all.jar --help`
+    validations:
+      required: true

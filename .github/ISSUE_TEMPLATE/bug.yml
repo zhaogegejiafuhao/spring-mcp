@@ -1,0 +1,53 @@
+name: Bug
+description: A crash, an unexpected error code, or a wrong number
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Check which layer is wrong before filing.** The same query can be run two ways:
+
+        ```bash
+        # analysis layer — is the result itself wrong?
+        java -jar spring-mcp-all.jar --dev controllers --root /path/to/repo
+
+        # tool layer — is the client-facing path wrong?
+        bash tools/corpus/mcp-tool.sh list-controllers projectRoot=/path/to/repo
+        ```
+
+        If both agree, the analysis is wrong and this is a real bug. If they disagree, it is the
+        tool layer — say which one you used.
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+      description: Paste the exact output. Do not summarise it — the shape of the output is usually the bug.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Command that reproduces it
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The release tag, or the first line of `java -jar spring-mcp-all.jar --help`
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: OS and JDK
+      placeholder: Windows 11, Temurin 21.0.12
+    validations:
+      required: true

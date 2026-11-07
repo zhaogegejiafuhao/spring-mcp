@@ -64,6 +64,8 @@ Every HTTP endpoint, with the file and line of the handler that declares it.
 |---|---|---|
 | `basePathFilter` | string | Keep only paths starting with this prefix, e.g. `/api` |
 | `httpMethod` | enum | `GET` `POST` `PUT` `DELETE` `PATCH` `ANY` |
+| `limit` | integer | Page size for large repositories. Omit for all rows |
+| `offset` | integer | Start offset when paging, default `0` |
 | `includeTests` | boolean | default `false` |
 
 Returns `data.endpoints[]`, `controllerCount`, `methodCount`, `warnings[]`.
@@ -77,6 +79,10 @@ Per endpoint: `path`, `httpMethods[]`, `pathResolved`, `unresolvedReason`, `clas
 - Inherited mappings are included. `file`/`line` point at the **declaration** (often the parent
   class), and `handlerDeclaredIn` says where.
 - `conditions` carries `@Profile` / `@ConditionalOn*` verbatim. It is not evaluated.
+- **Paging**: `limit` / `offset` slice the list only. `controllerCount` and `methodCount` stay
+  totals, and a truncation warning names the range and the total. A 245-endpoint repository
+  serialises to ~139 KB, so a monolith with thousands of endpoints needs paging — but an audit that
+  must be complete should not pass `limit` at all.
 
 ## find-service-callers
 

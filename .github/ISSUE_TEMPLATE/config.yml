@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 它看得见什么，看不见什么
+    url: https://github.com/zhaogegejiafuhao/spring-mcp#它看得见什么看不见什么
+    about: 先看这张表 —— 很多「漏检」是刻意的边界，不是缺陷
+  - name: What it sees, what it does not (English)
+    url: https://github.com/zhaogegejiafuhao/spring-mcp/blob/main/README.en.md#what-it-sees-and-what-it-does-not
+    about: The same table in English, plus quick start and the eleven tools
+  - name: 它准不准
+    url: https://github.com/zhaogegejiafuhao/spring-mcp/blob/main/VALIDATION.md
+    about: 四层证据、七个抓到的 bug、两条被推翻的结论

@@ -1,5 +1,9 @@
 # spring-mcp
 
+[![CI](https://github.com/zhaogegejiafuhao/spring-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/zhaogegejiafuhao/spring-mcp/actions/workflows/ci.yml)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![JDK 21+](https://img.shields.io/badge/JDK-21%2B-orange.svg)](#quick-start)
+
 Static analysis of a Spring Boot / Spring Cloud codebase, exposed as an MCP server. Reads Java and Kotlin.
 
 **Static only.** It does not start the Spring context, does not compile the target project, and does not
@@ -11,6 +15,11 @@ MCP client  ──stdio (JSON-RPC)──▶  spring-mcp  ──JavaParser / Kotl
 ```
 
 <sub>中文文档：[README.md](README.md)</sub>
+
+![A surface audit of mall-swarm: 245 endpoints, 107 mappers, and the seven annotation paths declared in more than one module](skills/branding/shots/shot1.png)
+
+<sub>Output of the audit workflow on `mall-swarm` (245 endpoints) — five tool calls, reproduced in
+`skills/spring-mcp-audit/`. The last stat is the point: nothing here was guessed.</sub>
 
 ---
 

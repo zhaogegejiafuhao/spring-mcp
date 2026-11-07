@@ -15,7 +15,7 @@ examples_en:
   - "Who calls OrderService.create?"
   - "Which mapper handles the t_order table?"
   - "Where does the gateway route /api/orders/**?"
-version: 0.1.0
+version: 0.1.1
 author: zhaogegejiafuhao
 tags: [spring, spring-boot, spring-cloud, java, kotlin, static-analysis, mcp]
 ---

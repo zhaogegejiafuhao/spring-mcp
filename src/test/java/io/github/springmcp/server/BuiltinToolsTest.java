@@ -118,6 +118,31 @@ class BuiltinToolsTest {
     }
 
     @Test
+    @DisplayName("list-controllers paginates without pretending the totals shrank")
+    void listControllersPagination() {
+        String root = fixture("demo-web").toString();
+
+        ToolOutcome first = invoke("list-controllers", Map.of("projectRoot", root, "limit", 3));
+        Controllers.Report page = success(first, Controllers.Report.class);
+        assertThat(page.endpoints()).hasSize(3);
+        // 分页只切列表，统计数字仍是全量 —— 否则调用方会以为这个工程只有 3 个端点
+        assertThat(page.controllerCount()).isEqualTo(4);
+        assertThat(page.methodCount()).isEqualTo(7);
+        assertThat(((ToolOutcome.Success) first).warnings())
+                .anyMatch(w -> w.contains("已分页") && w.contains("共 8 条"));
+
+        Controllers.Report tail = success(
+                invoke("list-controllers", Map.of("projectRoot", root, "offset", 6)),
+                Controllers.Report.class);
+        assertThat(tail.endpoints()).hasSize(2);
+
+        // 不传 limit 时行为不变：一条不少
+        Controllers.Report all = success(
+                invoke("list-controllers", Map.of("projectRoot", root)), Controllers.Report.class);
+        assertThat(all.endpoints()).hasSize(8);
+    }
+
+    @Test
     @DisplayName("find-service-callers returns resolved and unresolved call sites")
     void findServiceCallers() {
         ServiceCalls.Report report = success(invoke("find-service-callers",
