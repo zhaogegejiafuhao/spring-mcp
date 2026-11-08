@@ -83,7 +83,7 @@ public final class ListControllersTool extends AbstractCoreTool {
                 int from = Math.min(offset, total);
                 int to = limit > 0 ? Math.min(total, from + limit) : total;
                 report = new Controllers.Report(report.endpoints().subList(from, to), report.controllerCount(),
-                        report.methodCount(), report.warnings());
+                        report.methodCount(), report.stats(), report.warnings());
                 if (to < total) {
                     // 页码要说清楚：不说明的话，endpoints 的长度会被当成「工程只有这么多端点」。
                     pageWarnings.add("端点列表已分页：本次返回第 " + (from + 1) + "–" + to + " 条，共 " + total

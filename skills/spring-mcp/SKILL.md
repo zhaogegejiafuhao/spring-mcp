@@ -122,6 +122,7 @@ These five fields decide whether the answer is true. Detail: `reference/reading.
 | `conditions` | `@Profile`, `@ConditionalOn*` on the handler | Copy verbatim. "Exists in prod" is not something this tool knows |
 | `rule` + `confidence` on call sites | How the receiver type was inferred (`FIELD`, `CONSTRUCTOR_PARAM`, …) | `NAME_CONVENTION` is a guess and is **off by default** — never enable it to make a count look better |
 | `warnings[]` | Truncation, inherited handlers, inferred controllers, unparsed files | Surface them. A warning you dropped becomes a wrong answer |
+| `stats` | Counts over the whole match: verbs, per-controller, conditional, unresolved, inherited | Quote these. Never recount a paged `endpoints` array |
 
 `scope` filters **results**, not the index. A scoped result of 0 is not "the project has none" —
 say "in scope `billing`, 0".

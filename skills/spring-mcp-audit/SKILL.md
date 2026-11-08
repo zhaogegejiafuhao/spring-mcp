@@ -135,6 +135,8 @@ Rules for the numbers:
 
 - Quote `controllerCount`, `methodCount`, `counts` as returned. Do not recompute from the table by
   hand and do not "clean up" a discrepancy — report it.
+- `stats` carries the totals that are easy to get wrong by counting: `byMethod`, `byController`,
+  `conditional`, `unresolved`, `inherited`. Use them; a model counting rows will miss.
 - An endpoint whose `pathResolved` is false still counts. It is a real mapping.
 - `truncated: true` or a hit `limit` means the table is partial: say so in the section header.
 - Inherited handlers: `file`/`line` point at the declaration. Say so once, in the HTTP section, so

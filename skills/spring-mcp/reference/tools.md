@@ -68,7 +68,12 @@ Every HTTP endpoint, with the file and line of the handler that declares it.
 | `offset` | integer | Start offset when paging, default `0` |
 | `includeTests` | boolean | default `false` |
 
-Returns `data.endpoints[]`, `controllerCount`, `methodCount`, `warnings[]`.
+Returns `data.endpoints[]`, `controllerCount`, `methodCount`, `stats`, `warnings[]`.
+
+`stats` counts the **whole matched set** and never changes when you page: `byMethod` (verbs with
+zero occurrences omitted), `byController` (largest first, then by name), `conditional`,
+`unresolved`, `inherited`. Read these numbers instead of counting `endpoints` — when `limit` is set,
+the array is a page and counting it under-reports the project.
 
 Per endpoint: `path`, `httpMethods[]`, `pathResolved`, `unresolvedReason`, `classPathRaw`,
 `classPathResolved`, `controllerFqn`, `handlerMethod`, `signature`, `file`, `line`,

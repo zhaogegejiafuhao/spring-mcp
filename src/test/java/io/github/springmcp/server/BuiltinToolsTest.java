@@ -143,6 +143,28 @@ class BuiltinToolsTest {
     }
 
     @Test
+    @DisplayName("stats count the whole match, never the current page")
+    void statsIgnorePaging() {
+        String root = fixture("demo-web").toString();
+
+        Controllers.Report full = success(
+                invoke("list-controllers", Map.of("projectRoot", root)), Controllers.Report.class);
+        // 8 条端点、9 个「动词×端点」映射：/api/orders/legacy 同时是 GET 和 POST
+        assertThat(full.stats().byMethod()).containsEntry("GET", 7).containsEntry("POST", 2);
+        // 一条 handler 映射两个 URL，所以端点比 handler 多一个
+        assertThat(full.stats().byController()).containsEntry("OrderController", 4);
+        assertThat(full.stats().unresolved()).isEqualTo(1);
+        assertThat(full.stats().inherited()).isZero();
+
+        Controllers.Report page = success(
+                invoke("list-controllers", Map.of("projectRoot", root, "limit", 2)), Controllers.Report.class);
+        assertThat(page.endpoints()).hasSize(2);
+        // 分页不改统计：否则模型会说这个工程只有 2 个 GET
+        assertThat(page.stats().byMethod()).isEqualTo(full.stats().byMethod());
+        assertThat(page.stats().byController()).isEqualTo(full.stats().byController());
+    }
+
+    @Test
     @DisplayName("find-service-callers returns resolved and unresolved call sites")
     void findServiceCallers() {
         ServiceCalls.Report report = success(invoke("find-service-callers",
