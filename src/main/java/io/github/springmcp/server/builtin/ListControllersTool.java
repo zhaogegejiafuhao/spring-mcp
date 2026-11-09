@@ -1,7 +1,10 @@
 package io.github.springmcp.server.builtin;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.github.springmcp.server.ProjectCatalog;
 import io.github.springmcp.spi.Args;
@@ -51,7 +54,10 @@ public final class ListControllersTool extends AbstractCoreTool {
             .integer("limit", "本次最多返回多少条端点。省略时默认 200 条（防止大仓库一次撑爆上下文）；"
                     + "传 0 表示不截断，全量返回。controllerCount / methodCount / stats 始终是全量",
                     false, 0, MAX_PAGE)
-            .integer("offset", "从第几条匹配的端点开始返回，配合 limit 翻页，默认 0", false, 0, MAX_PAGE);
+            .integer("offset", "从第几条匹配的端点开始返回，配合 limit 翻页，默认 0", false, 0, MAX_PAGE)
+            .enumString("detail", "compact 只回回答问题必需的字段（路径相对化、不再重复全限定名），"
+                    + "约为 full 的三分之一；需要 signature / classPathRaw / 绝对路径时用 full", false,
+                    List.of("full", "compact"));
 
         return ToolDescriptor.builder(NAME)
             .title("列出 Controller 端点")
@@ -107,10 +113,93 @@ public final class ListControllersTool extends AbstractCoreTool {
                     report.controllerCount() + " 个 Controller / " + report.methodCount() + " 个 handler", index);
             List<String> warnings = new ArrayList<>(pageWarnings);
             warnings.addAll(report.warnings());
-            return ToolOutcome.ok(report, text, mergeWarnings(warnings, index));
+            List<String> merged = mergeWarnings(warnings, index);
+
+            if ("compact".equalsIgnoreCase(args.optionalString("detail", "full"))) {
+                return ToolOutcome.ok(compact(report, total, resolveRoot(args)), text, merged);
+            }
+            return ToolOutcome.ok(report, text, merged);
         }
         catch (ToolFailure f) {
             return ToolOutcome.fail(f);
         }
+    }
+
+    /**
+     * Compact projection: only the fields an answer actually needs.
+     *
+     * <p>
+     * Two invariants make the smaller shape safe: every row in {@code endpoints} has a resolved path
+     * (anything unresolved moves to {@code unresolved} with its reason), and a {@code conditions} field
+     * is present only when the handler is gated. Absent therefore means "none", which is the one
+     * omission the compact shape is allowed — the counts and {@code stats} are always totals.
+     * </p>
+     *
+     * @param report the page to project
+     * @param total matched endpoints before paging
+     * @param root project root, used to make file paths relative
+     * @return an ordered map ready for structured content
+     */
+    private static Map<String, Object> compact(Controllers.Report report, int total, Path root) {
+        List<Map<String, Object>> rows = new ArrayList<>();
+        List<Map<String, Object>> unresolved = new ArrayList<>();
+
+        for (Controllers.Endpoint e : report.endpoints()) {
+            String file = relative(root, e.file());
+            if (!e.pathResolved()) {
+                Map<String, Object> u = new LinkedHashMap<>();
+                u.put("path", e.path());
+                u.put("handler", e.handlerMethod());
+                u.put("file", file);
+                u.put("line", e.line());
+                u.put("reason", e.unresolvedReason());
+                unresolved.add(u);
+                continue;
+            }
+            Map<String, Object> row = new LinkedHashMap<>();
+            row.put("method", String.join(",", e.httpMethods()));
+            row.put("path", e.path());
+            row.put("handler", e.handlerMethod());
+            row.put("controller", simpleName(e.controllerFqn()));
+            row.put("file", file);
+            row.put("line", e.line());
+            if (!e.conditions().isEmpty()) {
+                row.put("conditions", e.conditions());
+            }
+            rows.add(row);
+        }
+
+        Map<String, Object> counts = new LinkedHashMap<>();
+        counts.put("endpoints", total);
+        counts.put("controllers", report.controllerCount());
+        counts.put("handlers", report.methodCount());
+
+        Map<String, Object> out = new LinkedHashMap<>();
+        out.put("counts", counts);
+        out.put("endpoints", rows);
+        if (!unresolved.isEmpty()) {
+            out.put("unresolved", unresolved);
+        }
+        out.put("stats", report.stats());
+        return out;
+    }
+
+    private static String relative(Path root, String file) {
+        try {
+            return root.relativize(Path.of(file)).toString().replace('\\', '/');
+        }
+        catch (RuntimeException e) {
+            // Not under the root (a linked source dir, a different drive): keep the absolute path
+            // rather than emit a misleading "../.." chain.
+            return file;
+        }
+    }
+
+    private static String simpleName(String fqn) {
+        if (fqn == null || fqn.isEmpty()) {
+            return "";
+        }
+        int dot = fqn.lastIndexOf('.');
+        return dot < 0 ? fqn : fqn.substring(dot + 1);
     }
 }

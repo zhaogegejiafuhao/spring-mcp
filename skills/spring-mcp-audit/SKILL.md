@@ -66,7 +66,10 @@ list-controllers projectRoot=<root> scope=[<module>] limit=0   (per module, when
 ```
 
 Always pass `limit=0`. The default is one page of 200 rows, which is right for an interactive
-question and wrong for an audit. Paging is for interactive questions on huge repositories; an audit that
+question and wrong for an audit.
+
+Do **not** pass `detail=compact` here: the audit needs `handlerDeclaredIn` to count inherited
+handlers, and the compact shape folds it into a controller name. Paging is for interactive questions on huge repositories; an audit that
 claims "every endpoint" must have every endpoint, and a truncated list with a warning is still a
 truncated report.
 

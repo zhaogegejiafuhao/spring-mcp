@@ -165,6 +165,33 @@ class BuiltinToolsTest {
     }
 
     @Test
+    @DisplayName("compact drops redundant fields and moves unresolved paths into their own list")
+    @SuppressWarnings("unchecked")
+    void compactDetail() {
+        String root = fixture("demo-web").toString();
+        Map<String, Object> data = success(
+                invoke("list-controllers", Map.of("projectRoot", root, "detail", "compact")),
+                java.util.Map.class);
+
+        List<Map<String, Object>> rows = (List<Map<String, Object>>) data.get("endpoints");
+        // 8 条端点里 1 条路径无法静态求值，被挪进 unresolved，不混在正常清单里
+        assertThat(rows).hasSize(7);
+        List<Map<String, Object>> unresolved = (List<Map<String, Object>>) data.get("unresolved");
+        assertThat(unresolved).hasSize(1);
+        assertThat(unresolved.get(0)).containsEntry("reason", "PLACEHOLDER");
+
+        Map<String, Object> first = rows.get(0);
+        assertThat(first).containsKeys("method", "path", "handler", "controller", "file", "line");
+        assertThat(first).doesNotContainKeys("controllerFqn", "signature", "classPathRaw", "pathResolved");
+        // 相对路径：不再每条重复一遍工程前缀
+        assertThat((String) first.get("file")).startsWith("src/").doesNotContain(":");
+
+        Map<String, Object> counts = (Map<String, Object>) data.get("counts");
+        assertThat(counts).containsEntry("endpoints", 8).containsEntry("controllers", 4);
+        assertThat(data).containsKey("stats");
+    }
+
+    @Test
     @DisplayName("find-service-callers returns resolved and unresolved call sites")
     void findServiceCallers() {
         ServiceCalls.Report report = success(invoke("find-service-callers",

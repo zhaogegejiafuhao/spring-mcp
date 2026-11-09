@@ -66,9 +66,31 @@ Every HTTP endpoint, with the file and line of the handler that declares it.
 | `httpMethod` | enum | `GET` `POST` `PUT` `DELETE` `PATCH` `ANY` |
 | `limit` | integer | Page size. **Omitted means 200**, not all; pass `0` for the full list |
 | `offset` | integer | Start offset when paging, default `0` |
+| `detail` | enum | `full` (default) or `compact` — see below |
 | `includeTests` | boolean | default `false` |
 
 Returns `data.endpoints[]`, `controllerCount`, `methodCount`, `stats`, `warnings[]`.
+
+### compact
+
+`detail=compact` returns about **40% of the bytes** (582 → 232 B/endpoint on a 246-endpoint
+repository) by dropping what an answer does not use:
+
+| full | compact |
+|---|---|
+| absolute `file` | path relative to the project root |
+| `controllerFqn` + `handlerDeclaredIn` | `controller` simple name |
+| `signature`, `classPathRaw`, `classPathResolved`, `pathResolved: true` | gone |
+
+Two invariants make the smaller shape safe, and they are the only omissions allowed:
+
+1. Every row in `endpoints` has a resolved path. Anything unresolved moves to `unresolved[]` with its
+   `reason`, so absence from that list means "resolved".
+2. `conditions` appears on a row only when the handler is gated. Absence means none, and
+   `stats.conditional` gives the count.
+
+`counts` and `stats` are always totals. Use `compact` for interactive questions; use `full` when you
+need `handlerDeclaredIn` (inherited handlers) or the raw class-level path.
 
 `stats` counts the **whole matched set** and never changes when you page: `byMethod` (verbs with
 zero occurrences omitted), `byController` (largest first, then by name), `conditional`,
