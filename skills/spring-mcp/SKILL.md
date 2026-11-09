@@ -123,6 +123,7 @@ These five fields decide whether the answer is true. Detail: `reference/reading.
 | `rule` + `confidence` on call sites | How the receiver type was inferred (`FIELD`, `CONSTRUCTOR_PARAM`, …) | `NAME_CONVENTION` is a guess and is **off by default** — never enable it to make a count look better |
 | `warnings[]` | Truncation, inherited handlers, inferred controllers, unparsed files | Surface them. A warning you dropped becomes a wrong answer |
 | `stats` | Counts over the whole match: verbs, per-controller, conditional, unresolved, inherited | Quote these. Never recount a paged `endpoints` array |
+| `page` warning | Default page is 200 rows; big repositories are capped unless you pass `limit=0` | Say the list is a page, not the project |
 
 `scope` filters **results**, not the index. A scoped result of 0 is not "the project has none" —
 say "in scope `billing`, 0".

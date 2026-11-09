@@ -136,7 +136,7 @@ class BuiltinToolsTest {
                 Controllers.Report.class);
         assertThat(tail.endpoints()).hasSize(2);
 
-        // 不传 limit 时行为不变：一条不少
+        // 小工程不受默认分页影响：默认上一页 200 条，8 条全在页内
         Controllers.Report all = success(
                 invoke("list-controllers", Map.of("projectRoot", root)), Controllers.Report.class);
         assertThat(all.endpoints()).hasSize(8);

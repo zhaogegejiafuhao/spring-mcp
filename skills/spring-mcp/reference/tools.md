@@ -64,7 +64,7 @@ Every HTTP endpoint, with the file and line of the handler that declares it.
 |---|---|---|
 | `basePathFilter` | string | Keep only paths starting with this prefix, e.g. `/api` |
 | `httpMethod` | enum | `GET` `POST` `PUT` `DELETE` `PATCH` `ANY` |
-| `limit` | integer | Page size for large repositories. Omit for all rows |
+| `limit` | integer | Page size. **Omitted means 200**, not all; pass `0` for the full list |
 | `offset` | integer | Start offset when paging, default `0` |
 | `includeTests` | boolean | default `false` |
 
@@ -84,7 +84,9 @@ Per endpoint: `path`, `httpMethods[]`, `pathResolved`, `unresolvedReason`, `clas
 - Inherited mappings are included. `file`/`line` point at the **declaration** (often the parent
   class), and `handlerDeclaredIn` says where.
 - `conditions` carries `@Profile` / `@ConditionalOn*` verbatim. It is not evaluated.
-- **Paging**: `limit` / `offset` slice the list only. `controllerCount` and `methodCount` stay
+- **Paging**: the default is one page of 200 — a 246-endpoint repository serialises to ~140 KB
+  (≈36k tokens), which can end a session. Pass `limit=0` for the full list. `limit` / `offset` slice
+  the list only. `controllerCount` and `methodCount` stay
   totals, and a truncation warning names the range and the total. A 245-endpoint repository
   serialises to ~139 KB, so a monolith with thousands of endpoints needs paging — but an audit that
   must be complete should not pass `limit` at all.

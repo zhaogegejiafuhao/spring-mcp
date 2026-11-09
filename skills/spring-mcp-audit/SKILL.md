@@ -61,11 +61,12 @@ means there is no module structure — say "single module" and never use `scope`
 ### 2. HTTP surface
 
 ```
-list-controllers projectRoot=<root>
-list-controllers projectRoot=<root> scope=[<module>]   (per module, when multi-module)
+list-controllers projectRoot=<root> limit=0
+list-controllers projectRoot=<root> scope=[<module>] limit=0   (per module, when multi-module)
 ```
 
-Never pass `limit` here. Paging is for interactive questions on huge repositories; an audit that
+Always pass `limit=0`. The default is one page of 200 rows, which is right for an interactive
+question and wrong for an audit. Paging is for interactive questions on huge repositories; an audit that
 claims "every endpoint" must have every endpoint, and a truncated list with a warning is still a
 truncated report.
 
