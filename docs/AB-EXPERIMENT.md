@@ -154,7 +154,13 @@ B 组能同时报出 `methodCount 245 / controllerCount 50` 并与自己的分�
 ### 试点的两个次生发现
 
 - **B 组第一轮完全没用上工具**：MCP 调用全部超时，它退回 grep 并答对。原因是运行中的连接器被 `mvn package` 覆盖了 jar（JVM 惰性加载类，读到未加载的类就卡住）。已改为版本化文件名 `spring-mcp-0.2.0-SNAPSHOT.jar`，此后不再原地覆盖。
-- **B 组报出一处口径差异**：`@RequestMapping` 291 次 − 47 个类级 = 244，加 1 个 `@PostMapping` = 245，而工具报 246 个端点。差 1 个，可能是某个 handler 带路径数组被拆成两条。**尚未查明**，值得十分钟。
+- ~~B 组报出一处口径差异~~ **已查明，是我判错**：我按「控制器 + 方法名」去重得到 238，怀疑
+  `methodCount` 在数路径而不是数方法。实际是 **Java 重载**——`EsProductController.delete(Long)`
+  与 `delete(List<Long>)`、`search` 的两个重载等方法名相同、签名不同。按签名去重正好 245，与
+  `methodCount` 一致，也与「291 个 @RequestMapping − 47 个类级 + 1 个 @PostMapping」吻合。
+
+  **工具是对的，是 B 组少数了一个。** 这条差点被我当成产品缺陷写进上架文案——凡是能被核对
+  的数字，必须先按签名/口径重新算一遍再下结论。
 
 ### 这意味着什么
 
